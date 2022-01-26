@@ -12,6 +12,8 @@ SOURCES += \
     core/actor.cpp \
     core/actorinterface.cpp \
     core/actorsystem.cpp \
+    core/equation.cpp \
+    core/equationrunner.cpp \
     core/timerloop.cpp \
     main.cpp \
     mainwindow.cpp
@@ -20,6 +22,8 @@ HEADERS += \
     core/actor.h \
     core/actorinterface.h \
     core/actorsystem.h \
+    core/equation.h \
+    core/equationrunner.h \
     core/timerloop.h \
     mainwindow.h
 

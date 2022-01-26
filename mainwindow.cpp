@@ -4,6 +4,8 @@
 #include "core/timerloop.h"
 #include "core/actor.h"
 #include "core/actorsystem.h"
+#include "core/equation.h"
+#include <QMap>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -44,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(stopbutton, SIGNAL(pressed()), timerloop, SLOT(stopLoop()));
     connect(pausebutton, SIGNAL(pressed()), timerloop, SLOT(pauseLoop()));
     connect(restartbutton, SIGNAL(pressed()), timerloop, SLOT(restartLoop()));
+
+    QMap<QString, QString> *map = new QMap<QString, QString>();
+    Equation *ecuacion = new Equation("(SUM(A B)", *map);
+    ecuacion->clearString();
 
     setCentralWidget(w);
 }

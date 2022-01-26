@@ -49,7 +49,6 @@ void ActorSystem::getActorbyName(const char *name)
         for(int i = 0;i<listActors.size();i++){
 
             actor = listActors.at(i);
-            qDebug() << "actor: " << actor->getName();
             if(actor->getName() == name){
 
 

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QVector2D>
 
 class Actor : public QObject
 {
@@ -29,6 +30,12 @@ private:
     QString tag;
     int indexInList = 0;
     QString name;
+    QVector2D position;
+    QVector2D speed;
+    float rotation;
+    float temperature;
+
+
 
 };
 
