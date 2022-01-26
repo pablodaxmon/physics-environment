@@ -4,16 +4,17 @@
 #include <QObject>
 #include <QTimer>
 #include <QDebug>
+#include "core/actorsystem.h"
 
 class TimerLoop : public QObject
 {
     Q_OBJECT
 public:
-    explicit TimerLoop(QObject *parent = nullptr);
-
-
+    explicit TimerLoop(ActorSystem& m_actorsystem, QObject *parent = nullptr);
 
 signals:
+    void signalUpdate();
+    void signalStart();
 
 
 private:
@@ -31,6 +32,8 @@ public slots:
     void pauseLoop();
     void restartLoop();
 
+protected:
+    ActorSystem& actorsistem;
 
 };
 

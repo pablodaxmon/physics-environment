@@ -7,6 +7,7 @@
 class Actor : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Actor(const char *nameActor, QObject *parent = nullptr);
     QString getTag();
@@ -18,12 +19,11 @@ public:
     QString &getName();
     void setName(char * newName);
 
-signals:
-
 public slots:
-    void StartFrame();
-    void UpdateFrame();
-    void LastUpdateFrame();
+
+    virtual void StartFrame();
+    virtual void UpdateFrame();
+    virtual void LastUpdateFrame();
 
 private:
     QString tag;

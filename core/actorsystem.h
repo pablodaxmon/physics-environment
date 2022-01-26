@@ -19,6 +19,8 @@ private:
 signals:
 
 public slots:
+    void updateActors();
+    void startActors();
     void addActor(Actor *actore);
     bool deleteActor(Actor *actor);
     void getActorbyName(const  char* name);

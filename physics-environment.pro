@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     core/actor.cpp \
+    core/actorinterface.cpp \
     core/actorsystem.cpp \
     core/timerloop.cpp \
     main.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     core/actor.h \
+    core/actorinterface.h \
     core/actorsystem.h \
     core/timerloop.h \
     mainwindow.h

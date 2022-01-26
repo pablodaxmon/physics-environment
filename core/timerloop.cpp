@@ -1,7 +1,7 @@
 #include "timerloop.h"
 #include <string>
 
-TimerLoop::TimerLoop(QObject *parent) : QObject(parent)
+TimerLoop::TimerLoop(ActorSystem& m_actorsystem, QObject *parent) : QObject(parent), actorsistem(m_actorsystem)
 {
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     lastLapse = 0;
@@ -23,6 +23,10 @@ void TimerLoop::startLoop()
         intervalDuration = 200;
     }
     timer->start(400);
+
+    emit signalStart();
+
+    actorsistem.startActors();
 
 }
 
@@ -48,7 +52,7 @@ void TimerLoop::update()
 {
     lastLapse++;
 
-
+    actorsistem.updateActors();
 
     qDebug() << "Lapso: " << lastLapse << " intervalos ";
 }
