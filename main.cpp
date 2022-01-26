@@ -1,5 +1,6 @@
 #include "mainwindow.h"
-#include "core/timerloop.h"
+#include "core/actorsystem.h"
+#include "core/actor.h"
 
 #include <QApplication>
 #include <QLocale>
@@ -19,7 +20,18 @@ int main(int argc, char *argv[])
         }
     }
 
+    ActorSystem *actorsistem = new ActorSystem();
+    Actor *actor = new Actor("german");
+    Actor *actor2 = new Actor("pablo");
+    Actor *actor3 = new Actor("pedro");
 
+    actor->setName("soy un name");
+
+    actorsistem->addActor(actor);
+    actorsistem->addActor(actor2);
+    actorsistem->addActor(actor3);
+
+    actorsistem->getActorbyName("pablo");
 
     MainWindow w;
     w.show();
