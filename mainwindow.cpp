@@ -5,7 +5,10 @@
 #include "core/actor.h"
 #include "core/actorsystem.h"
 #include "core/equation.h"
+#include "core/equationrunner.h"
 #include <QMap>
+#include <QString>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -48,8 +51,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(restartbutton, SIGNAL(pressed()), timerloop, SLOT(restartLoop()));
 
     QMap<QString, QString> *map = new QMap<QString, QString>();
+    map->insert("A","velocity");
+    map->insert("B","speed");
+
     Equation *ecuacion = new Equation("(SUM(A B)", *map);
-    ecuacion->clearString();
+
+    EquationRunner *runner = new EquationRunner();
+    QList<float> *listValores = new QList<float>();
+
+    float testResult = runner->getResult(ecuacion,4,listValores);
 
     setCentralWidget(w);
 }
