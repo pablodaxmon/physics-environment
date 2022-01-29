@@ -1,16 +1,17 @@
 #include "equationmaker.h"
+#include <list>
 
 EquationMaker::EquationMaker()
 {
 
 }
 
-Equation *EquationMaker::makeEquation(const char *data, QMap<QString, QString> &dicc)
+void EquationMaker::makeEquation(Equation* ecuacion, QMap<QString, QString> *dicc)
 {
-    Equation *ecuacion = new Equation();
-    ecuacion->setStringEquation(data);
-    ecuacion->setCommandsEquation(generateCommands(data));
     ecuacion->setDictionary(dicc);
+    ecuacion->setListOperations(generateCommands(ecuacion->getCodeEquation(), ecuacion->getMapValues()));
+
+
 
 }
 
@@ -18,7 +19,6 @@ Equation *EquationMaker::makeEquation(const char *data, QMap<QString, QString> &
 
 void EquationMaker::clearString(QString* codeEquation)
 {
-    // limpiamos el string
     codeEquation->simplified();
     codeEquation->replace(" ","");
 
@@ -30,52 +30,108 @@ void EquationMaker::clearString(QString* codeEquation)
         codeEquation->remove(codeEquation->size()-1,1);
     }
 }
-/// en que me quede
-///  segun cada palabra o letra se añadira un elemento a la lista de operaciones
-///
-QList<OperationMath>* EquationMaker::generateCommands(QString* code)
+
+
+
+int EquationMaker::getOperationInt(QString sub, int from, int to)
 {
-    int cursor= -1;
-    int index = 0;
-    QString sub = code->mid(index,3);
-
-    if(code->at[index] == QChar(''))
-
-    if(sub == "SUM"){
-        index += 3;
-
-    } else if(sub == "RES"){
-        index += 3;
-
-    } else if(sub == "MUL"){
-        index += 3;
-
-    } else if(sub == "DIV"){
-        index += 3;
-
-    } else if(sub == "POT"){
-        index += 3;
-
-    } else if(sub == "RAI"){
-        index += 3;
-
-    } else if(sub == "LOG"){
-        index += 3;
-
-    } else if(code->at[index] == QChar('(')){
-        cursor++;
-
-        index++;
-    } else if(code->at[index] == QChar(')')){
-        cursor--;
-
-        index++;
-    } else if(code->at[index] == QChar(',')){
-
-        index++;
+    QString anotherSub = sub.mid(from,to);
+    if(anotherSub == "SUM"){
+        return 0;
+    } else if(anotherSub == "RES"){
+        return 1;
+    } else if(anotherSub == "MUL"){
+        return 2;
+    } else if(anotherSub == "DIV"){
+        return 3;
+    } else if(anotherSub == "POT"){
+        return 4;
+    } else if(anotherSub == "RAI"){
+        return 5;
+    } else if(anotherSub == "LOG"){
+        return 6;
     } else {
+        return -1;
+    }
+}
+
+QList<OperationMath*>* EquationMaker::generateCommands(const QString* code, QMap<const QChar, int> *map)
+{
+    int cursor= 0;
+    int cursorMax= -1;
+    int index = 0;
+    OperationMath listResult[code->count(QChar('('))];
+
+    while(index < code->size()){
+
+        if(code->at(index) == QChar('(')){
+
+            cursorMax++;
+            listResult[cursor].calculo = getOperationInt(*code,index-3,3);
+
+            /// si despues del parentesis es una operacion entonces en la lista almacena el indice de ls siguiente operacion
+            /// si no es operacion, en la lista almacena la referencia del valor que debe calcular. sacandolo del mapa.
+            if(getOperationInt(*code,index+1,3) != -1){
+
+                listResult[cursor].complexA = true;
+                listResult[cursor].valorA = cursorMax+1;
+                cursor = cursorMax+1;
+            } else {
+                listResult[cursor].complexA = false;
+
+                if(!map->contains(code->at(index+1))){
+                    map->insert(code->at(index+1),map->size());
+                }
+
+                listResult[cursor].valorA = map->value(code->at(index+1));
+
+            }
+
+
+        } else if(code->at(index) == QChar(')')){
+            cursor--;
+
+        } else if(code->at(index) == QChar(',')){
+
+            if(getOperationInt(*code,index+1,3) != -1){
+
+                listResult[cursor].complexB = true;
+                listResult[cursor].valorB = cursorMax+1;
+                cursor = cursorMax+1;
+            } else {
+                listResult[cursor].complexB = false;
+
+                if(!map->contains(code->at(index+1))){
+                    map->insert(code->at(index+1),map->size());
+                }
+
+                listResult[cursor].valorB = map->value(code->at(index+1));
+            }
+
+        }
 
         index++;
     }
+
+    QList<OperationMath*>* res = new QList<OperationMath*>();
+
+
+
+    for(int i = 0;i<sizeof(listResult)/sizeof(*listResult);i++){
+        //qDebug() << "(" <<listResult[i].calculo << "," << listResult[i].complexA << ","  << listResult[i].valorA << ","  << listResult[i].complexB << ","  << listResult[i].valorB << ")" ;
+
+        res->append(new OperationMath(
+                        listResult[i].calculo,
+                    listResult[i].complexA,
+                    listResult[i].valorA,
+                    listResult[i].complexB,
+                    listResult[i].valorB
+                    ));
+
+
+    }
+
+    return res;
+
 
 }

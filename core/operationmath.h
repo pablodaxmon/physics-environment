@@ -2,7 +2,7 @@
 #define OPERATIONMATH_H
 class OperationMath{
 public:
-    OperationMath(int c, bool compA, float _valueA,bool compB, float _valueB) :
+    OperationMath(int c = 0, bool compA = false, float _valueA = -1,bool compB = false, float _valueB = -1) :
         calculo(c),
         complexA(compA),
         valorA(_valueA),

@@ -12,7 +12,7 @@ class EquationRunner
 {
 public:
     EquationRunner();
-    float getResult(Equation *ecuacion,int n, QList<float> * parametros);
+    float getResult(Equation *ecuacion,QList<float> * parametros);
 private:
     float sumar(float a, float b);
     float restar(float a, float b);
@@ -24,11 +24,10 @@ private:
     float comp(float a, float b, float(*funca)(int, int), float(*funcb)(int,int));
 
     float calculateResult();
-    float calcular(OperationMath* op);
+    float calcular(OperationMath* op, QList<OperationMath*>* listOperations, QList<float>* params);
 
     typedef float (EquationRunner::*Operations)(float a, float b);
 
-    QList<OperationMath*> listOperations;
 
     Operations operaciones[7];
 };

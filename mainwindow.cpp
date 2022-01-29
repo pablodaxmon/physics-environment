@@ -6,17 +6,17 @@
 #include "core/actorsystem.h"
 #include "core/equation.h"
 #include "core/equationrunner.h"
+#include "core/equationmaker.h"
 #include <QMap>
+#include <map>
 #include <QString>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-
     QWidget *w = new QWidget();
     QHBoxLayout *box = new QHBoxLayout(w);
-
 
     QPushButton *stopbutton = new QPushButton("&Stop", this);
     QPushButton *button = new QPushButton("&Start", this);
@@ -43,8 +43,6 @@ MainWindow::MainWindow(QWidget *parent)
     actorsistema->addActor(actor4);
     actorsistema->addActor(actor5);
 
-
-
     connect(button, SIGNAL(pressed()), timerloop, SLOT(startLoop()));
     connect(stopbutton, SIGNAL(pressed()), timerloop, SLOT(stopLoop()));
     connect(pausebutton, SIGNAL(pressed()), timerloop, SLOT(pauseLoop()));
@@ -53,13 +51,27 @@ MainWindow::MainWindow(QWidget *parent)
     QMap<QString, QString> *map = new QMap<QString, QString>();
     map->insert("A","velocity");
     map->insert("B","speed");
+    map->insert("C","time");
 
-    Equation *ecuacion = new Equation("(SUM(A B)", *map);
+
+    QList<float> *listValores = new QList<float>();
+    listValores->append(3);
+    listValores->append(4);
+    listValores->append(5);
+
+    Equation *ecuacion = new Equation("SUM(A,SUM(A,SUM(B,C))", map);
+
+    EquationMaker *maker = new EquationMaker();
+
+    maker->makeEquation(ecuacion, map);
+
 
     EquationRunner *runner = new EquationRunner();
-    QList<float> *listValores = new QList<float>();
 
-    float testResult = runner->getResult(ecuacion,4,listValores);
+
+    float res = runner->getResult(ecuacion, listValores);
+    qDebug() << " SUM(A,SUM(A,SUM(B,C)) ";
+    qDebug() << " RESULTADO: " << res;
 
     setCentralWidget(w);
 }

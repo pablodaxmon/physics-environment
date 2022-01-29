@@ -4,18 +4,21 @@
 #include <QString>
 #include "core/operationmath.h"
 #include "core/equation.h"
+#include <QDebug>
+#include <QList>
 
 class EquationMaker
 {
 public:
     EquationMaker();
 
-    Equation* makeEquation(const char* data);
+    void makeEquation(Equation* ecuacion, QMap<QString, QString> *dicc);
+    QList<OperationMath*>* generateCommands(const QString* codeEquation, QMap<const QChar, int> *map);
 private:
 
     void clearString(QString* codeEquation);
-    QList<OperationMath>* generateCommands(QString* codeEquation);
 
+    int getOperationInt(QString sub, int from ,int to);
 };
 
 #endif // EQUATIONMAKER_H

@@ -6,31 +6,60 @@ typedef float (Equation::*Operations)(float a, float b);
 // SUM(A SUM(C D))
 Equation::Equation()
 {
-
 }
 
-Equation::Equation(char * codeequation, QMap<QString, QString> &dicc) : codeEquation(codeequation), dictionary(dicc)
+Equation::Equation(char * codeequation, QMap<QString, QString> *dicc) : codeEquation(codeequation), dictionary(dicc)
 {
 
 }
 
-QString &Equation::getCodeEquation()
+QString *Equation::getCodeEquation()
 {
-    return codeEquation;
+    return &codeEquation;
 }
 
-void Equation::setStringEquation(const QString &newCodeEquation)
-{
-    codeEquation = newCodeEquation;
-}
 
-const QMap<QString, QString> &Equation::getDictionary() const
+ QMap<QString, QString> *Equation::getDictionary()
 {
     return dictionary;
 }
 
-void Equation::setDictionary(const QMap<QString, QString> &newDictionary)
+void Equation::setDictionary( QMap<QString, QString> *newDictionary)
 {
     dictionary = newDictionary;
+}
+
+
+
+void Equation::setListOperations(QList<OperationMath*> *newListOperations)
+{
+    listOperations = newListOperations;
+}
+
+void Equation::setMapValues(QMap<const QChar, int> *newMapValues)
+{
+    mapValues = newMapValues;
+}
+
+QMap<const QChar, int> *Equation::getMapValues()
+{
+    return mapValues;
+}
+
+
+
+QList<float> *Equation::getListValues() const
+{
+    return listValues;
+}
+
+QList<OperationMath*> *Equation::getListOperations()
+{
+    return listOperations;
+}
+
+void Equation::setListValues(QList<float> *newListValues)
+{
+    listValues = newListValues;
 }
 

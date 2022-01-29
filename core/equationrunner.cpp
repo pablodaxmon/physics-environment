@@ -12,11 +12,6 @@ EquationRunner::EquationRunner()
     operaciones[6] = logaritmo;
 
 
-    calculateResult();
-
-    /*while(i.hasNext()){
-        //qDebug() << i.next()->calculo;
-    }*/
 
 
 
@@ -26,12 +21,9 @@ EquationRunner::EquationRunner()
 
 
 
-float EquationRunner::getResult(Equation *ecuacion,int n, QList<float> *parametros)
+float EquationRunner::getResult(Equation *ecuacion,QList<float> *parametros)
 {
-    //clearString(&ecuacion->getCodeEquation());
-
-
-    //return calculateResult(parametros, processString(&ecuacion->getCodeEquation()));
+    return calcular(&(*ecuacion->listOperations->at(0)), &(*ecuacion->listOperations), &(*parametros));
 }
 
 
@@ -83,43 +75,32 @@ float EquationRunner::comp(float a, float b, float (*funca)(int, int), float (*f
 
 float EquationRunner::calculateResult()
 {
-    QList<float> param = {5,4,3};
-    float valor = 1;
-
-    OperationMath *op1 = new OperationMath(0,false,10,true,1);
-    OperationMath *op2 = new OperationMath(1,false,20,false,30);
-
-    listOperations.append(op1);
-    listOperations.append(op2);
-
-    qDebug() << "calculando ";
-    qDebug() << calcular(listOperations.at(0));
-
-
 
 }
 
-float EquationRunner::calcular(OperationMath *op)
+float EquationRunner::calcular(OperationMath *op, QList<OperationMath*>* listOperations, QList<float>* params)
 {
 
-    qDebug() << "ejecutando operacion ";
     float numberA;
     float numberB;
 
+
     if(op->complexA == true){
-        numberA = calcular(listOperations[op->valorA]);
+        numberA = calcular(listOperations->at(op->valorA), &(*listOperations), &(*params));
     } else {
-        numberA = op->valorA;
+        numberA = params->at(op->valorA);
     }
 
     if(op->complexB == true){
-        numberB = calcular(listOperations[op->valorB]);
+        numberB = calcular(listOperations->at(op->valorB), &(*listOperations), &(*params));
     } else {
-        numberB = op->valorB;
+        numberB = params->at(op->valorB);
     }
 
+    qDebug() << numberA << " + " << numberB;
     return numberA + numberB;
 }
+
 
 
 
