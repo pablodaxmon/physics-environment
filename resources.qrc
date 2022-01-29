@@ -1,0 +1,50 @@
+<RCC>
+    <qresource prefix="/styles">
+        <file>style.qss</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>resources/icons16/add.png</file>
+        <file>resources/icons16/application_form_add.png</file>
+        <file>resources/icons16/application_osx_terminal.png</file>
+        <file>resources/icons16/application_side_contract.png</file>
+        <file>resources/icons16/application_view_list.png</file>
+        <file>resources/icons16/arrow_redo.png</file>
+        <file>resources/icons16/arrow_undo.png</file>
+        <file>resources/icons16/book.png</file>
+        <file>resources/icons16/book_open.png</file>
+        <file>resources/icons16/box.png</file>
+        <file>resources/icons16/calculator.png</file>
+        <file>resources/icons16/camera_small.png</file>
+        <file>resources/icons16/cancel.png</file>
+        <file>resources/icons16/chart_bar.png</file>
+        <file>resources/icons16/chart_bar_link.png</file>
+        <file>resources/icons16/control_pause_blue.png</file>
+        <file>resources/icons16/cut.png</file>
+        <file>resources/icons16/door_in.png</file>
+        <file>resources/icons16/drive_add.png</file>
+        <file>resources/icons16/folder_page.png</file>
+        <file>resources/icons16/folder_palette.png</file>
+        <file>resources/icons16/image_add.png</file>
+        <file>resources/icons16/information.png</file>
+        <file>resources/icons16/page_white_copy.png</file>
+        <file>resources/icons16/paste_plain.png</file>
+        <file>resources/icons16/pencil_add.png</file>
+        <file>resources/icons16/plugin.png</file>
+        <file>resources/icons16/printer.png</file>
+        <file>resources/icons16/resultset_first.png</file>
+        <file>resources/icons16/resultset_next.png</file>
+        <file>resources/icons16/shape_group.png</file>
+        <file>resources/icons16/table_save.png</file>
+        <file>resources/icons24/3d bar chart.png</file>
+        <file>resources/icons24/Add.png</file>
+        <file>resources/icons24/Application.png</file>
+        <file>resources/icons24/Clock.png</file>
+        <file>resources/icons24/Create.png</file>
+        <file>resources/icons24/Delete.png</file>
+        <file>resources/icons24/Error.png</file>
+        <file>resources/icons24/Modify.png</file>
+        <file>resources/icons24/Play.png</file>
+        <file>resources/icons24/Stop sign.png</file>
+        <file>resources/icons24/Stop.png</file>
+    </qresource>
+</RCC>

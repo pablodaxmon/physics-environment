@@ -1,7 +1,8 @@
-#include "mainwindow.h"
+#include "gui/mainwindow.h"
 #include "core/actorsystem.h"
 #include "core/actor.h"
 
+#include <QFile>
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
@@ -20,20 +21,14 @@ int main(int argc, char *argv[])
         }
     }
 
-    ActorSystem *actorsistem = new ActorSystem();
-    Actor *actor = new Actor("german");
-    Actor *actor2 = new Actor("pablo");
-    Actor *actor3 = new Actor("pedro");
+    QFile qss(":/styles/style.qss");
+    qss.open(QFile::ReadOnly);
 
-    actor->setName("soy un name");
+    MainWindow window;
+    window.setStyleSheet(qss.readAll());
+    window.setWindowState(Qt::WindowMaximized);
+    window.setWindowTitle("Simulation Analisys Environment");
+    window.show();
 
-    actorsistem->addActor(actor);
-    actorsistem->addActor(actor2);
-    actorsistem->addActor(actor3);
-
-    actorsistem->getActorbyName("pablo");
-
-    MainWindow w;
-    w.show();
     return a.exec();
 }

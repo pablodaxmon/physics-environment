@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    core/action.cpp \
     core/actor.cpp \
     core/actorinterface.cpp \
     core/actorsystem.cpp \
@@ -16,11 +17,17 @@ SOURCES += \
     core/equationmaker.cpp \
     core/equationrunner.cpp \
     core/operationmath.cpp \
+    core/physics.cpp \
     core/timerloop.cpp \
+    gui/dialogtypeenvironment.cpp \
+    gui/maintoolbar.cpp \
+    gui/splittermain.cpp \
+    gui/mainwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    tests/testcore.cpp
 
 HEADERS += \
+    core/action.h \
     core/actor.h \
     core/actorinterface.h \
     core/actorsystem.h \
@@ -28,8 +35,13 @@ HEADERS += \
     core/equationmaker.h \
     core/equationrunner.h \
     core/operationmath.h \
+    core/physics.h \
     core/timerloop.h \
-    mainwindow.h
+    gui/dialogtypeenvironment.h \
+    gui/maintoolbar.h \
+    gui/splittermain.h \
+    gui/mainwindow.h \
+    tests/testcore.h
 
 TRANSLATIONS += \
     physics-environment_en_US.ts
@@ -40,3 +52,11 @@ CONFIG += embed_translations
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    style.qss
+
+RESOURCES += \
+    resources.qrc
+
+
