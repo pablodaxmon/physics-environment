@@ -53,10 +53,10 @@ void MainWindow::createModules()
 void MainWindow::createViews()
 {
 
-    /*viewActions = new ViewActions(mainContainer);
+    viewActions = new ViewActions(mainContainer);
     viewObjectList = new ViewObjectList(mainContainer);
     viewProperties = new ViewProperties(mainContainer);
-    viewSimulation = new ViewSimulation(mainContainer);*/
+    viewSimulation = new ViewSimulation(mainContainer);
 }
 
 void MainWindow::conecttingModulesViews()
@@ -67,7 +67,7 @@ void MainWindow::conecttingModulesViews()
 void MainWindow::addingViewsInSplit()
 {
 
-    //splitMain = new SplitterMain(mainContainer,viewObjectList, viewActions, viewProperties, viewSimulation);
+    splitMain = new SplitterMain(mainContainer,viewObjectList, viewActions, viewProperties, viewSimulation);
 }
 
 void MainWindow::createActions(){
@@ -232,8 +232,8 @@ void MainWindow::newSimulation(){
     verticalMainLayout->addWidget(mainToolbar);
 
 
-    /*addingSplitInMainLayout();
-    verticalMainLayout->setSpacing(0);*/
+    addingSplitInMainLayout();
+    verticalMainLayout->setSpacing(0);
 }
 
 void MainWindow::loadSimulation(){

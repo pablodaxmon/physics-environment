@@ -9,6 +9,10 @@
 #include <QPushButton>
 #include <QSizePolicy>
 #include "splittermain.h"
+#include "viewsimulation.h"
+#include "viewobjectlist.h"
+#include "viewactions.h"
+#include "viewproperties.h"
 #include "dialogtypeenvironment.h"
 #include "maintoolbar.h"
 
@@ -91,8 +95,14 @@ private:
     QVBoxLayout *verticalMainLayout;
     QWidget *mainContainer;
 
-    DialogTypeEnvironment *dialogMain;
+
+    ViewActions *viewActions;
+    ViewProperties *viewProperties;
+    ViewSimulation *viewSimulation;
     SplitterMain *splitMain;
+    ViewObjectList *viewObjectList;
+
+    DialogTypeEnvironment *dialogMain;
 
 };
 #endif // MAINWINDOW_H

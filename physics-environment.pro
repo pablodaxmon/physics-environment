@@ -19,10 +19,16 @@ SOURCES += \
     core/operationmath.cpp \
     core/physics.cpp \
     core/timerloop.cpp \
+    gui/actionitem.cpp \
     gui/dialogtypeenvironment.cpp \
     gui/maintoolbar.cpp \
     gui/splittermain.cpp \
     gui/mainwindow.cpp \
+    gui/viewactions.cpp \
+    gui/viewobjectlist.cpp \
+    gui/viewproperties.cpp \
+    gui/viewsimulation.cpp \
+    gui/pixmapbuilder.cpp \
     main.cpp \
     tests/testcore.cpp
 
@@ -37,10 +43,16 @@ HEADERS += \
     core/operationmath.h \
     core/physics.h \
     core/timerloop.h \
+    gui/actionitem.h \
     gui/dialogtypeenvironment.h \
     gui/maintoolbar.h \
     gui/splittermain.h \
     gui/mainwindow.h \
+    gui/viewactions.h \
+    gui/viewobjectlist.h \
+    gui/viewproperties.h \
+    gui/viewsimulation.h \
+    gui/pixmapbuilder.h \
     tests/testcore.h
 
 TRANSLATIONS += \
