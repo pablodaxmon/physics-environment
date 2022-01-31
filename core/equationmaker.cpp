@@ -1,14 +1,14 @@
 #include "equationmaker.h"
 #include <list>
+#include <QRegularExpression>
 
 EquationMaker::EquationMaker()
 {
 
 }
 
-void EquationMaker::makeEquation(Equation* ecuacion, QMap<QString, QString> *dicc)
+void EquationMaker::makeEquation(Equation* ecuacion)
 {
-    ecuacion->setDictionary(dicc);
     ecuacion->setListOperations(generateCommands(ecuacion->getCodeEquation(), ecuacion->getMapValues()));
 
 
@@ -57,22 +57,27 @@ int EquationMaker::getOperationInt(QString sub, int from, int to)
 
 QList<OperationMath*>* EquationMaker::generateCommands(const QString* code, QMap<const QChar, int> *map)
 {
+    QList<OperationMath*>* res = new QList<OperationMath*>();
+    if(code->size() == 0){
+        return res;
+    }
+
+    bool isNumber
+
+
+
     int cursor= 0;
     int cursorMax= -1;
     int index = 0;
     OperationMath listResult[code->count(QChar('('))];
-
     while(index < code->size()){
-
         if(code->at(index) == QChar('(')){
-
             cursorMax++;
             listResult[cursor].calculo = getOperationInt(*code,index-3,3);
 
             /// si despues del parentesis es una operacion entonces en la lista almacena el indice de ls siguiente operacion
             /// si no es operacion, en la lista almacena la referencia del valor que debe calcular. sacandolo del mapa.
             if(getOperationInt(*code,index+1,3) != -1){
-
                 listResult[cursor].complexA = true;
                 listResult[cursor].valorA = cursorMax+1;
                 cursor = cursorMax+1;
@@ -82,12 +87,8 @@ QList<OperationMath*>* EquationMaker::generateCommands(const QString* code, QMap
                 if(!map->contains(code->at(index+1))){
                     map->insert(code->at(index+1),map->size());
                 }
-
                 listResult[cursor].valorA = map->value(code->at(index+1));
-
             }
-
-
         } else if(code->at(index) == QChar(')')){
             cursor--;
 
@@ -113,7 +114,6 @@ QList<OperationMath*>* EquationMaker::generateCommands(const QString* code, QMap
         index++;
     }
 
-    QList<OperationMath*>* res = new QList<OperationMath*>();
 
 
 

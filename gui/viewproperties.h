@@ -1,7 +1,12 @@
 #ifndef VIEWPROPERTIES_H
 #define VIEWPROPERTIES_H
 
+#include "core/physics.h"
 #include <QWidget>
+#include <QStandardItem>
+#include <QStandardItemModel>
+#include <QTableView>
+#include <QMap>
 
 class ViewProperties : public QWidget
 {
@@ -9,7 +14,13 @@ class ViewProperties : public QWidget
 public:
     explicit ViewProperties(QWidget *parent = nullptr);
 
-signals:
+public slots:
+    void setValuesFromActor(QMap<Unit, float>* valores);
+
+private:
+    QTableView * table;
+    QStandardItemModel * model;
+
 
 };
 

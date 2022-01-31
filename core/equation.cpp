@@ -8,9 +8,31 @@ Equation::Equation()
 {
 }
 
-Equation::Equation(char * codeequation, QMap<QString, QString> *dicc) : codeEquation(codeequation), dictionary(dicc)
+Equation::Equation(char * codeequation) : codeEquation(codeequation)
 {
 
+}
+
+Equation::Equation(Equation &another)
+{
+    listOperations = another.listOperations;
+    codeEquation = another.codeEquation;
+    dictionary = another.dictionary;
+    mapValues = another.mapValues;
+    listValues = another.listValues;
+}
+
+Equation &Equation::operator=(Equation &another)
+{
+
+    if(&another != this){
+        listOperations = another.listOperations;
+        codeEquation = another.codeEquation;
+        dictionary = another.dictionary;
+        mapValues = another.mapValues;
+        listValues = another.listValues;
+    }
+    return *this;
 }
 
 QString *Equation::getCodeEquation()
@@ -61,5 +83,10 @@ QList<OperationMath*> *Equation::getListOperations()
 void Equation::setListValues(QList<float> *newListValues)
 {
     listValues = newListValues;
+}
+
+void Equation::setCodeEquation(const QString &newCodeEquation)
+{
+    codeEquation = newCodeEquation;
 }
 

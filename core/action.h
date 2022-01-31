@@ -2,8 +2,8 @@
 #define ACTION_H
 
 #include "core/actor.h"
+#include "core/physics.h"
 
-enum class Unit { Tiempo, Distancia, Velocidad, Aceleracion, Posicion};
 enum class Comparation { IsEquals, IsEqualsOrBig, IsEqualsOrSmall, isBig, isSmall, isDiferent};
 
 class Condition{
@@ -39,7 +39,6 @@ private:
     const Comparation comparation;
     const float fromComparable;
     const float toComparable;
-
 };
 
 

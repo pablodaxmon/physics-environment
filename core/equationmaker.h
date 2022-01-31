@@ -12,7 +12,7 @@ class EquationMaker
 public:
     EquationMaker();
 
-    void makeEquation(Equation* ecuacion, QMap<QString, QString> *dicc);
+    void makeEquation(Equation* ecuacion);
     QList<OperationMath*>* generateCommands(const QString* codeEquation, QMap<const QChar, int> *map);
 private:
 

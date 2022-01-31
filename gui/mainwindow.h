@@ -25,6 +25,15 @@ public:
 
     void addingSplitInMainLayout();
 
+
+    ViewSimulation* getViewSimulation() const;
+
+    ViewObjectList *getViewObjectList() const;
+
+    ViewProperties *getViewProperties() const;
+
+    MainToolBar *getMainToolbar() const;
+
 protected:
     void settingMainContainer();
     void settingInitialDialog();
@@ -34,9 +43,12 @@ protected:
     void addingViewsInSplit();
 
 
+public slots:
 
-private slots:
     void newSimulation();
+
+signals:
+    void setItemSelected(const QModelIndex &index);
     void loadSimulation();
     void loadLastSimulation();
     void recentSimulations();
@@ -101,8 +113,13 @@ private:
     ViewSimulation *viewSimulation;
     SplitterMain *splitMain;
     ViewObjectList *viewObjectList;
+    MainToolBar *mainToolbar;
 
     DialogTypeEnvironment *dialogMain;
+
+signals:
+
+
 
 };
 #endif // MAINWINDOW_H

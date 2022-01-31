@@ -3,22 +3,11 @@
 typedef float (EquationRunner::*Operations)(float a, float b);
 EquationRunner::EquationRunner()
 {
-    operaciones[0] = sumar;
-    operaciones[1] = restar;
-    operaciones[2] = multiplicar;
-    operaciones[3] = dividir;
-    operaciones[4] = potencia;
-    operaciones[5] = raiz;
-    operaciones[6] = logaritmo;
-
 
 
 
 
 }
-
-
-
 
 
 float EquationRunner::getResult(Equation *ecuacion,QList<float> *parametros)
@@ -26,52 +15,6 @@ float EquationRunner::getResult(Equation *ecuacion,QList<float> *parametros)
     return calcular(&(*ecuacion->listOperations->at(0)), &(*ecuacion->listOperations), &(*parametros));
 }
 
-
-
-float EquationRunner::sumar(float a, float b)
-{
-    return a + b;
-}
-
-float EquationRunner::restar(float a, float b)
-{
-    return a - b;
-}
-
-float EquationRunner::multiplicar(float a, float b)
-{
-    return a * b;
-}
-
-float EquationRunner::dividir(float a, float b)
-{
-    return a + b;
-}
-
-float EquationRunner::potencia(float value, float potencia)
-{
-    return powf(value, potencia);
-}
-
-float EquationRunner::raiz(float a, float b)
-{
-    return powf(a,1/b);
-}
-
-float EquationRunner::logaritmo(float value, float base)
-{
-    return logaritmo(value, base);
-
-}
-
-float EquationRunner::comp(float a, float b, float (*funca)(int, int), float (*funcb)(int, int))
-{
-    if(a>b){
-        return funca(a,b);
-    } else {
-        return funcb(a,b);
-    }
-}
 
 float EquationRunner::calculateResult()
 {
@@ -98,7 +41,28 @@ float EquationRunner::calcular(OperationMath *op, QList<OperationMath*>* listOpe
     }
 
     qDebug() << numberA << " + " << numberB;
-    return numberA + numberB;
+    if(op->calculo == 0){
+        return numberA + numberB;
+
+    } else if(op->calculo == 1){
+        return numberA - numberB;
+
+    } else if(op->calculo == 2){
+        return numberA * numberB;
+
+    } else if(op->calculo == 3){
+        return numberA / numberB;
+
+    } else if(op->calculo == 4){
+        return powf(numberA, numberB);
+
+    } else if(op->calculo == 5){
+        return powf(numberA,1/numberB);
+
+    } else if(op->calculo == 6){
+        return powf(numberA, numberB);
+
+    }
 }
 
 

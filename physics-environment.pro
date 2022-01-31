@@ -25,6 +25,7 @@ SOURCES += \
     gui/splittermain.cpp \
     gui/mainwindow.cpp \
     gui/viewactions.cpp \
+    gui/viewcontrolactions.cpp \
     gui/viewobjectlist.cpp \
     gui/viewproperties.cpp \
     gui/viewsimulation.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     gui/splittermain.h \
     gui/mainwindow.h \
     gui/viewactions.h \
+    gui/viewcontrolactions.h \
     gui/viewobjectlist.h \
     gui/viewproperties.h \
     gui/viewsimulation.h \
@@ -70,5 +72,8 @@ DISTFILES += \
 
 RESOURCES += \
     resources.qrc
+
+
+
 
 

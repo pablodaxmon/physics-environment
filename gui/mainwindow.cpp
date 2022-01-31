@@ -21,7 +21,7 @@ MainWindow:: MainWindow(QWidget *parent)
     createActions();
     createMenu();
 
-
+    createViews();
 }
 
 // crea un widget principal, y le asigna un layout nuevo.
@@ -57,6 +57,8 @@ void MainWindow::createViews()
     viewObjectList = new ViewObjectList(mainContainer);
     viewProperties = new ViewProperties(mainContainer);
     viewSimulation = new ViewSimulation(mainContainer);
+    mainToolbar = new MainToolBar(mainContainer);
+    connect(viewObjectList, &ViewObjectList::selectItem, this, &setItemSelected);
 }
 
 void MainWindow::conecttingModulesViews()
@@ -73,7 +75,6 @@ void MainWindow::addingViewsInSplit()
 void MainWindow::createActions(){
     actNewSimulation = new QAction(QIcon(":/icons/resources/icons16/image_add.png"),tr("&New simulation"), this);
     actNewSimulation->setStatusTip("Create a new simulation");
-    connect(actNewSimulation, &QAction::triggered, this, &MainWindow::newSimulation);
 
 
     actLoadSimulation = new QAction(QIcon(":/icons/resources/icons16/drive_add.png"),tr("&Load simulation"), this);
@@ -171,6 +172,8 @@ void MainWindow::createActions(){
     connect(actHelp, &QAction::triggered, this, &MainWindow::help);
 
 
+
+
     actVersionInfo = new QAction(QIcon(":/icons/resources/icons16/information.png"),tr("&Version info"), this);
     actVersionInfo->setStatusTip("Create a new simulation");
     connect(actVersionInfo, &QAction::triggered, this, &MainWindow::versionInfo);
@@ -215,6 +218,26 @@ void MainWindow::createMenu(){
 
 }
 
+MainToolBar *MainWindow::getMainToolbar() const
+{
+    return mainToolbar;
+}
+
+ViewProperties *MainWindow::getViewProperties() const
+{
+    return viewProperties;
+}
+
+ViewObjectList *MainWindow::getViewObjectList() const
+{
+    return viewObjectList;
+}
+
+ViewSimulation* MainWindow::getViewSimulation() const
+{
+    return viewSimulation;
+}
+
 void MainWindow::addingSplitInMainLayout()
 {
 
@@ -225,10 +248,8 @@ void MainWindow::newSimulation(){
 
 
     createModules();
-    createViews();
     addingViewsInSplit();
     dialogMain->close();
-    MainToolBar *mainToolbar = new MainToolBar(mainContainer);
     verticalMainLayout->addWidget(mainToolbar);
 
 
@@ -236,86 +257,8 @@ void MainWindow::newSimulation(){
     verticalMainLayout->setSpacing(0);
 }
 
-void MainWindow::loadSimulation(){
-
-}
-
-void MainWindow::loadLastSimulation(){
-
-}
-
-void MainWindow::recentSimulations(){
-
-}
-
-void MainWindow::importObjects(){
-
-}
-
-void MainWindow::exit(){
 
 
 
-}
-
-void MainWindow::undo(){
-
-}
-
-void MainWindow::redo(){
-
-}
-
-void MainWindow::cut(){
-
-}
-
-void MainWindow::copy(){
-
-}
-
-void MainWindow::paste(){
-
-}
-
-void MainWindow::preferences(){
-
-}
-
-void MainWindow::worldValues(){
-
-}
-
-void MainWindow::addObject(){
-
-}
-
-void MainWindow::startSimulation(){
-
-}
-
-void MainWindow::stopSimulation(){
-
-}
-
-void MainWindow::recordValues(){
-
-}
-
-void MainWindow::calculateValues(){
-
-}
-
-void MainWindow::aboutProgrammers(){
-
-}
-
-void MainWindow::help(){
-
-}
-
-void MainWindow::versionInfo(){
-
-}
 
 

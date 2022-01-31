@@ -22,7 +22,7 @@ void TimerLoop::startLoop()
     if(intervalDuration == 0){
         intervalDuration = 200;
     }
-    timer->start(400);
+    timer->start(30);
 
     emit signalStart();
 
@@ -54,5 +54,4 @@ void TimerLoop::update()
 
     actorsistem.updateActors();
 
-    qDebug() << "Lapso: " << lastLapse << " intervalos ";
 }

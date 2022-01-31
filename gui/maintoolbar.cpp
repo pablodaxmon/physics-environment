@@ -61,6 +61,12 @@ void MainToolBar::createButtons()
     pauseButton->setFixedSize(30,30);
     stopButton->setFixedSize(30,30);
 
+    connect(playButton, &QPushButton::clicked, this, &playSignal);
+    connect(pauseButton, &QPushButton::clicked, this, &pauseSignal);
+    connect(stopButton, &QPushButton::clicked, this, &stopSignal);
+    connect(statsButton, &QPushButton::clicked, this, &graphicsSignal);
+
+
 
 }
 

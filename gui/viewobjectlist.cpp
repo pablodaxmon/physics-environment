@@ -4,7 +4,8 @@
 #include <QLabel>
 #include <QFileSystemModel>
 #include <QTreeView>
-#include <QDir>
+#include <QStandardItem>
+#include <QVariant>
 
 ViewObjectList::ViewObjectList(QWidget *parent) : QWidget(parent)
 {
@@ -14,13 +15,35 @@ ViewObjectList::ViewObjectList(QWidget *parent) : QWidget(parent)
     QHBoxLayout *box = new QHBoxLayout(this);
     box->setContentsMargins(0,0,0,0);
 
-    QFileSystemModel *model = new QFileSystemModel;
+    model = new QStandardItemModel(this);
+    model->setHorizontalHeaderLabels({"Objetos"});
 
-    model->setRootPath(QDir::currentPath());
+
 
     QTreeView *tree = new QTreeView(this);
-    tree->setModel(model);
 
+    tree->setModel(model);
+    tree->show();
     box->addWidget(tree);
+
+    connect(tree, &QTreeView::clicked, this, &selectItem);
+
+}
+
+void ViewObjectList::addItemToList(const QString name, const int index)
+{
+    QStandardItem *item = new QStandardItem;
+    item->setText(name);
+    item->setSelectable(true);
+    item->setEditable(true);
+    model->appendRow(item);
+    item->setData(QVariant(index), Qt::DisplayRole);
+    model->setData(model->indexFromItem(item), QVariant(index), Qt::ToolTipRole);
+    model->setData(model->indexFromItem(item), name, Qt::DisplayRole);
+}
+
+void ViewObjectList::removeItemToList(const QString name)
+{
+
 }
 

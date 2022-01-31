@@ -11,7 +11,9 @@ class Equation
 public:
 
     Equation();
-    Equation(char* codeequation, QMap<QString, QString> *dicc);
+    Equation(char* codeequation);
+    Equation(Equation& another);
+    Equation& operator=(Equation& another);
 
     QString *getCodeEquation();
 
@@ -31,6 +33,8 @@ public:
     void setListValues(QList<float> *newListValues);
 
     QList<OperationMath*>* listOperations = new QList<OperationMath*>();
+    void setCodeEquation(const QString &newCodeEquation);
+
 private:
     QString codeEquation;
     int size = 1;

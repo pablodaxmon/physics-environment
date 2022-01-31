@@ -26,6 +26,10 @@ private:
 
 
 signals:
+    void playSignal();
+    void pauseSignal();
+    void stopSignal();
+    void graphicsSignal();
 
 };
 
