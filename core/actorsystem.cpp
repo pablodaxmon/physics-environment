@@ -59,14 +59,13 @@ void ActorSystem::setSelectedActor(const QModelIndex &index)
     selectedActor = listActors.value(index.data(Qt::ToolTipRole).toInt());
     viewproperties->setValuesFromActor(listActors.value(index.data(Qt::ToolTipRole).toInt())->getVariables());
     qDebug() << listActors.size();
-    viewsimulation->getLineEdit()->setText((*listActors.value(index.data(Qt::ToolTipRole).toInt())->getEq()->getCodeEquation()));
+
 }
 
 void ActorSystem::setCodeEqToSelectedActor()
 {
 
     if(selectedActor != NULL){
-        selectedActor->getEq()->setCodeEquation(viewsimulation->getLineEdit()->text());
         eqMaker->makeEquation(selectedActor->getEq());
 
     }

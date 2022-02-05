@@ -21,7 +21,15 @@ MainWindow:: MainWindow(QWidget *parent)
     createActions();
     createMenu();
 
-    createViews();
+    viewActions = new ViewActions(mainContainer);
+    viewObjectList = new ViewObjectList(mainContainer);
+    viewProperties = new ViewProperties(mainContainer);
+    viewSimulation = new ViewSimulation(mainContainer);
+    mainToolbar = new MainToolBar(mainContainer);
+
+    statusBar();
+
+
 }
 
 // crea un widget principal, y le asigna un layout nuevo.
@@ -37,28 +45,18 @@ void MainWindow::settingMainContainer()
 // muestra el dialogo principal para elegir el tipo de entorno
 void MainWindow::settingInitialDialog()
 {
-    dialogMain = new DialogTypeEnvironment(mainContainer);
-    verticalMainLayout->addWidget(dialogMain, Qt::AlignCenter);
-    QObject::connect(dialogMain, &DialogTypeEnvironment::typeOnClick, this, newSimulation);
+    dialogMain = new InitialDialog(this);
+    QObject::connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);
+    dialogMain->show();
+    //verticalMainLayout->addWidget(dialogMain, Qt::AlignCenter);
+    //QObject::connect(dialogMain, &DialogTypeEnvironment::typeOnClick, this, newSimulation);
 }
 
-//crea los modulos del programa
-void MainWindow::createModules()
-{
 
-
-}
 
 //crea las ventanas del programa
 void MainWindow::createViews()
 {
-
-    viewActions = new ViewActions(mainContainer);
-    viewObjectList = new ViewObjectList(mainContainer);
-    viewProperties = new ViewProperties(mainContainer);
-    viewSimulation = new ViewSimulation(mainContainer);
-    mainToolbar = new MainToolBar(mainContainer);
-    connect(viewObjectList, &ViewObjectList::selectItem, this, &setItemSelected);
 }
 
 void MainWindow::conecttingModulesViews()
@@ -66,11 +64,6 @@ void MainWindow::conecttingModulesViews()
 
 }
 
-void MainWindow::addingViewsInSplit()
-{
-
-    splitMain = new SplitterMain(mainContainer,viewObjectList, viewActions, viewProperties, viewSimulation);
-}
 
 void MainWindow::createActions(){
     actNewSimulation = new QAction(QIcon(":/icons/resources/icons16/image_add.png"),tr("&New simulation"), this);
@@ -182,7 +175,7 @@ void MainWindow::createActions(){
 
 void MainWindow::createMenu(){
 
-    menuBar()->setStyleSheet("background-color: qlineargradient( x1:0 y1:0, x2:0 y2:1, stop:0 rgba(236,238,243,255), stop:1 rgba(220,220,230,255));");
+
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(actNewSimulation);
     fileMenu->addAction(actLoadSimulation);
@@ -238,22 +231,20 @@ ViewSimulation* MainWindow::getViewSimulation() const
     return viewSimulation;
 }
 
-void MainWindow::addingSplitInMainLayout()
-{
 
-    verticalMainLayout->addWidget(splitMain);
-}
+void MainWindow::newSimulation(Session *session){
 
-void MainWindow::newSimulation(){
+    qDebug() << "created new simulation at " << session->getName();
 
+    setWindowTitle(session->getName() + " - Physics Environment");
 
-    createModules();
-    addingViewsInSplit();
+    splitMain = new SplitterMain(mainContainer,viewObjectList, viewActions, viewProperties, viewSimulation);
+
     dialogMain->close();
     verticalMainLayout->addWidget(mainToolbar);
 
 
-    addingSplitInMainLayout();
+    verticalMainLayout->addWidget(splitMain);
     verticalMainLayout->setSpacing(0);
 }
 

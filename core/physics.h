@@ -8,7 +8,7 @@ class Physics
 public:
     Physics();
 
-    static char* UnitToChar(const Unit unit){
+    static const char* UnitToChar(const Unit unit){
         switch (unit) {
             case Unit::Tiempo:
                 return "Tiempo";

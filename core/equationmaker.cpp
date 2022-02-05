@@ -1,6 +1,5 @@
 #include "equationmaker.h"
 #include <list>
-#include <QRegularExpression>
 
 EquationMaker::EquationMaker()
 {
@@ -9,7 +8,7 @@ EquationMaker::EquationMaker()
 
 void EquationMaker::makeEquation(Equation* ecuacion)
 {
-    ecuacion->setListOperations(generateCommands(ecuacion->getCodeEquation(), ecuacion->getMapValues()));
+    generateCommands(ecuacion->getCodeEquation(), ecuacion->getMapValues(), ecuacion->getListOperations());
 
 
 
@@ -55,14 +54,29 @@ int EquationMaker::getOperationInt(QString sub, int from, int to)
     }
 }
 
-QList<OperationMath*>* EquationMaker::generateCommands(const QString* code, QMap<const QChar, int> *map)
+void EquationMaker::generateCommands(QString* code, QMap<const QChar, int> *map, QList<OperationMath*>* res)
 {
-    QList<OperationMath*>* res = new QList<OperationMath*>();
+
+    map->clear();
+    qDeleteAll(res->begin(), res->end());
+    res->clear();
+
     if(code->size() == 0){
-        return res;
+        return;
     }
 
-    bool isNumber
+    clearString(code);
+
+    if(getOperationInt(*code,0,3) == -1){
+        bool isFloat = false;
+        code->toFloat(&isFloat);
+        if(isFloat){
+            map->insert('N',0);
+            res->append(new OperationMath(-1,false,0,false,0));
+        } else {
+            return;
+        }
+    }
 
 
 
@@ -127,11 +141,5 @@ QList<OperationMath*>* EquationMaker::generateCommands(const QString* code, QMap
                     listResult[i].complexB,
                     listResult[i].valorB
                     ));
-
-
     }
-
-    return res;
-
-
 }

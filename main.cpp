@@ -3,6 +3,7 @@
 #include "core/actor.h"
 #include "gui/viewobjectlist.h"
 #include "gui/maintoolbar.h"
+#include <QFontDatabase>
 
 #include <QFile>
 #include <QApplication>
@@ -25,18 +26,16 @@ int main(int argc, char *argv[])
         }
     }
 
-    QFile qss(":/styles/style.qss");
-    qss.open(QFile::ReadOnly);
 
     MainWindow window;
+    QFontDatabase::addApplicationFont(":/fonts/Lato-Regular.ttf");
+
+    /*
     ActorSystem actorsystem;
     TimerLoop timer(actorsystem);
 
-
     actorsystem.setViewsimulation(window.getViewSimulation());
     actorsystem.setViewproperties(window.getViewProperties());
-
-
 
 
     QObject::connect(&window, &MainWindow::addObject, &actorsystem, &ActorSystem::addActor);
@@ -47,10 +46,16 @@ int main(int argc, char *argv[])
 
     QObject::connect(window.getMainToolbar(), &MainToolBar::playSignal, &timer, &TimerLoop::startLoop);
     QObject::connect(window.getMainToolbar(), &MainToolBar::stopSignal, &timer, &TimerLoop::stopLoop);
-    QObject::connect(window.getMainToolbar(), &MainToolBar::pauseSignal, &timer, &TimerLoop::pauseLoop);
+    QObject::connect(window.getMainToolbar(), &MainToolBar::pauseSignal, &timer, &TimerLoop::pauseLoop);*/
 
 
-    window.setStyleSheet(qss.readAll());
+
+
+
+
+    QFile qss(":/styles/style.qss");
+    qss.open(QFile::ReadOnly);
+    //window.setStyleSheet(qss.readAll());
     window.setWindowState(Qt::WindowMaximized);
     window.setWindowTitle("Simulation Analisys Environment");
     window.show();

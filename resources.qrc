@@ -47,4 +47,7 @@
         <file>resources/icons24/Stop sign.png</file>
         <file>resources/icons24/Stop.png</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file>Lato-Regular.ttf</file>
+    </qresource>
 </RCC>

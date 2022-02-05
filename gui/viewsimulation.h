@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QVBoxLayout>
+#include <QToolBar>
+#include <QToolButton>
+#include <QAction>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QLabel>
@@ -13,6 +16,7 @@
 #include <QPushButton>
 #include "pixmapbuilder.h"
 #include "core/actor.h"
+#include "viewgraphicsresults.h"
 
 class ViewSimulation : public QWidget
 {
@@ -25,7 +29,6 @@ public:
 
     float b = 5;
 
-    QLineEdit *getLineEdit() const;
 
 signals:
     void eqTextChanged();
@@ -35,7 +38,15 @@ private:
     QGraphicsView *viewScene;
     QGraphicsScene *scene = new QGraphicsScene(this);
     float a = 5;
-    QLineEdit * lineEdit;
+
+    QPushButton* addActorB;
+    QPushButton* deleteActorB;
+
+
+
+    QToolBar *simulationToolBar();
+    QWidget *timeControlToolBar();
+    void paintEvent(QPaintEvent * event);
 
 };
 

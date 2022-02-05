@@ -4,11 +4,13 @@
 #include <QHBoxLayout>
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include "viewgraphicsresults.h"
 
 #include <QLabel>
 SplitterMain::SplitterMain(QWidget *parent, QWidget *vListObjects, QWidget *vActions, QWidget *vProperties, QWidget *vSimulation) : QWidget(parent)
 {
 
+    ViewGraphicsResults * graphisResults = new ViewGraphicsResults(this);
     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
     QHBoxLayout *container = new QHBoxLayout(this);
 
@@ -17,18 +19,24 @@ SplitterMain::SplitterMain(QWidget *parent, QWidget *vListObjects, QWidget *vAct
     setLayout(container);
     QSplitter *mainSpliter = new QSplitter(Qt::Horizontal,this);
 
-    QSplitter *middleSplitter = new QSplitter(Qt::Vertical, this);
+
+    QSplitter *midSplitter = new QSplitter(Qt::Vertical, this);
+    midSplitter->addWidget(vSimulation);
+    midSplitter->addWidget(graphisResults);
+
+    QSplitter *sideSplitter = new QSplitter(Qt::Vertical, this);
+    sideSplitter->addWidget(vProperties);
+    sideSplitter->addWidget(vActions);
 
 
-    middleSplitter->addWidget(vProperties);
-    middleSplitter->addWidget(vActions);
+
 
     /*middleSplitter->setStretchFactor(0,1);
     middleSplitter->setStretchFactor(1,20);*/
 
     mainSpliter->addWidget(vListObjects);
-    mainSpliter->addWidget(vSimulation);
-    mainSpliter->addWidget(middleSplitter);
+    mainSpliter->addWidget(midSplitter);
+    mainSpliter->addWidget(sideSplitter);
 
 
     /*mainSpliter->setStretchFactor(0,1);
@@ -38,7 +46,7 @@ SplitterMain::SplitterMain(QWidget *parent, QWidget *vListObjects, QWidget *vAct
     container->addWidget(mainSpliter);
 
     mainSpliter->setHandleWidth(1);
-    middleSplitter->setHandleWidth(1);
+    sideSplitter->setHandleWidth(1);
 
 
 

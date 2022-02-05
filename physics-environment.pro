@@ -11,7 +11,6 @@ CONFIG += c++11
 SOURCES += \
     core/action.cpp \
     core/actor.cpp \
-    core/actorinterface.cpp \
     core/actorsystem.cpp \
     core/equation.cpp \
     core/equationmaker.cpp \
@@ -21,11 +20,13 @@ SOURCES += \
     core/timerloop.cpp \
     gui/actionitem.cpp \
     gui/dialogtypeenvironment.cpp \
+    gui/initialdialog.cpp \
     gui/maintoolbar.cpp \
     gui/splittermain.cpp \
     gui/mainwindow.cpp \
     gui/viewactions.cpp \
     gui/viewcontrolactions.cpp \
+    gui/viewgraphicsresults.cpp \
     gui/viewobjectlist.cpp \
     gui/viewproperties.cpp \
     gui/viewsimulation.cpp \
@@ -34,9 +35,9 @@ SOURCES += \
     tests/testcore.cpp
 
 HEADERS += \
+    core/Session.h \
     core/action.h \
     core/actor.h \
-    core/actorinterface.h \
     core/actorsystem.h \
     core/equation.h \
     core/equationmaker.h \
@@ -46,11 +47,13 @@ HEADERS += \
     core/timerloop.h \
     gui/actionitem.h \
     gui/dialogtypeenvironment.h \
+    gui/initialdialog.h \
     gui/maintoolbar.h \
     gui/splittermain.h \
     gui/mainwindow.h \
     gui/viewactions.h \
     gui/viewcontrolactions.h \
+    gui/viewgraphicsresults.h \
     gui/viewobjectlist.h \
     gui/viewproperties.h \
     gui/viewsimulation.h \
@@ -77,3 +80,12 @@ RESOURCES += \
 
 
 
+
+win32: LIBS += -L$$PWD/./ -lbox2d
+
+INCLUDEPATH += $$PWD/box2d/.
+INCLUDEPATH += $$PWD/.
+DEPENDPATH += $$PWD/.
+
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/./box2d.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/./libbox2d.a

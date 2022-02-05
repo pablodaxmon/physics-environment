@@ -13,7 +13,7 @@ public:
     EquationMaker();
 
     void makeEquation(Equation* ecuacion);
-    QList<OperationMath*>* generateCommands(const QString* codeEquation, QMap<const QChar, int> *map);
+    void generateCommands(QString* codeEquation, QMap<const QChar, int> *map, QList<OperationMath*>* res);
 private:
 
     void clearString(QString* codeEquation);

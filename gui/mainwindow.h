@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+//qt
 #include <QMainWindow>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -8,6 +9,8 @@
 #include <QMenuBar>
 #include <QPushButton>
 #include <QSizePolicy>
+
+//gui
 #include "splittermain.h"
 #include "viewsimulation.h"
 #include "viewobjectlist.h"
@@ -15,6 +18,21 @@
 #include "viewproperties.h"
 #include "dialogtypeenvironment.h"
 #include "maintoolbar.h"
+#include "initialdialog.h"
+
+//core
+#include "core/actorsystem.h"
+#include "core/actor.h"
+#include "core/equation.h"
+#include "core/equationmaker.h"
+#include "core/equationrunner.h"
+#include "core/operationmath.h"
+#include "core/physics.h"
+#include "core/timerloop.h"
+#include "core/action.h"
+#include "box2d.h"
+#include "core/Session.h"
+
 
 class MainWindow : public QMainWindow
 {
@@ -23,7 +41,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
 
-    void addingSplitInMainLayout();
 
 
     ViewSimulation* getViewSimulation() const;
@@ -37,15 +54,13 @@ public:
 protected:
     void settingMainContainer();
     void settingInitialDialog();
-    void createModules();
     void createViews();
     void conecttingModulesViews();
-    void addingViewsInSplit();
 
 
 public slots:
 
-    void newSimulation();
+    void newSimulation(Session *session);
 
 signals:
     void setItemSelected(const QModelIndex &index);
@@ -108,6 +123,11 @@ private:
     QWidget *mainContainer;
 
 
+    ActorSystem* actorSystem;
+    EquationMaker* equationMaker;
+    TimerLoop* timerLoop;
+
+
     ViewActions *viewActions;
     ViewProperties *viewProperties;
     ViewSimulation *viewSimulation;
@@ -115,7 +135,13 @@ private:
     ViewObjectList *viewObjectList;
     MainToolBar *mainToolbar;
 
-    DialogTypeEnvironment *dialogMain;
+
+    InitialDialog *dialogMain;
+    /// ___________________
+    /// session
+    /// ___________________
+
+    Session * actualSession;
 
 signals:
 
