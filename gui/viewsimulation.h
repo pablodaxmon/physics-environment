@@ -44,9 +44,14 @@ private:
 
 
 
-    QToolBar *simulationToolBar();
+
+    QWidget *simulationToolBar();
     QWidget *timeControlToolBar();
     void paintEvent(QPaintEvent * event);
+
+
+private slots:
+    void showMenuCreateObject();
 
 };
 

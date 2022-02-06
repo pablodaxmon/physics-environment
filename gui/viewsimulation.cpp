@@ -1,6 +1,7 @@
 #include "viewsimulation.h"
 #include <QStyleOption>
 #include <QComboBox>
+#include <QMenu>
 
 #define GRIDSCALE 20
 ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
@@ -43,29 +44,76 @@ void ViewSimulation::redrawCanvas()
 
 
 //dibuja el toolbar del viewsimulation
-QToolBar* ViewSimulation::simulationToolBar()
+QWidget* ViewSimulation::simulationToolBar()
 {
-    QToolBar * wmain = new QToolBar;
+    QWidget * wmain = new QWidget;
+    wmain->setStyleSheet("background-color: #F7F7F7");
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->setContentsMargins(10,3,20,3);
+
+
     //wmain->setFixedWidth(2000);
     //wmain->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     wmain->setProperty("class", "viewSimulationToolbar");
 
+    QPushButton * btnAddObject = new QPushButton;
+    QPushButton * btnMoveObject = new QPushButton;
+    QPushButton * btnRule = new QPushButton;
 
-    QAction * addActorA = new QAction(QIcon(":/icons/resources/icons24/Create.png"),tr("&Calculate values"), this);
-    QAction * deleteActorA = new QAction(QIcon(":/icons/resources/icons24/Delete.png"),tr("&Calculate values"), this);
-    QAction * gridA = new QAction(QIcon(":/icons/resources/icons24/Modify.png"),tr("&Calculate values"), this);
-    QAction * configure = new QAction(QIcon(":/icons/resources/icons24/Application.png"),tr("&Calculate values"), this);
+    QPushButton * btnGrid = new QPushButton;
+    QPushButton * btnHand = new QPushButton;
+    QPushButton * btnZoomIn = new QPushButton;
+    QPushButton * btnZoomOut = new QPushButton;
+    QPushButton * btnSetup = new QPushButton;
+
+    btnAddObject->setIcon(QIcon(":/icons/resources/icons16/object.png"));
+    btnMoveObject->setIcon(QIcon(":/icons/resources/icons16/move.png"));
+    btnRule->setIcon(QIcon(":/icons/resources/icons16/rule.png"));
+
+
+    btnGrid->setIcon(QIcon(":/icons/resources/icons16/grid.png"));
+    btnHand->setIcon(QIcon(":/icons/resources/icons16/hand.png"));
+    btnZoomIn->setIcon(QIcon(":/icons/resources/icons16/zoomin.png"));
+    btnZoomOut->setIcon(QIcon(":/icons/resources/icons16/zoomout.png"));
+    btnSetup->setIcon(QIcon(":/icons/resources/icons16/setup.png"));
+
+    btnAddObject->setProperty("class","icon");
+    btnMoveObject->setProperty("class","icon");
+    btnRule->setProperty("class","icon");
+    btnGrid->setProperty("class","icon");
+    btnHand->setProperty("class","icon");
+    btnZoomIn->setProperty("class","icon");
+    btnZoomOut->setProperty("class","icon");
+    btnSetup->setProperty("class","icon");
+
+    QLineEdit * zoomEdit = new QLineEdit;
+
+
+    QComboBox * typeGrid = new QComboBox;
+
+    typeGrid->addItem(tr("Milisegundos"));
+    typeGrid->addItem(tr("Segundos"));
+    typeGrid->addItem(tr("Horas"));
 
 
 
-    wmain->addAction(addActorA);
-    wmain->addSeparator();
-    wmain->addAction(deleteActorA);
-    wmain->addSeparator();
-    wmain->addAction(gridA);
-    wmain->addSeparator();
-    wmain->addAction(configure);
+    layout->addWidget(btnAddObject);
+    layout->addWidget(btnMoveObject);
+    layout->addWidget(btnRule);
+    layout->addStretch(1);
 
+    layout->addWidget(typeGrid);
+    layout->addWidget(btnGrid);
+    layout->addWidget(btnHand);
+    layout->addWidget(zoomEdit);
+    layout->addWidget(btnZoomIn);
+    layout->addWidget(btnZoomOut);
+    layout->addWidget(btnSetup);
+
+    wmain->setLayout(layout);
+
+
+    connect(btnAddObject, &QPushButton::clicked, this, &ViewSimulation::showMenuCreateObject);
 
     return wmain;
 }
@@ -94,16 +142,31 @@ QWidget *ViewSimulation::timeControlToolBar()
     QPushButton * backButton = new QPushButton;
     QPushButton * reverseButton = new QPushButton;
     QPushButton * playButton = new QPushButton;
+    QPushButton * stopButton = new QPushButton;
     QPushButton * pauseButton = new QPushButton;
+    QPushButton * finalButton = new QPushButton;
 
-    backButton->setIcon(QIcon(":/icons/resources/icons24/Play.png"));
-    reverseButton->setIcon(QIcon(":/icons/resources/icons24/Play.png"));
-    playButton->setIcon(QIcon(":/icons/resources/icons24/Play.png"));
-    pauseButton->setIcon(QIcon(":/icons/resources/icons24/Play.png"));
+    backButton->setIcon(QIcon(":/icons/resources/icons16/atstart.png"));
+    reverseButton->setIcon(QIcon(":/icons/resources/icons16/reverse.png"));
+    playButton->setIcon(QIcon(":/icons/resources/icons16/play.png"));
+    pauseButton->setIcon(QIcon(":/icons/resources/icons16/pause.png"));
+    stopButton->setIcon(QIcon(":/icons/resources/icons16/stop.png"));
+    finalButton->setIcon(QIcon(":/icons/resources/icons16/atfinal.png"));
+
+    backButton->setProperty("class","icon");
+    reverseButton->setProperty("class","icon");
+    playButton->setProperty("class","icon");
+    pauseButton->setProperty("class","icon");
+    stopButton->setProperty("class","icon");
+    finalButton->setProperty("class","icon");
 
     QLineEdit * timeNow = new QLineEdit;
     QPushButton * loopToggle = new QPushButton;
-    loopToggle->setIcon(QIcon(":/icons/resources/icons24/Play.png"));
+    QPushButton * clockToggle = new QPushButton;
+    loopToggle->setProperty("class","icon");
+    clockToggle->setProperty("class","icon");
+    loopToggle->setIcon(QIcon(":/icons/resources/icons16/loop.png"));
+    clockToggle->setIcon(QIcon(":/icons/resources/icons16/clock.png"));
     QLineEdit * initLoop = new QLineEdit;
     QLineEdit * endLoop = new QLineEdit;
 
@@ -113,13 +176,18 @@ QWidget *ViewSimulation::timeControlToolBar()
     mainContainer->addStretch(1);
     mainContainer->addWidget(backButton);
     mainContainer->addWidget(reverseButton);
-    mainContainer->addWidget(playButton);
+    mainContainer->addWidget(stopButton);
     mainContainer->addWidget(pauseButton);
+    mainContainer->addWidget(playButton);
+    mainContainer->addWidget(finalButton);
+    mainContainer->addWidget(stopButton);
     mainContainer->addStretch(1);
     mainContainer->addWidget(timeNow);
     mainContainer->addWidget(loopToggle);
+    mainContainer->addWidget(clockToggle);
     mainContainer->addWidget(initLoop);
     mainContainer->addWidget(endLoop);
+    mainContainer->setSpacing(2);
 
     res->setLayout(mainContainer);
 
@@ -133,6 +201,23 @@ void ViewSimulation::paintEvent(QPaintEvent * event)
      opt.initFrom(this);
      QPainter p(this);
      style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
- }
+}
+
+void ViewSimulation::showMenuCreateObject()
+{
+    QMenu *menu = new QMenu( this );
+
+    QAction* car = new QAction("Auto", this);
+    QAction* ball = new QAction("Pelota", this);
+    QAction* terrain = new QAction("Terreno (solo side view)", this);
+    QAction* staticCube = new QAction("cubo estatico", this);
+    menu->addAction(car);
+    menu->addAction(ball);
+    menu->addAction(terrain);
+    menu->addAction(staticCube);
+
+     menu->popup( this->mapToGlobal(QPoint(0,30)));
+
+}
 
 

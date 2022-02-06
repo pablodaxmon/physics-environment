@@ -7,7 +7,6 @@ ViewGraphicsResults::ViewGraphicsResults(QWidget *parent) : QWidget(parent)
 {
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    setStyleSheet("background-color: black; border: 2px solid black;");
 
 
 }
@@ -25,7 +24,6 @@ QSize ViewGraphicsResults::minimumSizeHint() const
 void ViewGraphicsResults::paintEvent(QPaintEvent *event)
 {
 
-    qDebug() << "painting    " << wheelPos;
      QPainter painter;
      painter.begin(this);
 
@@ -65,7 +63,6 @@ void ViewGraphicsResults::paintEvent(QPaintEvent *event)
 
 void ViewGraphicsResults::wheelEvent(QWheelEvent *event)
 {
-   qDebug() << "wheeling";
      QPoint numDegrees = event->angleDelta() / 8;
      QPoint numSteps = numDegrees / 15;
      wheelPos += (numDegrees.y()/15)*10;

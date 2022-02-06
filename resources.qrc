@@ -46,6 +46,24 @@
         <file>resources/icons24/Play.png</file>
         <file>resources/icons24/Stop sign.png</file>
         <file>resources/icons24/Stop.png</file>
+        <file>resources/icons16/atfinal.png</file>
+        <file>resources/icons16/atstart.png</file>
+        <file>resources/icons16/pause.png</file>
+        <file>resources/icons16/play.png</file>
+        <file>resources/icons16/reverse.png</file>
+        <file>resources/icons16/stop.png</file>
+        <file>resources/icons16/arrow.png</file>
+        <file>resources/icons16/clock.png</file>
+        <file>resources/icons16/loop.png</file>
+        <file>resources/icons16/tablero.png</file>
+        <file>resources/icons16/move.png</file>
+        <file>resources/icons16/object.png</file>
+        <file>resources/icons16/setup.png</file>
+        <file>resources/icons16/zoomin.png</file>
+        <file>resources/icons16/zoomout.png</file>
+        <file>resources/icons16/grid.png</file>
+        <file>resources/icons16/hand.png</file>
+        <file>resources/icons16/rule.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Lato-Regular.ttf</file>

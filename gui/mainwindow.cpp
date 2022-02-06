@@ -16,8 +16,18 @@
 MainWindow:: MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    settingMainContainer();
-    settingInitialDialog();
+    mainContainer = new QWidget;
+    setCentralWidget(mainContainer);
+    verticalMainLayout = new QVBoxLayout();
+    verticalMainLayout->setContentsMargins(0,0,0,0);
+    mainContainer->setLayout(verticalMainLayout);
+
+
+    dialogMain = new InitialDialog(this);
+    QObject::connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);
+    dialogMain->show();
+
+
     createActions();
     createMenu();
 
@@ -25,7 +35,7 @@ MainWindow:: MainWindow(QWidget *parent)
     viewObjectList = new ViewObjectList(mainContainer);
     viewProperties = new ViewProperties(mainContainer);
     viewSimulation = new ViewSimulation(mainContainer);
-    mainToolbar = new MainToolBar(mainContainer);
+    //mainToolbar = new MainToolBar(mainContainer);
 
     statusBar();
 
@@ -35,19 +45,12 @@ MainWindow:: MainWindow(QWidget *parent)
 // crea un widget principal, y le asigna un layout nuevo.
 void MainWindow::settingMainContainer()
 {
-    mainContainer = new QWidget;
-    setCentralWidget(mainContainer);
-    verticalMainLayout = new QVBoxLayout();
-    verticalMainLayout->setContentsMargins(0,0,0,0);
-    mainContainer->setLayout(verticalMainLayout);
 }
 
 // muestra el dialogo principal para elegir el tipo de entorno
 void MainWindow::settingInitialDialog()
 {
-    dialogMain = new InitialDialog(this);
-    QObject::connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);
-    dialogMain->show();
+
     //verticalMainLayout->addWidget(dialogMain, Qt::AlignCenter);
     //QObject::connect(dialogMain, &DialogTypeEnvironment::typeOnClick, this, newSimulation);
 }
@@ -241,7 +244,7 @@ void MainWindow::newSimulation(Session *session){
     splitMain = new SplitterMain(mainContainer,viewObjectList, viewActions, viewProperties, viewSimulation);
 
     dialogMain->close();
-    verticalMainLayout->addWidget(mainToolbar);
+    //verticalMainLayout->addWidget(mainToolbar);
 
 
     verticalMainLayout->addWidget(splitMain);

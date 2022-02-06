@@ -2,6 +2,7 @@
 #include <QPushButton>
 #include <QSplitter>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include "viewgraphicsresults.h"
@@ -20,9 +21,13 @@ SplitterMain::SplitterMain(QWidget *parent, QWidget *vListObjects, QWidget *vAct
     QSplitter *mainSpliter = new QSplitter(Qt::Horizontal,this);
 
 
-    QSplitter *midSplitter = new QSplitter(Qt::Vertical, this);
+    QWidget * midwidget = new QWidget;
+    QVBoxLayout *midSplitter = new QVBoxLayout(this);
+    midSplitter->setSpacing(0);
+    midSplitter->setContentsMargins(0,0,0,0);
     midSplitter->addWidget(vSimulation);
     midSplitter->addWidget(graphisResults);
+    midwidget->setLayout(midSplitter);
 
     QSplitter *sideSplitter = new QSplitter(Qt::Vertical, this);
     sideSplitter->addWidget(vProperties);
@@ -35,7 +40,7 @@ SplitterMain::SplitterMain(QWidget *parent, QWidget *vListObjects, QWidget *vAct
     middleSplitter->setStretchFactor(1,20);*/
 
     mainSpliter->addWidget(vListObjects);
-    mainSpliter->addWidget(midSplitter);
+    mainSpliter->addWidget(midwidget);
     mainSpliter->addWidget(sideSplitter);
 
 

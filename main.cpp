@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
     QFile qss(":/styles/style.qss");
     qss.open(QFile::ReadOnly);
-    //window.setStyleSheet(qss.readAll());
+    window.setStyleSheet(qss.readAll());
     window.setWindowState(Qt::WindowMaximized);
     window.setWindowTitle("Simulation Analisys Environment");
     window.show();

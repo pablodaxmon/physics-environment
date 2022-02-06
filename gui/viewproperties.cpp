@@ -13,26 +13,31 @@
 #include <QComboBox>
 ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
 {
+    setContentsMargins(0,0,0,20);
     QVBoxLayout * mainLayout = new QVBoxLayout;
 
     QWidget *spacer = new QWidget;
     spacer->setFixedSize(7,15);
 
-    setContentsMargins(0,20,0,0);
 
     QGridLayout *gridMain = new QGridLayout;
-    gridMain->setContentsMargins(20,0,0,0);
+    gridMain->setContentsMargins(20,0,10,0);
+    mainLayout->setContentsMargins(0,0,0,0);
 
     QWidget *titleContainer = new QWidget(this);
     QHBoxLayout *titleLayout = new QHBoxLayout;
+    titleLayout->setContentsMargins(20,0,0,0);
     titleContainer->setLayout(titleLayout);
+
+
+
 
 
 
     QLabel *title = new QLabel(tr("Propiedades"), titleContainer);
     titleLayout->addWidget(title);
 
-    title->setProperty("class","header");
+    titleContainer->setProperty("class","header");
 
     QLabel *posxT = new QLabel(tr("Posición X"), this);
     QLabel *posyT = new QLabel(tr("Y"), this);
@@ -85,19 +90,33 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     aceE->setAlignment(Qt::AlignCenter);
     disE->setAlignment(Qt::AlignCenter);
 
-    QPushButton * posxB = new QPushButton(tr("+Act"));
-    QPushButton * posyB = new QPushButton(tr("+Act"));
-    QPushButton * velxB = new QPushButton(tr("+Act"));
-    QPushButton * velyB = new QPushButton(tr("+Act"));
-    QPushButton * acexB = new QPushButton(tr("+Act"));
-    QPushButton * aceyB = new QPushButton(tr("+Act"));
+    QPushButton * posxB = new QPushButton;
+    QPushButton * posyB = new QPushButton;
+    QPushButton * velxB = new QPushButton;
+    QPushButton * velyB = new QPushButton;
+    QPushButton * acexB = new QPushButton;
+    QPushButton * aceyB = new QPushButton;
 
-    posxB->setFixedSize(35,22);
+    posxB->setIcon(QIcon(":/icons/resources/icons16/tablero.png"));
+    posyB->setIcon(QIcon(":/icons/resources/icons16/tablero.png"));
+    velxB->setIcon(QIcon(":/icons/resources/icons16/tablero.png"));
+    velyB->setIcon(QIcon(":/icons/resources/icons16/tablero.png"));
+    acexB->setIcon(QIcon(":/icons/resources/icons16/tablero.png"));
+    aceyB->setIcon(QIcon(":/icons/resources/icons16/tablero.png"));
+
+    posxB->setProperty("class", "icon");
+    posyB->setProperty("class", "icon");
+    velxB->setProperty("class", "icon");
+    velyB->setProperty("class", "icon");
+    acexB->setProperty("class", "icon");
+    aceyB->setProperty("class", "icon");
+
+    /*posxB->setFixedSize(35,22);
     posyB->setFixedSize(35,22);
     velxB->setFixedSize(35,22);
     velyB->setFixedSize(35,22);
     acexB->setFixedSize(35,22);
-    aceyB->setFixedSize(35,22);
+    aceyB->setFixedSize(35,22);*/
 
     /*posxB->setIcon(QIcon(":/icons/resources/icons16/book.png"));
     posyB->setIcon(QIcon(":/icons/resources/icons16/book.png"));

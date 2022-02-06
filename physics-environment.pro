@@ -21,6 +21,7 @@ SOURCES += \
     gui/actionitem.cpp \
     gui/dialogtypeenvironment.cpp \
     gui/initialdialog.cpp \
+    gui/listactionsmodel.cpp \
     gui/maintoolbar.cpp \
     gui/splittermain.cpp \
     gui/mainwindow.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     gui/actionitem.h \
     gui/dialogtypeenvironment.h \
     gui/initialdialog.h \
+    gui/listactionsmodel.h \
     gui/maintoolbar.h \
     gui/splittermain.h \
     gui/mainwindow.h \
