@@ -1,9 +1,12 @@
 #include "actionitem.h"
+#include <QAction>
 
 ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(parent)
 {
 
 
+    QVBoxLayout * mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
     unitChanged = new QComboBox;
     QAction* posicionX = new QAction("posicionX", this);
@@ -14,13 +17,60 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
     QAction* aceleracionY = new QAction("aceleracionY", this);
     QAction* distancia = new QAction("distancia", this);
 
-    valueUniteChanged;
+    unitChanged->addAction(posicionX);
+    unitChanged->addAction(posicionY);
+    unitChanged->addAction(velocidadX);
+    unitChanged->addAction(velocidadY);
+    unitChanged->addAction(aceleracionX);
+    unitChanged->addAction(aceleracionY);
+    unitChanged->addAction(distancia);
+
+    QWidget * headW = new QWidget;
+    QHBoxLayout * headL = new QHBoxLayout;
+    headW->setProperty("class", "header");
+    headW->setLayout(headL);
+
+    QLabel * title = new QLabel(tr("Soy un sin nombre"));
+    QPushButton * info = new QPushButton;
+    QPushButton * deleteItem = new QPushButton;
+    info->setIcon(QIcon(":/icons/resources/icons16/hoja.png"));
+    deleteItem->setIcon(QIcon(":/icons/resources/icons16/exit.png"));
+
+
+    headL->addWidget(title);
+    headL->addStretch(1);
+    headL->addWidget(info);
+    headL->addWidget(deleteItem);
+
+    mainLayout->addWidget(headW);
+
+    QGridLayout * gridLayout = new QGridLayout;
+
 
 
     conditionUnit = new QComboBox;
-    conditionalValue;
+    conditionUnit->addAction(velocidadY);
+    conditionUnit->addAction(aceleracionX);
+    conditionUnit->addAction(aceleracionY);
+    conditionUnit->addAction(distancia);
 
+    valueUniteChanged = new QLineEdit;
+    conditionalValue = new QLineEdit;
 
+    QLabel *textcuando = new QLabel(tr("cuando"));
+    QLabel *textsera = new QLabel(tr("sera"));
+    QLabel* textsea = new QLabel(tr("sea"));
+    gridLayout->addWidget(unitChanged,0,0);
+    gridLayout->addWidget(textsera,0,1);
+    gridLayout->addWidget(valueUniteChanged,0,2);
+
+    gridLayout->addWidget(textcuando,1,0);
+
+    gridLayout->addWidget(conditionUnit,2,0);
+    gridLayout->addWidget(textsea,2,1);
+    gridLayout->addWidget(conditionalValue,2,2);
+
+    mainLayout->addLayout(gridLayout);
 
 }
 

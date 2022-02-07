@@ -64,6 +64,8 @@
         <file>resources/icons16/grid.png</file>
         <file>resources/icons16/hand.png</file>
         <file>resources/icons16/rule.png</file>
+        <file>resources/icons16/exit.png</file>
+        <file>resources/icons16/hoja.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>Lato-Regular.ttf</file>
