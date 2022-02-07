@@ -10,6 +10,7 @@ ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->setSpacing(0);
     viewScene = new QGraphicsView(scene, this);
+    viewScene
     viewScene->setBackgroundBrush(PixmapBuilder::drawPattern(PixmapType::PT_Square, 20, "#E9E9E9"));
     scene->addLine(-2000,0,2000,0, QPen(QColor(200,0,0,200)));
     scene->addLine(0,-2000,0,2000, QPen(QColor(0,0,200,200)));
