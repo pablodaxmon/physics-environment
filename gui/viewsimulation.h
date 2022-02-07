@@ -8,7 +8,7 @@
 #include <QToolButton>
 #include <QAction>
 #include <QGraphicsView>
-#include <QGraphicsScene>
+#include "graphicsview.h"
 #include <QLabel>
 #include <QToolButton>
 #include <QHBoxLayout>
@@ -17,6 +17,7 @@
 #include "pixmapbuilder.h"
 #include "core/actor.h"
 #include "viewgraphicsresults.h"
+
 
 class ViewSimulation : public QWidget
 {
@@ -35,7 +36,7 @@ signals:
 
 private:
     void redrawCanvas();
-    QGraphicsView *viewScene;
+    GraphicsView *viewScene;
     QGraphicsScene *scene = new QGraphicsScene(this);
     float a = 5;
 

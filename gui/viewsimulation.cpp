@@ -9,8 +9,8 @@ ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->setSpacing(0);
-    viewScene = new QGraphicsView(scene, this);
-    viewScene
+    viewScene = new GraphicsView(scene, this);
+    viewScene->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     viewScene->setBackgroundBrush(PixmapBuilder::drawPattern(PixmapType::PT_Square, 20, "#E9E9E9"));
     scene->addLine(-2000,0,2000,0, QPen(QColor(200,0,0,200)));
     scene->addLine(0,-2000,0,2000, QPen(QColor(0,0,200,200)));
@@ -115,6 +115,10 @@ QWidget* ViewSimulation::simulationToolBar()
 
 
     connect(btnAddObject, &QPushButton::clicked, this, &ViewSimulation::showMenuCreateObject);
+
+    connect(btnZoomIn, &QPushButton::clicked, viewScene, &GraphicsView::zoomIn);
+    connect(btnZoomOut, &QPushButton::clicked, viewScene, &GraphicsView::zoomOut);
+
 
     return wmain;
 }

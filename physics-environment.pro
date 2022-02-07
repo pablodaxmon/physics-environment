@@ -20,6 +20,7 @@ SOURCES += \
     core/timerloop.cpp \
     gui/actionitem.cpp \
     gui/dialogtypeenvironment.cpp \
+    gui/graphicsview.cpp \
     gui/initialdialog.cpp \
     gui/listactionsmodel.cpp \
     gui/maintoolbar.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     core/timerloop.h \
     gui/actionitem.h \
     gui/dialogtypeenvironment.h \
+    gui/graphicsview.h \
     gui/initialdialog.h \
     gui/listactionsmodel.h \
     gui/maintoolbar.h \
