@@ -10,6 +10,8 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
     mainLayout->setContentsMargins(0,0,0,0);
     setLayout(mainLayout);
 
+
+
     unitChanged = new QComboBox;
     QAction* posicionX = new QAction("posicionX", this);
     QAction* posicionY = new QAction("posicionY", this);
@@ -32,6 +34,7 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
     headW->setProperty("class", "header");
     headW->setLayout(headL);
 
+    headL->setContentsMargins(10,1,5,1);
     QLabel * title = new QLabel(tr("Soy un sin nombre"));
     QPushButton * info = new QPushButton;
     QPushButton * deleteItem = new QPushButton;
@@ -73,6 +76,8 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
     gridLayout->addWidget(conditionalValue,2,2);
 
     mainLayout->addLayout(gridLayout);
+
+    setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Minimum);
 
 }
 

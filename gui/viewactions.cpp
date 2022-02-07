@@ -29,7 +29,7 @@ ViewActions::ViewActions(QWidget *parent) : QWidget(parent)
 
     QScrollArea * scrooll = new QScrollArea;
 
-    QWidget * list = new QWidget(this);
+    QWidget * list = new QWidget;
     QVBoxLayout * containerList = new QVBoxLayout;
     list->setLayout(containerList);
 
@@ -39,7 +39,7 @@ ViewActions::ViewActions(QWidget *parent) : QWidget(parent)
     ActionItem * item4 = new ActionItem(Unit::Aceleracion, "holasoygerman");;
     ActionItem * item5 = new ActionItem(Unit::Aceleracion, "holasoygerman");;
 
-    containerList->setContentsMargins(0,0,0,0);
+
     containerList->addWidget(item1);
     containerList->addWidget(item2);
     containerList->addWidget(item3);
@@ -48,20 +48,20 @@ ViewActions::ViewActions(QWidget *parent) : QWidget(parent)
 
 
     scrooll->setWidget(list);
+    scrooll->setWidgetResizable(true);
 
 
-    scrooll->setStyleSheet("QScrollBar {width:5px;}");
-    scrooll->verticalScrollBar()->hide();
 
 
-    setLayout(mainBox);
     mainBox->addWidget(titleContainer);
+    mainBox->addWidget(edit);
     mainBox->addWidget(scrooll);
     mainBox->setSpacing(0);
 
 
 
-    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    setLayout(mainBox);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 }
 
