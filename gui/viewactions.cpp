@@ -54,7 +54,6 @@ ViewActions::ViewActions(QWidget *parent) : QWidget(parent)
 
 
     mainBox->addWidget(titleContainer);
-    mainBox->addWidget(edit);
     mainBox->addWidget(scrooll);
     mainBox->setSpacing(0);
 

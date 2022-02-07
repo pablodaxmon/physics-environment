@@ -41,6 +41,7 @@ public:
     QLineEdit *getConditionalValue() const;
     void setConditionalValue(QLineEdit *newConditionalValue);
 
+    void paintEvent(QPaintEvent *event) override;
 signals:
 
 private:

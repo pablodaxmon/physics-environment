@@ -4,6 +4,7 @@
 ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(parent)
 {
 
+    setProperty("class", "action");
 
     setContentsMargins(0,0,0,0);
     QVBoxLayout * mainLayout = new QVBoxLayout;
@@ -50,7 +51,8 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
     mainLayout->addWidget(headW);
 
     QGridLayout * gridLayout = new QGridLayout;
-
+gridLayout->setContentsMargins(8,8,8,8);
+gridLayout->setSpacing(3);
 
 
     conditionUnit = new QComboBox;
@@ -139,6 +141,14 @@ QLineEdit *ActionItem::getConditionalValue() const
 void ActionItem::setConditionalValue(QLineEdit *newConditionalValue)
 {
     conditionalValue = newConditionalValue;
+}
+
+void ActionItem::paintEvent(QPaintEvent *event)
+{
+    QStyleOption opt;
+    opt.initFrom(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 
