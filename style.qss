@@ -9,6 +9,8 @@ QMainWindow {
 }
 
 
+
+
 QLineEdit {
     padding: 1px 15px 1px 3px;
     border-radius: 4px;
@@ -59,12 +61,14 @@ QPushButton:pressed{
 
 QComboBox {
 
-    border : 1px solid #0A4A62;
+    border : 1px solid #4D7D90;
     border-radius: 4px;
     padding: 1px 15px 1px 3px;
-    min-height: 20px;
 
+    font-size: 9pt;
 }
+
+
 
 QComboBox:editable {
     background: white;
@@ -81,6 +85,7 @@ QComboBox::down-arrow {
 }
 
 
+/*  ----------   Menu items   ----------------*/
 QMenuBar QMenu{
     background-color: #FDFDFD;
 }
@@ -90,7 +95,7 @@ QMenu{
     border: 1px solid #1EE29B;
 }
 
-QMenu::item:selected { /* when user selects item using mouse or keyboard */
+QMenu::item:selected {
     background-color: #F0F7F5;
     color: #0E3E37;
 }
@@ -98,22 +103,34 @@ QMenu::item:selected { /* when user selects item using mouse or keyboard */
 
 
 /* -------- ACTIONS ITEMS -----   */
-
+QWidget[class=action]{
+    border: 1px solid #B0C7DD;    /* borde item */
+    background-color: #FFFFFF;   /* fondo del item */
+    border-radius: 8px;
+}
 QWidget[class=action] QWidget[class=header]{
-    background-color: #91FFD4;
-    font-size: 10pt;
+    border-color: #B0C7DD;    /* borde header */
+    border-style: solid;
+    border-width: 1px 1px 0px 1px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: #F7FBFF; /* fondo del header */
 }
 QWidget[class=action] QWidget[class=header] QLabel{
-    color:black;
+    color: #404040;          /* color de letra del header */
 }
 
-QWidget[class=action]{
-border: 1px solid #1EE29B;
-    background-color: #E8E8E8;
-}
+
 QWidget[class=action] *{
     font-size: 10pt;
 }
+
+QScrollBar {width:0px;height:0px;}
+
+QWidget[class=actionsList]{
+    background-color: #FFFFFF; /* fondo de la lista */
+}
+
 
 
 

@@ -30,6 +30,7 @@ ViewActions::ViewActions(QWidget *parent) : QWidget(parent)
     QScrollArea * scrooll = new QScrollArea;
 
     QWidget * list = new QWidget;
+    list->setProperty("class", "actionsList");
     QVBoxLayout * containerList = new QVBoxLayout;
     list->setLayout(containerList);
 

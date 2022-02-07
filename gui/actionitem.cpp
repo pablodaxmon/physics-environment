@@ -51,8 +51,8 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
     mainLayout->addWidget(headW);
 
     QGridLayout * gridLayout = new QGridLayout;
-gridLayout->setContentsMargins(8,8,8,8);
-gridLayout->setSpacing(3);
+    gridLayout->setContentsMargins(8,8,8,16);
+    gridLayout->setSpacing(3);
 
 
     conditionUnit = new QComboBox;
