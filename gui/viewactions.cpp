@@ -35,6 +35,7 @@ ViewActions::ViewActions(QWidget *parent) : QWidget(parent)
     ActionItem * item3 = new ActionItem(Unit::Aceleracion, "holasoygerman");;
     ActionItem * item4 = new ActionItem(Unit::Aceleracion, "holasoygerman");;
 
+    containerList->setContentsMargins(0,0,0,0);
     containerList->addWidget(item1);
     containerList->addWidget(item2);
     containerList->addWidget(item3);

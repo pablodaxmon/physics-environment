@@ -7,6 +7,7 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
 
     setContentsMargins(0,0,0,0);
     QVBoxLayout * mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0,0,0,0);
     setLayout(mainLayout);
 
     unitChanged = new QComboBox;
@@ -59,7 +60,7 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
     conditionalValue = new QLineEdit;
 
     QLabel *textcuando = new QLabel(tr("cuando"));
-    QLabel *textsera = new QLabel(tr("sera"));
+    QLabel *textsera = new QLabel(tr("será"));
     QLabel* textsea = new QLabel(tr("sea"));
     gridLayout->addWidget(unitChanged,0,0);
     gridLayout->addWidget(textsera,0,1);

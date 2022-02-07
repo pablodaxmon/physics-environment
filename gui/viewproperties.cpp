@@ -13,7 +13,7 @@
 #include <QComboBox>
 ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
 {
-    setContentsMargins(0,0,0,20);
+    setContentsMargins(0,0,0,0);
     QVBoxLayout * mainLayout = new QVBoxLayout;
 
     QWidget *spacer = new QWidget;
