@@ -5,6 +5,7 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
 {
 
 
+    setContentsMargins(0,0,0,0);
     QVBoxLayout * mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
 
