@@ -47,7 +47,7 @@ void ViewSimulation::redrawCanvas()
 QWidget* ViewSimulation::simulationToolBar()
 {
     QWidget * wmain = new QWidget;
-    wmain->setStyleSheet("background-color: #F7F7F7");
+    wmain->setStyleSheet("background-color: #FFFFFF");
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setContentsMargins(10,3,20,3);
 

@@ -1,5 +1,6 @@
 *{
     font-family: "Lato";
+    font-size: 11pt;
 }
 
 QMainWindow {
@@ -18,8 +19,8 @@ QLineEdit {
 
 QWidget[class=header]{
 
-    min-height: 32px;
-    background-color : #0A4A62;
+    min-height: 26px;
+    background-color : #4C4C4C;
 }
 
 QWidget[class=header] QLabel{
@@ -93,6 +94,7 @@ QMenu::item:selected { /* when user selects item using mouse or keyboard */
     background-color: #F0F7F5;
     color: #0E3E37;
 }
+
 
 
 
