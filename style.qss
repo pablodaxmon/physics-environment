@@ -27,7 +27,7 @@ QWidget[class=header] QLabel{
     color: white;
 }
 
-QPushButton{
+QPushButton[class=noicon]{
 
     color: white;
     border-radius: 5px;
@@ -35,7 +35,7 @@ QPushButton{
     border: 1px solid #78B0C5;
 }
 
-QPushButton[class=icon]{
+QPushButton{
 
     color: white;
     border-radius: 0px;
@@ -43,13 +43,13 @@ QPushButton[class=icon]{
     border: none;
 }
 
-QPushButton[class=icon]:hover{
+QPushButton:hover{
 
     color: white;
     background-color : #E0E0E0;
 }
 
-QPushButton[class=icon]:pressed{
+QPushButton:pressed{
 
     color: white;
     background-color : #E0E0E0;

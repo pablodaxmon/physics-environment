@@ -9,6 +9,7 @@ InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
     QGroupBox * mainBox = new QGroupBox(tr("Crear nueva sesión"));
     QVBoxLayout * createLayout = new QVBoxLayout;
     QPushButton * createNewButton = new QPushButton(tr("Crear nuevo entorno"));
+    createNewButton->setProperty("class", "noicon");
     createNewButton->setFixedHeight(35);
     QLineEdit* nameEdit = new QLineEdit;
     QLineEdit* descriptionEdit = new QLineEdit;

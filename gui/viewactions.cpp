@@ -30,6 +30,16 @@ ViewActions::ViewActions(QWidget *parent) : QWidget(parent)
     QVBoxLayout * containerList = new QVBoxLayout;
     list->setLayout(containerList);
 
+    ActionItem * item1 = new ActionItem(Unit::Aceleracion, "holasoygerman");
+    ActionItem * item2 = new ActionItem(Unit::Aceleracion, "holasoygerman");;
+    ActionItem * item3 = new ActionItem(Unit::Aceleracion, "holasoygerman");;
+    ActionItem * item4 = new ActionItem(Unit::Aceleracion, "holasoygerman");;
+
+    containerList->addWidget(item1);
+    containerList->addWidget(item2);
+    containerList->addWidget(item3);
+    containerList->addWidget(item4);
+
 
     scrooll->setWidget(list);
 
