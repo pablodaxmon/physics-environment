@@ -16,6 +16,7 @@ public:
 
     void setEditLine(QLineEdit *newEditLine);
 
+
 protected:
 #if QT_CONFIG(wheelevent)
     void wheelEvent(QWheelEvent *) override;
@@ -29,16 +30,24 @@ public slots:
     void zoomIn();
     void zoomOut();
     void zoomPercent(int percent);
+    void zoomPercentFromLineEdit();
+
+    void gridShowHide(bool checked);
+    void setGridtype(int index);
+    void moveHandToggle();
+
 
 private:
     float currentScale = 1;
 
+
     void scaleView(float ratio);
 
     QLineEdit * editLine;
-
+    int gridType;
     int m_originX;
     int m_originY;
+    bool showHide;
 
 };
 

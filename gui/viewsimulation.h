@@ -33,6 +33,9 @@ public:
 signals:
     void eqTextChanged();
 
+protected:
+    QLineEdit * zoomEdit;
+
 private:
     void redrawCanvas();
     GraphicsView *viewScene;
@@ -51,6 +54,7 @@ private:
 
 
 private slots:
+    void showMenuSettings();
     void showMenuCreateObject();
 
 };

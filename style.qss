@@ -41,7 +41,8 @@ QPushButton[class=noicon]{
 QPushButton{
 
     color: white;
-    border-radius: 0px;
+    padding: 5px;
+    border-radius: 3px;
     background-color : #00000000;
     border: none;
 }
@@ -49,14 +50,21 @@ QPushButton{
 QPushButton:hover{
 
     color: white;
-    background-color : #E0E0E0;
+    background-color : #F0F0F0;
 }
 
 QPushButton:pressed{
 
     color: white;
-    background-color : #E0E0E0;
+    background-color : #DEDEDE;
     border: 1px solid #808080;
+}
+
+QPushButton:checked{
+
+color: white;
+background-color : #E3E9E7;
+border: 1px solid #B1C1BD;
 }
 
 QComboBox {
@@ -77,6 +85,12 @@ QComboBox:editable {
 QComboBox::drop-down
 {
     border: 0px;
+}
+
+QComboBox:disabled
+{
+    background: #F7F7F7;
+    border : 1px solid #DDE3E0;
 }
 
 
@@ -130,6 +144,11 @@ QScrollBar {width:0px;height:0px;}
 QWidget[class=actionsList]{
     background-color: #FFFFFF; /* fondo de la lista */
 }
+
+
+/* -------  Graphics view items  ----------*/
+
+
 
 
 

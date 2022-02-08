@@ -7,20 +7,19 @@
 GraphicsView::GraphicsView(QGraphicsScene *scene, QWidget *parent) : QGraphicsView(scene, parent)
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-    //setBackgroundBrush(PixmapBuilder::drawPattern(PixmapType::PT_Square, 20, "#E9E9E9"));
+    gridType = 0;
 
 
 }
 
 void GraphicsView::zoomIn()
 {
-    setBackgroundBrush(PixmapBuilder::drawPattern(PixmapType::PT_Square, 20, "#E9E9E9"));
 
     scaleView(0.95);
 }
 
 void GraphicsView::zoomOut()
-{setBackgroundBrush(PixmapBuilder::drawPattern(PixmapType::PT_Square, 20, "#E9E9E9"));
+{
 
     scaleView(1.05);
 }
@@ -35,6 +34,37 @@ void GraphicsView::zoomPercent(int percent)
     }
 
     scaleView(percent);
+}
+
+void GraphicsView::zoomPercentFromLineEdit()
+{
+    zoomPercent(editLine->text().toInt());
+}
+
+void GraphicsView::gridShowHide(bool checked)
+{
+    if(checked == false){
+
+
+        setBackgroundBrush(Qt::NoBrush);
+    } else {
+        setBackgroundBrush(PixmapBuilder::drawPattern(gridType, 20, "#E9E9E9"));
+    }
+
+    showHide = !showHide;
+}
+
+void GraphicsView::setGridtype(int index)
+{
+    gridType = index;
+    if(showHide){
+        setBackgroundBrush(PixmapBuilder::drawPattern(gridType, 20, "#E9E9E9"));
+    }
+}
+
+void GraphicsView::moveHandToggle()
+{
+
 }
 
 void GraphicsView::scaleView(float ratio)
@@ -76,6 +106,7 @@ void GraphicsView::scaleView(float ratio)
 void GraphicsView::setEditLine(QLineEdit *newEditLine)
 {
     editLine = newEditLine;
+    connect(editLine, &QLineEdit::editingFinished, this, &zoomPercentFromLineEdit);
 }
 
 void GraphicsView::mouseMoveEvent(QMouseEvent *event)

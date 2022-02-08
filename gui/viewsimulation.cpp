@@ -47,7 +47,6 @@ void ViewSimulation::redrawCanvas()
 QWidget* ViewSimulation::simulationToolBar()
 {
     QWidget * wmain = new QWidget;
-    wmain->setStyleSheet("background-color: #FFFFFF");
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setContentsMargins(10,3,20,3);
 
@@ -58,10 +57,14 @@ QWidget* ViewSimulation::simulationToolBar()
 
     QPushButton * btnAddObject = new QPushButton;
     QPushButton * btnMoveObject = new QPushButton;
+    btnMoveObject->setCheckable(true);
     QPushButton * btnRule = new QPushButton;
+    btnRule->setCheckable(true);
 
-    QCheckBox * btnGrid = new QCheckBox;
-    QCheckBox * btnHand = new QCheckBox;
+    QPushButton * btnGrid = new QPushButton;
+    btnGrid->setCheckable(true);
+    QPushButton * btnHand = new QPushButton;
+    btnHand->setCheckable(true);
     QPushButton * btnZoomIn = new QPushButton;
     QPushButton * btnZoomOut = new QPushButton;
     QPushButton * btnSetup = new QPushButton;
@@ -86,7 +89,7 @@ QWidget* ViewSimulation::simulationToolBar()
     btnZoomOut->setProperty("class","icon");
     btnSetup->setProperty("class","icon");
 
-    QLineEdit * zoomEdit = new QLineEdit;
+    zoomEdit = new QLineEdit;
     zoomEdit->setValidator(new QIntValidator(50,200,this));
     zoomEdit->setText(tr("100"));
     zoomEdit->setAlignment(Qt::AlignRight);
@@ -98,10 +101,11 @@ QWidget* ViewSimulation::simulationToolBar()
 
 
     QComboBox * typeGrid = new QComboBox;
+    typeGrid->setEnabled(false);
 
-    typeGrid->addItem(tr("Milisegundos"));
-    typeGrid->addItem(tr("Segundos"));
-    typeGrid->addItem(tr("Horas"));
+    typeGrid->addItem(tr("Cuadrado"));
+    typeGrid->addItem(tr("Cruzado"));
+    typeGrid->addItem(tr("Fancy"));
 
 
 
@@ -122,11 +126,14 @@ QWidget* ViewSimulation::simulationToolBar()
     wmain->setLayout(layout);
 
 
+    connect(typeGrid, &QComboBox::currentIndexChanged, viewScene, &GraphicsView::setGridtype);
+    connect(btnGrid, &QPushButton::toggled, viewScene, &GraphicsView::gridShowHide);
+    connect(btnGrid, &QPushButton::toggled, typeGrid, &QComboBox::setEnabled);
     connect(btnAddObject, &QPushButton::clicked, this, &ViewSimulation::showMenuCreateObject);
+    connect(btnSetup, &QPushButton::clicked, this, &ViewSimulation::showMenuSettings);
 
     connect(btnZoomIn, &QPushButton::clicked, viewScene, &GraphicsView::zoomIn);
     connect(btnZoomOut, &QPushButton::clicked, viewScene, &GraphicsView::zoomOut);
-
     connect(btnZoomOut, &QPushButton::clicked, viewScene, &GraphicsView::zoomOut);
 
 
@@ -233,6 +240,25 @@ void ViewSimulation::showMenuCreateObject()
     menu->addAction(staticCube);
 
      menu->popup( this->mapToGlobal(QPoint(0,30)));
+
+}
+
+
+
+void ViewSimulation::showMenuSettings()
+{
+    QMenu *menu = new QMenu( this );
+
+    QAction* car = new QAction("Auto", this);
+    QAction* ball = new QAction("Pelota", this);
+    QAction* terrain = new QAction("Terreno (solo side view)", this);
+    QAction* staticCube = new QAction("cubo estatico", this);
+    menu->addAction(car);
+    menu->addAction(ball);
+    menu->addAction(terrain);
+    menu->addAction(staticCube);
+
+     menu->popup( this->mapToGlobal(QPoint(600,30)));
 
 }
 
