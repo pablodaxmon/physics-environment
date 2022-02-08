@@ -2,6 +2,7 @@
 #include <QStyleOption>
 #include <QComboBox>
 #include <QMenu>
+#include <QCheckBox>
 
 #define GRIDSCALE 20
 ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
@@ -10,10 +11,8 @@ ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->setSpacing(0);
     viewScene = new GraphicsView(scene, this);
-    viewScene->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-    viewScene->setBackgroundBrush(PixmapBuilder::drawPattern(PixmapType::PT_Square, 20, "#E9E9E9"));
-    scene->addLine(-2000,0,2000,0, QPen(QColor(200,0,0,200)));
-    scene->addLine(0,-2000,0,2000, QPen(QColor(0,0,200,200)));
+    scene->addLine(-2000,0,2000,0, QPen(QColor(230,20,20,255),0));
+    scene->addLine(0,-2000,0,2000, QPen(QColor(20,20,230,255),0));
     scene->addEllipse(-6,-6,12,12);
     viewScene->centerOn(-600,-600);
     viewScene->setContentsMargins(0,0,0,0);
@@ -61,8 +60,8 @@ QWidget* ViewSimulation::simulationToolBar()
     QPushButton * btnMoveObject = new QPushButton;
     QPushButton * btnRule = new QPushButton;
 
-    QPushButton * btnGrid = new QPushButton;
-    QPushButton * btnHand = new QPushButton;
+    QCheckBox * btnGrid = new QCheckBox;
+    QCheckBox * btnHand = new QCheckBox;
     QPushButton * btnZoomIn = new QPushButton;
     QPushButton * btnZoomOut = new QPushButton;
     QPushButton * btnSetup = new QPushButton;
@@ -88,6 +87,14 @@ QWidget* ViewSimulation::simulationToolBar()
     btnSetup->setProperty("class","icon");
 
     QLineEdit * zoomEdit = new QLineEdit;
+    zoomEdit->setValidator(new QIntValidator(50,200,this));
+    zoomEdit->setText(tr("100"));
+    zoomEdit->setAlignment(Qt::AlignRight);
+    zoomEdit->setFixedWidth(40);
+
+    QLabel *percenTxt = new QLabel(tr("%"));
+
+    viewScene->setEditLine(zoomEdit);
 
 
     QComboBox * typeGrid = new QComboBox;
@@ -107,6 +114,7 @@ QWidget* ViewSimulation::simulationToolBar()
     layout->addWidget(btnGrid);
     layout->addWidget(btnHand);
     layout->addWidget(zoomEdit);
+    layout->addWidget(percenTxt);
     layout->addWidget(btnZoomIn);
     layout->addWidget(btnZoomOut);
     layout->addWidget(btnSetup);
@@ -118,6 +126,9 @@ QWidget* ViewSimulation::simulationToolBar()
 
     connect(btnZoomIn, &QPushButton::clicked, viewScene, &GraphicsView::zoomIn);
     connect(btnZoomOut, &QPushButton::clicked, viewScene, &GraphicsView::zoomOut);
+
+    connect(btnZoomOut, &QPushButton::clicked, viewScene, &GraphicsView::zoomOut);
+
 
 
     return wmain;

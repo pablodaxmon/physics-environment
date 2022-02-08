@@ -14,7 +14,6 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
-#include "pixmapbuilder.h"
 #include "core/actor.h"
 #include "viewgraphicsresults.h"
 

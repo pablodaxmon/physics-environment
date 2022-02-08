@@ -1,19 +1,27 @@
 #include "graphicsview.h"
+#include <QScrollBar>
+#include <QPointF>
+#include "pixmapbuilder.h"
 
 
 GraphicsView::GraphicsView(QGraphicsScene *scene, QWidget *parent) : QGraphicsView(scene, parent)
 {
+    setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+    //setBackgroundBrush(PixmapBuilder::drawPattern(PixmapType::PT_Square, 20, "#E9E9E9"));
+
 
 }
 
 void GraphicsView::zoomIn()
 {
+    setBackgroundBrush(PixmapBuilder::drawPattern(PixmapType::PT_Square, 20, "#E9E9E9"));
 
     scaleView(0.95);
 }
 
 void GraphicsView::zoomOut()
-{
+{setBackgroundBrush(PixmapBuilder::drawPattern(PixmapType::PT_Square, 20, "#E9E9E9"));
+
     scaleView(1.05);
 }
 
@@ -32,7 +40,6 @@ void GraphicsView::zoomPercent(int percent)
 void GraphicsView::scaleView(float ratio)
 {
 
-    qDebug() << "current scale " << currentScale << "   ratio" << ratio;
     qreal factor = 1;
 
     if(ratio > 10){
@@ -60,24 +67,51 @@ void GraphicsView::scaleView(float ratio)
         factor = ratio;
     }
 
-
-    /*if(radio < 1){
-        if(currentScale > 0.5){
-
-            factor = ratio;
-        }
-    } else if(radio > 1){
-        if(currentScale < 2){
-
-            factor = ratio;
-        }
-    }*/
-
-
-
     currentScale *= factor;
+    qDebug() << "current scale " << currentScale;
+    editLine->setText(QString::number(roundf(currentScale*100)));
     scale(factor, factor);
 }
+
+void GraphicsView::setEditLine(QLineEdit *newEditLine)
+{
+    editLine = newEditLine;
+}
+
+void GraphicsView::mouseMoveEvent(QMouseEvent *event)
+{
+
+    if (event->buttons() & Qt::LeftButton)
+        {
+        setTransformationAnchor(QGraphicsView::NoAnchor);
+            QPointF oldp = mapToScene(m_originX, m_originY);
+            QPointF newp = mapToScene(event->pos());
+            QPointF translation = newp - oldp;
+
+            translate(translation.x(), translation.y());
+
+            m_originX = event->x();
+            m_originY = event->y();
+
+    } else {
+       QGraphicsView::mousePressEvent(event);
+    }
+
+}
+
+void GraphicsView::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+        {
+            // Store original position.
+            m_originX = event->x();
+            m_originY = event->y();
+    }  else {
+      QGraphicsView::mousePressEvent(event);
+    }
+}
+
+
 
 
 
@@ -101,6 +135,11 @@ void GraphicsView::wheelEvent(QWheelEvent *e)
     }
 
     currentScale *= factor;
+
+    qDebug() << "current scale " << currentScale;
+
+
+    editLine->setText(QString::number(roundf(currentScale*100)));
 
 
     scale(factor, factor);

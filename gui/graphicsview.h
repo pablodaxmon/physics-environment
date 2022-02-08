@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGraphicsView>
 #include <QWheelEvent>
+#include <QLineEdit>
 
 class GraphicsView : public QGraphicsView
 {
@@ -13,10 +14,16 @@ public:
 
     float getCurrentScale() const;
 
+    void setEditLine(QLineEdit *newEditLine);
+
 protected:
 #if QT_CONFIG(wheelevent)
     void wheelEvent(QWheelEvent *) override;
 #endif
+
+    void mouseMoveEvent(QMouseEvent * event) override;
+
+    void mousePressEvent(QMouseEvent * event) override;
 
 public slots:
     void zoomIn();
@@ -27,6 +34,11 @@ private:
     float currentScale = 1;
 
     void scaleView(float ratio);
+
+    QLineEdit * editLine;
+
+    int m_originX;
+    int m_originY;
 
 };
 
