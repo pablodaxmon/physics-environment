@@ -1,9 +1,9 @@
 #ifndef ACTIONITEM_H
 #define ACTIONITEM_H
 
-#include "core/physics.h"
+#include "src/core/physics.h"
 #include <QWidget>
-#include "core/actor.h"
+#include "src/core/actor.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLineEdit>

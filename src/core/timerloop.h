@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QDebug>
-#include "core/actorsystem.h"
+#include "src/core/actorsystem.h"
 
 class TimerLoop : public QObject
 {

@@ -3,15 +3,15 @@
 
 #include <QObject>
 #include <QVector2D>
-#include "core/actor.h"
+#include "src/core/actor.h"
 #include <QList>
 #include <QDebug>
-#include "gui/viewsimulation.h"
-#include "gui/viewobjectlist.h"
-#include "gui/viewproperties.h"
+#include "src/gui/viewsimulation.h"
+#include "src/gui/viewobjectlist.h"
+#include "src/gui/viewproperties.h"
 #include <QModelIndex>
 #include <QListIterator>
-#include "core/equationmaker.h"
+#include "src/core/equationmaker.h"
 
 class ActorSystem : public QObject
 {

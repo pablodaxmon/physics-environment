@@ -1,7 +1,7 @@
 #ifndef EQUATION_H
 #define EQUATION_H
 
-#include "core/operationmath.h"
+#include "src/core/operationmath.h"
 #include <QString>
 #include <QList>
 #include <QMap>

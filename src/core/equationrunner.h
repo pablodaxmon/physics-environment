@@ -2,10 +2,10 @@
 #define EQUATIONRUNNER_H
 
 #include <QString>
-#include "core/equation.h"
+#include "src/core/equation.h"
 #include <QDebug>
 #include <QListIterator>
-#include "core/operationmath.h"
+#include "src/core/operationmath.h"
 
 
 class EquationRunner

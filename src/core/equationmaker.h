@@ -2,8 +2,8 @@
 #define EQUATIONMAKER_H
 
 #include <QString>
-#include "core/operationmath.h"
-#include "core/equation.h"
+#include "src/core/operationmath.h"
+#include "src/core/equation.h"
 #include <QDebug>
 #include <QList>
 

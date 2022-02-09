@@ -10,10 +10,14 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QObject>
-#include "core/timerloop.h"
+
+//#define TEST
+
 
 int main(int argc, char *argv[])
 {
+
+#ifdef TEST
     QApplication a(argc, argv);
 
     QTranslator translator;
@@ -61,4 +65,9 @@ int main(int argc, char *argv[])
     window.show();
 
     return a.exec();
+#endif
+
+
+    return 0;
+
 }

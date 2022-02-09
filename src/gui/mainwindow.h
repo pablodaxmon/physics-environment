@@ -21,17 +21,16 @@
 #include "initialdialog.h"
 
 //core
-#include "core/actorsystem.h"
-#include "core/actor.h"
-#include "core/equation.h"
-#include "core/equationmaker.h"
-#include "core/equationrunner.h"
-#include "core/operationmath.h"
-#include "core/physics.h"
-#include "core/timerloop.h"
-#include "core/action.h"
-#include "box2d.h"
-#include "core/Session.h"
+#include "src/core/actorsystem.h"
+#include "src/core/actor.h"
+#include "src/core/equation.h"
+#include "src/core/equationmaker.h"
+#include "src/core/equationrunner.h"
+#include "src/core/operationmath.h"
+#include "src/core/physics.h"
+#include "src/core/timerloop.h"
+#include "src/core/action.h"
+#include "src/core/Session.h"
 
 
 class MainWindow : public QMainWindow

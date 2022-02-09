@@ -10,9 +10,9 @@
 #include <QGraphicsItem>
 #include <QMap>
 #include "physics.h"
-#include "core/equation.h"
-#include "core/equationrunner.h"
-#include "core/equationmaker.h"
+#include "src/core/equation.h"
+#include "src/core/equationrunner.h"
+#include "src/core/equationmaker.h"
 
 
 class Actor : public QGraphicsItem

@@ -12,7 +12,7 @@
 #include <QListView>
 #include <QStyledItemDelegate>
 #include <QDialogButtonBox>
-#include "core/Session.h"
+#include "src/core/Session.h"
 
 
 class InitialDialog : public QDialog

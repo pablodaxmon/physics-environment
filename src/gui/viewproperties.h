@@ -1,7 +1,7 @@
 #ifndef VIEWPROPERTIES_H
 #define VIEWPROPERTIES_H
 
-#include "core/physics.h"
+#include "src/core/physics.h"
 #include <QWidget>
 #include <QStandardItem>
 #include <QStandardItemModel>

@@ -1,8 +1,8 @@
 #ifndef ACTION_H
 #define ACTION_H
 
-#include "core/actor.h"
-#include "core/physics.h"
+#include "actor.h"
+#include "src/core/physics.h"
 
 enum class Comparation { IsEquals, IsEqualsOrBig, IsEqualsOrSmall, isBig, isSmall, isDiferent};
 
