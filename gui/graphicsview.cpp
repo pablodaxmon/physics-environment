@@ -103,6 +103,16 @@ void GraphicsView::scaleView(float ratio)
     scale(factor, factor);
 }
 
+bool GraphicsView::getMoveHand() const
+{
+    return moveHand;
+}
+
+void GraphicsView::setMoveHand(bool newMoveHand)
+{
+    moveHand = newMoveHand;
+}
+
 void GraphicsView::setEditLine(QLineEdit *newEditLine)
 {
     editLine = newEditLine;
@@ -112,7 +122,7 @@ void GraphicsView::setEditLine(QLineEdit *newEditLine)
 void GraphicsView::mouseMoveEvent(QMouseEvent *event)
 {
 
-    if (event->buttons() & Qt::LeftButton)
+    if (event->buttons() && Qt::LeftButton && moveHand)
         {
         setTransformationAnchor(QGraphicsView::NoAnchor);
             QPointF oldp = mapToScene(m_originX, m_originY);
@@ -132,7 +142,7 @@ void GraphicsView::mouseMoveEvent(QMouseEvent *event)
 
 void GraphicsView::mousePressEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton)
+    if (event->button() == Qt::LeftButton && moveHand)
         {
             // Store original position.
             m_originX = event->x();

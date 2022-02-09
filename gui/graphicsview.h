@@ -17,6 +17,8 @@ public:
     void setEditLine(QLineEdit *newEditLine);
 
 
+    bool getMoveHand() const;
+
 protected:
 #if QT_CONFIG(wheelevent)
     void wheelEvent(QWheelEvent *) override;
@@ -36,6 +38,7 @@ public slots:
     void setGridtype(int index);
     void moveHandToggle();
 
+    void setMoveHand(bool newMoveHand);
 
 private:
     float currentScale = 1;
@@ -48,6 +51,7 @@ private:
     int m_originX;
     int m_originY;
     bool showHide;
+    bool moveHand;
 
 };
 
