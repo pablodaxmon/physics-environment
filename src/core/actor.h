@@ -21,21 +21,7 @@ class Actor : public QGraphicsItem
 public:
     explicit Actor(const char *nameActor, QGraphicsItem *parent = nullptr);
 
-
-    //controladores del tiempo
-
-    virtual void StartFrame();
-    virtual void UpdateFrame();
-    virtual void LastUpdateFrame();
-
-    ////
-
-    void setEquation(char* code,Unit unit);
-
-    //getters y setters de las variables
-
-    QString getTag();
-    void setTag(QString t);
+    void updateData();
 
     int getIndexInList();
     void setIndexInList(int newIndexInList);
@@ -43,54 +29,50 @@ public:
     QString &getName();
     void setName(char * newName);
 
-    const QPointF &getPosition() const;
-    void setPosition(const QPointF &newPosition);
+    float getPositionX() const;
+    void setPositionX(float newPositionX);
 
+    float getPositionY() const;
+    void setPositionY(float newPositionY);
 
-    QMap<Unit, float> *getVariables() const;
-    void setVariables(QMap<Unit, float> *newVariables);
+    float getSpeed() const;
+    void setSpeed(float newSpeed);
 
-    // funciones para dibujar el actor
+    float getSpeedX() const;
+    void setSpeedX(float newSpeedX);
+
+    float getSpeedY() const;
+    void setSpeedY(float newSpeedY);
+
+    float getAcceleration() const;
+    void setAcceleration(float newAcceleration);
+
+    float getAccelerationX() const;
+    void setAccelerationX(float newAccelerationX);
+
+    float getAccelerationY() const;
+    void setAccelerationY(float newAccelerationY);
+
+protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     bool Pressed;
-
-    Equation *getEq() const;
-    void setEq(Equation *newEq);
-
-protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    //void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    QString tag;
-    int indexInList = 0;
+
     QString name;
-    QPointF position;
-    float speedX = 0;
-    float speedY = 0;
-    float aceleracion = 0;
-    float speed = 0;
-    float rotation;
-    float temperature;
-    QMap<Unit, float> * variables = new QMap<Unit, float>();
-    QMap<Unit, float> * receivedVariables = new QMap<Unit, float>();
-    QMap<Unit, Equation*> * listEquations = new QMap<Unit, Equation*>();
-
-    Equation * eq = new Equation("SUM(MUL(A,B),DIV(MUL(C,MUL(A,A)),2))");
-
-    EquationRunner * equationrunner = new EquationRunner();
-    EquationMaker * equationMaker = new EquationMaker();
-
-    QList<float>* valores = new QList<float>();
-
-    void updateVariables();
-
-    float _time = 0;
-
-
-
+    int indexInList;
+    float mass;
+    float positionX;
+    float positionY;
+    float speed;
+    float speedX;
+    float speedY;
+    float acceleration;
+    float accelerationX;
+    float accelerationY;
 
 
 

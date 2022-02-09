@@ -13,6 +13,7 @@
 #include <QStyleOption>
 #include <QComboBox>
 
+class QComboBox;
 class ActionItem : public QWidget
 {
     Q_OBJECT

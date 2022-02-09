@@ -26,7 +26,6 @@ void TimerLoop::startLoop()
 
     emit signalStart();
 
-    actorsistem.startActors();
 
 }
 

@@ -13,6 +13,7 @@
 #include <QString>
 #include <QDebug>
 
+
 MainWindow:: MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -21,7 +22,6 @@ MainWindow:: MainWindow(QWidget *parent)
     verticalMainLayout = new QVBoxLayout();
     verticalMainLayout->setContentsMargins(0,0,0,0);
     mainContainer->setLayout(verticalMainLayout);
-
 
     dialogMain = new InitialDialog(this);
     QObject::connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);

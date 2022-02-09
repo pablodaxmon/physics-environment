@@ -21,37 +21,19 @@ public:
 
 
 
-    ViewSimulation *getViewsimulation();
-    void setViewsimulation(ViewSimulation *newViewsimulation);
-
-    void setViewobjectlist(ViewObjectList *newViewobjectlist);
-
-    void setViewproperties(ViewProperties *newViewproperties);
-
 private:
     QList<Actor*> listActors;
     Actor* selectedActor = NULL;
-    ViewSimulation* viewsimulation;
-    ViewObjectList* viewobjectlist;
-    ViewProperties* viewproperties;
     EquationMaker* eqMaker = new EquationMaker();
 
 signals:
-    void addActorSignal(const QString name, const int index);
+    void addActorSignal(Actor* actor);
 
 public slots:
     void updateActors();
-    void startActors();
     void addActor();
     bool deleteActor(Actor *actor);
-    void getActorbyName(const  char* name);
-    Actor* getActorbyIndex(int index);
-    Actor* getActorInPosition(QVector2D *position);
-    QList<Actor*> getActorsInArea(QVector2D *positionA, QVector2D *positionB);
-    QList<Actor*> getActorsInArea(QVector2D *center, float radius);
-    QList<Actor*> getActorsByTag(QString *tag);
-    void setSelectedActor(const QModelIndex &index);
-    void setCodeEqToSelectedActor();
+    void setSelectedActor(int index);
 
 };
 

@@ -4,6 +4,7 @@
 #include "gui/viewobjectlist.h"
 #include "gui/maintoolbar.h"
 #include <QFontDatabase>
+#include "gui/viewobjectlist.h"
 
 #include <QFile>
 #include <QApplication>
@@ -11,13 +12,11 @@
 #include <QTranslator>
 #include <QObject>
 
-//#define TEST
-
 
 int main(int argc, char *argv[])
 {
 
-#ifdef TEST
+
     QApplication a(argc, argv);
 
     QTranslator translator;
@@ -30,33 +29,8 @@ int main(int argc, char *argv[])
         }
     }
 
-
     MainWindow window;
     QFontDatabase::addApplicationFont(":/fonts/Lato-Regular.ttf");
-
-    /*
-    ActorSystem actorsystem;
-    TimerLoop timer(actorsystem);
-
-    actorsystem.setViewsimulation(window.getViewSimulation());
-    actorsystem.setViewproperties(window.getViewProperties());
-
-
-    QObject::connect(&window, &MainWindow::addObject, &actorsystem, &ActorSystem::addActor);
-    QObject::connect(&actorsystem, &ActorSystem::addActorSignal, window.getViewObjectList(), &ViewObjectList::addItemToList);
-    QObject::connect(&window, &MainWindow::setItemSelected, &actorsystem, &ActorSystem::setSelectedActor);
-    QObject::connect(window.getViewSimulation(), &ViewSimulation::eqTextChanged, &actorsystem, &ActorSystem::setCodeEqToSelectedActor);
-
-
-    QObject::connect(window.getMainToolbar(), &MainToolBar::playSignal, &timer, &TimerLoop::startLoop);
-    QObject::connect(window.getMainToolbar(), &MainToolBar::stopSignal, &timer, &TimerLoop::stopLoop);
-    QObject::connect(window.getMainToolbar(), &MainToolBar::pauseSignal, &timer, &TimerLoop::pauseLoop);*/
-
-
-
-
-
-
     QFile qss(":/styles/style.qss");
     qss.open(QFile::ReadOnly);
     window.setStyleSheet(qss.readAll());
@@ -64,10 +38,11 @@ int main(int argc, char *argv[])
     window.setWindowTitle("Simulation Analisys Environment");
     window.show();
 
+
     return a.exec();
-#endif
 
 
-    return 0;
+
+
 
 }

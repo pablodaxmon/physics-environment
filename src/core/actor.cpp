@@ -2,24 +2,7 @@
 
 Actor::Actor(const char *nameActor,QGraphicsItem *parent) : QGraphicsItem(parent)
 {
-    name = nameActor;
-    Pressed = false;
-    setFlag(ItemIsMovable);
 
-    variables->insert(Unit::PosicionX, 0);
-    variables->insert(Unit::PosicionY, 0);
-    variables->insert(Unit::Aceleracion, 0);
-    variables->insert(Unit::Velocidad, 0);
-    variables->insert(Unit::AceleracionX, 0);
-    variables->insert(Unit::AceleracionY, 0);
-    variables->insert(Unit::VelocidadX, 0);
-    variables->insert(Unit::VelocidadY, 0);
-    variables->insert(Unit::Rotacion, 0);
-
-    valores->append(_time);//tiempo
-    valores->append(1);//vel
-    valores->append(1);//ace
-    valores->append(2);//2
 
 
 
@@ -45,54 +28,15 @@ void Actor::setName(char* newName)
     name = newName;
 }
 
-void Actor::StartFrame()
-{
-}
 
-void Actor::UpdateFrame()
+
+void Actor::updateData()
 {
 
-    _time += 0.03;
 
-    valores->replace(0, _time);
-
-
-    float velBef = speedX;
-    float bef = position.x()/15;
-    position.setX(equationrunner->getResult(eq, valores)*10);
-
-    float aft = position.x()/15;
-
-    speedX = (aft-bef)/0.03;
-
-    aceleracion = (speedX-velBef)/0.03;
-
-
-
-    setPos(position);
-
-    variables->insert(Unit::PosicionX, position.x()/15);
-
-    variables->insert(Unit::VelocidadX,speedX);
-
-    variables->insert(Unit::AceleracionX, aceleracion);
 
 }
 
-void Actor::LastUpdateFrame()
-{
-}
-
-void Actor::setEquation(char *code,Unit unit)
-{
-    Equation * equation = new Equation(code);
-
-    equationMaker->makeEquation(equation);
-
-    listEquations->insert(unit,&(*equation));
-
-
-}
 
 QRectF Actor::boundingRect() const
 {
@@ -128,65 +72,99 @@ void Actor::mousePressEvent(QGraphicsSceneMouseEvent *event)
     Pressed = true;
     update();
     QGraphicsItem::mousePressEvent(event);
-    setPosition(pos());
 
 }
-
-/*void Actor::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    setPosition(pos());
-
-    update();
-    QGraphicsItem::mouseReleaseEvent(event);
-}*/
 
 void Actor::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     Pressed = false;
     update();
     QGraphicsItem::mouseReleaseEvent(event);
-    setPosition(pos());
 
 }
 
-Equation *Actor::getEq() const
+float Actor::getAccelerationY() const
 {
-    return eq;
+    return accelerationY;
 }
 
-void Actor::setEq(Equation *newEq)
+void Actor::setAccelerationY(float newAccelerationY)
 {
-    eq = newEq;
+    accelerationY = newAccelerationY;
 }
 
-void Actor::updateVariables()
+float Actor::getAccelerationX() const
 {
-
+    return accelerationX;
 }
 
-QMap<Unit, float> *Actor::getVariables() const
+void Actor::setAccelerationX(float newAccelerationX)
 {
-    return variables;
+    accelerationX = newAccelerationX;
 }
 
-void Actor::setVariables(QMap<Unit, float> *newVariables)
+float Actor::getAcceleration() const
 {
-    variables = newVariables;
+    return acceleration;
 }
 
-
-
-const QPointF &Actor::getPosition() const
+void Actor::setAcceleration(float newAcceleration)
 {
-    return position;
+    acceleration = newAcceleration;
 }
 
-void Actor::setPosition(const QPointF &newPosition)
+float Actor::getSpeedY() const
 {
-    variables->insert(Unit::PosicionX, newPosition.x());
-
-    variables->insert(Unit::PosicionY, newPosition.y());
-    position = newPosition;
+    return speedY;
 }
+
+void Actor::setSpeedY(float newSpeedY)
+{
+    speedY = newSpeedY;
+}
+
+float Actor::getSpeedX() const
+{
+    return speedX;
+}
+
+void Actor::setSpeedX(float newSpeedX)
+{
+    speedX = newSpeedX;
+}
+
+float Actor::getSpeed() const
+{
+    return speed;
+}
+
+void Actor::setSpeed(float newSpeed)
+{
+    speed = newSpeed;
+}
+
+float Actor::getPositionY() const
+{
+    return positionY;
+}
+
+void Actor::setPositionY(float newPositionY)
+{
+    positionY = newPositionY;
+}
+
+float Actor::getPositionX() const
+{
+    return positionX;
+}
+
+void Actor::setPositionX(float newPositionX)
+{
+    positionX = newPositionX;
+}
+
+
+
+
 
 

@@ -34,7 +34,6 @@ SOURCES += \
     src/gui/viewsimulation.cpp \
     src/gui/pixmapbuilder.cpp \
     src/main.cpp \
-    src/testGuiElement.cpp
 
 HEADERS += \
     core/Session.h \
