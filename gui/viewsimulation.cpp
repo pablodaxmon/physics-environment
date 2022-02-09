@@ -126,7 +126,7 @@ QWidget* ViewSimulation::simulationToolBar()
     wmain->setLayout(layout);
 
 
-    connect(btnHand, &QPushButton::toggle, viewScene, &GraphicsView::setMoveHand);
+    connect(btnHand, &QPushButton::toggled, viewScene, &GraphicsView::setMoveHand);
     connect(typeGrid, &QComboBox::currentIndexChanged, viewScene, &GraphicsView::setGridtype);
     connect(btnGrid, &QPushButton::toggled, viewScene, &GraphicsView::gridShowHide);
     connect(btnGrid, &QPushButton::toggled, typeGrid, &QComboBox::setEnabled);

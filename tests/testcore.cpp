@@ -38,3 +38,5 @@ void TestCore::testEquationRunner()
     float res = runner->getResult(ecuacion, listValores);
 }
 
+
+

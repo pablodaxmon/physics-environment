@@ -108,9 +108,9 @@ bool GraphicsView::getMoveHand() const
     return moveHand;
 }
 
-void GraphicsView::setMoveHand(bool newMoveHand)
+void GraphicsView::setMoveHand(bool checked)
 {
-    moveHand = newMoveHand;
+    moveHand = checked;
 }
 
 void GraphicsView::setEditLine(QLineEdit *newEditLine)

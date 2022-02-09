@@ -38,7 +38,7 @@ public slots:
     void setGridtype(int index);
     void moveHandToggle();
 
-    void setMoveHand(bool newMoveHand);
+    void setMoveHand(bool checked);
 
 private:
     float currentScale = 1;
