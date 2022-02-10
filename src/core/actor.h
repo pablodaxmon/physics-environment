@@ -55,7 +55,6 @@ public:
     const QString &getName() const;
     void setName(const QString &newName);
 
-    void setPressed(bool newPressed);
 
     void setGraphicsScene(GraphicsScene *newGraphicsview);
 

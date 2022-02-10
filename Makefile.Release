@@ -289,6 +289,7 @@ release/qrc_resources.cpp: resources.qrc \
 		resources/icons16/atfinal.png \
 		resources/icons16/control_pause_blue.png \
 		resources/icons16/chart_bar_link.png \
+		resources/icons16/basurero.png \
 		resources/icons16/camera_small.png \
 		resources/icons16/application_form_add.png \
 		resources/icons16/calculator.png \
@@ -448,12 +449,13 @@ release/moc_actorsystem.cpp: src/core/actorsystem.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/gui/viewsimulation.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
@@ -475,14 +477,11 @@ release/moc_actorsystem.cpp: src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
-		src/gui/viewsimulation.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -496,6 +495,12 @@ release/moc_actorsystem.cpp: src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QAction \
+		src/gui/graphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
@@ -512,8 +517,6 @@ release/moc_actorsystem.cpp: src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
-		src/gui/graphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
@@ -670,12 +673,13 @@ release/moc_timerloop.cpp: src/core/timerloop.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/gui/viewsimulation.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
@@ -697,14 +701,11 @@ release/moc_timerloop.cpp: src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
-		src/gui/viewsimulation.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -718,6 +719,12 @@ release/moc_timerloop.cpp: src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QAction \
+		src/gui/graphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
@@ -731,8 +738,6 @@ release/moc_timerloop.cpp: src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatetime.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcalendar.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
-		src/gui/graphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
@@ -907,24 +912,22 @@ release/moc_actionitem.cpp: src/gui/actionitem.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayoutitem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgridlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
@@ -1182,6 +1185,10 @@ release/moc_graphicsscene.cpp: src/gui/graphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer_impl.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfont.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qset.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhash.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
@@ -2059,6 +2066,10 @@ release/moc_mainwindow.cpp: src/gui/mainwindow.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
 		src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPaintEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTime \
@@ -2068,8 +2079,6 @@ release/moc_mainwindow.cpp: src/gui/mainwindow.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
-		src/gui/graphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
@@ -3001,6 +3010,10 @@ release/moc_viewsimulation.cpp: src/gui/viewsimulation.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
 		src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPaintEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTime \
@@ -3010,8 +3023,6 @@ release/moc_viewsimulation.cpp: src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
-		src/gui/graphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\gui\viewsimulation.h -o release\moc_viewsimulation.cpp
@@ -3160,39 +3171,11 @@ release/action.o: src/core/action.cpp src/core/action.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbitmap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qkeysequence.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qevent.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qurl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qeventpoint.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvector2d.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QRect \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSize \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\action.o src\core\action.cpp
 
 release/actor.o: src/core/actor.cpp src/core/actor.h \
@@ -3320,39 +3303,11 @@ release/actor.o: src/core/actor.cpp src/core/actor.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbitmap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qkeysequence.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qevent.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qurl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qeventpoint.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvector2d.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QRect \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSize \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\actor.o src\core\actor.cpp
 
 release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
@@ -3481,12 +3436,13 @@ release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/gui/viewsimulation.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
@@ -3508,14 +3464,11 @@ release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
-		src/gui/viewsimulation.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -3529,6 +3482,12 @@ release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QAction \
+		src/gui/graphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
@@ -3545,8 +3504,6 @@ release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
-		src/gui/graphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
@@ -3965,12 +3922,13 @@ release/timerloop.o: src/core/timerloop.cpp src/core/timerloop.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/gui/viewsimulation.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
@@ -3992,14 +3950,11 @@ release/timerloop.o: src/core/timerloop.cpp src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
-		src/gui/viewsimulation.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -4013,6 +3968,12 @@ release/timerloop.o: src/core/timerloop.cpp src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QAction \
+		src/gui/graphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
@@ -4026,8 +3987,6 @@ release/timerloop.o: src/core/timerloop.cpp src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatetime.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcalendar.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
-		src/gui/graphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
@@ -4200,24 +4159,22 @@ release/actionitem.o: src/gui/actionitem.cpp src/gui/actionitem.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayoutitem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgridlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
@@ -4488,7 +4445,50 @@ release/graphicsscene.o: src/gui/graphicsscene.cpp src/gui/graphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer_impl.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfont.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpen.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qset.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhash.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontinfo.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontmetrics.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbitmap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qkeysequence.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qevent.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qurl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvariant.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdebug.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtextstream.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringconverter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qeventpoint.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvector2d.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvectornd.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QList \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QRect \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSize \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\graphicsscene.o src\gui\graphicsscene.cpp
 
 release/graphicsview.o: src/gui/graphicsview.cpp src/gui/graphicsview.h \
@@ -5451,6 +5451,10 @@ release/mainwindow.o: src/gui/mainwindow.cpp src/gui/mainwindow.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
 		src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPaintEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTime \
@@ -5460,8 +5464,6 @@ release/mainwindow.o: src/gui/mainwindow.cpp src/gui/mainwindow.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
-		src/gui/graphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
@@ -5672,16 +5674,16 @@ release/viewactions.o: src/gui/viewactions.cpp src/gui/viewactions.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QWheelEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QPushButton \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qpushbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
@@ -6539,6 +6541,10 @@ release/viewsimulation.o: src/gui/viewsimulation.cpp src/gui/viewsimulation.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
 		src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPaintEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTime \
@@ -6548,8 +6554,6 @@ release/viewsimulation.o: src/gui/viewsimulation.cpp src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
-		src/gui/graphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
@@ -6861,6 +6865,10 @@ release/main.o: src/main.cpp src/gui/mainwindow.h \
 		src/core/equationrunner.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
 		src/core/equationmaker.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
 		src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPaintEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTime \
@@ -6870,8 +6878,6 @@ release/main.o: src/main.cpp src/gui/mainwindow.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
-		src/gui/graphicsscene.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \

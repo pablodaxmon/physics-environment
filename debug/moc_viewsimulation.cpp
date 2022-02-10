@@ -24,8 +24,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ViewSimulation_t {
-    const uint offsetsAndSize[28];
-    char stringdata0[167];
+    const uint offsetsAndSize[30];
+    char stringdata0[183];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_ViewSimulation_t, stringdata0) + ofs), len 
@@ -43,14 +43,15 @@ QT_MOC_LITERAL(78, 13), // "drawNewObject"
 QT_MOC_LITERAL(92, 14), // "QList<Actor*>*"
 QT_MOC_LITERAL(107, 10), // "listactors"
 QT_MOC_LITERAL(118, 10), // "moveToggle"
-QT_MOC_LITERAL(129, 16), // "showMenuSettings"
-QT_MOC_LITERAL(146, 20) // "showMenuCreateObject"
+QT_MOC_LITERAL(129, 15), // "setItemSelected"
+QT_MOC_LITERAL(145, 16), // "showMenuSettings"
+QT_MOC_LITERAL(162, 20) // "showMenuCreateObject"
 
     },
     "ViewSimulation\0eqTextChanged\0\0createActor\0"
     "QAction*\0action\0rulerToggle\0checked\0"
     "drawNewObject\0QList<Actor*>*\0listactors\0"
-    "moveToggle\0showMenuSettings\0"
+    "moveToggle\0setItemSelected\0showMenuSettings\0"
     "showMenuCreateObject"
 };
 #undef QT_MOC_LITERAL
@@ -61,7 +62,7 @@ static const uint qt_meta_data_ViewSimulation[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -69,15 +70,16 @@ static const uint qt_meta_data_ViewSimulation[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   56,    2, 0x06,    1 /* Public */,
-       3,    1,   57,    2, 0x06,    2 /* Public */,
-       6,    1,   60,    2, 0x06,    4 /* Public */,
+       1,    0,   62,    2, 0x06,    1 /* Public */,
+       3,    1,   63,    2, 0x06,    2 /* Public */,
+       6,    1,   66,    2, 0x06,    4 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       8,    1,   63,    2, 0x0a,    6 /* Public */,
-      11,    1,   66,    2, 0x0a,    8 /* Public */,
-      12,    0,   69,    2, 0x08,   10 /* Private */,
-      13,    0,   70,    2, 0x08,   11 /* Private */,
+       8,    1,   69,    2, 0x0a,    6 /* Public */,
+      11,    1,   72,    2, 0x0a,    8 /* Public */,
+      12,    0,   75,    2, 0x0a,   10 /* Public */,
+      13,    0,   76,    2, 0x08,   11 /* Private */,
+      14,    0,   77,    2, 0x08,   12 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -87,6 +89,7 @@ static const uint qt_meta_data_ViewSimulation[] = {
  // slots: parameters
     QMetaType::Void, 0x80000000 | 9,   10,
     QMetaType::Void, QMetaType::Bool,    7,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -104,8 +107,9 @@ void ViewSimulation::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 2: _t->rulerToggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 3: _t->drawNewObject((*reinterpret_cast< QList<Actor*>*(*)>(_a[1]))); break;
         case 4: _t->moveToggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 5: _t->showMenuSettings(); break;
-        case 6: _t->showMenuCreateObject(); break;
+        case 5: _t->setItemSelected(); break;
+        case 6: _t->showMenuSettings(); break;
+        case 7: _t->showMenuCreateObject(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -153,7 +157,7 @@ const QMetaObject ViewSimulation::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_ViewSimulation_t
 , QtPrivate::TypeAndForceComplete<ViewSimulation, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QAction *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QList<Actor*> *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QList<Actor*> *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -180,13 +184,13 @@ int ViewSimulation::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

@@ -2,8 +2,8 @@
 
 Actor::Actor(QGraphicsItem *parent) : QGraphicsItem(parent)
 {
-    selected = false;
 
+    setFlag(ItemIsSelectable, true);
     setAcceptHoverEvents(true);
 }
 
@@ -33,11 +33,11 @@ void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     QRectF rec = boundingRect();
     QBrush brush(Qt::blue);
 
-    if(selected){
-
-        brush.setColor(Qt::green);
+    qDebug() << " Actor : " << isSelected();
+    if(isSelected()){
+        brush.setColor(Qt::red);
     } else {
-        brush.setColor(Qt::NoBrush);
+        brush.setColor(Qt::blue);
     }
 
     painter->setBrush(brush);
@@ -49,7 +49,7 @@ void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
 }
 
-bool Actor::getSelected() const
+/*bool Actor::getSelected() const
 {
     return selected;
 }
@@ -57,7 +57,7 @@ bool Actor::getSelected() const
 void Actor::setSelected(bool newSelected)
 {
     selected = newSelected;
-}
+}*/
 
 void Actor::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
@@ -72,13 +72,11 @@ void Actor::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     update();
 }
 
-void Actor::setPressed(bool newPressed)
-{
-    selected = newPressed;
-}
+
 
 void Actor::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+
     update();
     QGraphicsItem::mousePressEvent(event);
 

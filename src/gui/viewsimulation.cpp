@@ -31,7 +31,6 @@ ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
 
 void ViewSimulation::drawNewObject(QList<Actor*> *listactors)
 {
-qDebug() << "Viewsimulation:" << scene->items().size();
     for(int i = 0; i< listactors->size(); i++){
         Actor* actor = listactors->at(i);
         scene->addItem(actor);
@@ -92,6 +91,7 @@ QWidget* ViewSimulation::simulationToolBar()
     btnMoveObject->setCheckable(true);
     QPushButton * btnRule = new QPushButton;
     btnRule->setCheckable(true);
+    QPushButton * btnDeleteObject = new QPushButton;
 
     QPushButton * btnGrid = new QPushButton;
     btnGrid->setCheckable(true);
@@ -104,7 +104,7 @@ QWidget* ViewSimulation::simulationToolBar()
     btnAddObject->setIcon(QIcon(":/icons/resources/icons16/object.png"));
     btnMoveObject->setIcon(QIcon(":/icons/resources/icons16/move.png"));
     btnRule->setIcon(QIcon(":/icons/resources/icons16/rule.png"));
-
+    btnDeleteObject->setIcon(QIcon(":/icons/resources/icons16/basurero.png"));
 
     btnGrid->setIcon(QIcon(":/icons/resources/icons16/grid.png"));
     btnHand->setIcon(QIcon(":/icons/resources/icons16/hand.png"));
@@ -113,6 +113,7 @@ QWidget* ViewSimulation::simulationToolBar()
     btnSetup->setIcon(QIcon(":/icons/resources/icons16/setup.png"));
 
     btnAddObject->setProperty("class","icon");
+    btnDeleteObject->setProperty("class","icon");
     btnMoveObject->setProperty("class","icon");
     btnRule->setProperty("class","icon");
     btnGrid->setProperty("class","icon");
@@ -144,6 +145,7 @@ QWidget* ViewSimulation::simulationToolBar()
     layout->addWidget(btnAddObject);
     layout->addWidget(btnMoveObject);
     layout->addWidget(btnRule);
+    layout->addWidget(btnDeleteObject);
     layout->addStretch(1);
 
     layout->addWidget(typeGrid);
