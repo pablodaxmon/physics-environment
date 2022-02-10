@@ -37,20 +37,20 @@ QT_MOC_LITERAL(29, 0), // ""
 QT_MOC_LITERAL(30, 11), // "createActor"
 QT_MOC_LITERAL(42, 8), // "QAction*"
 QT_MOC_LITERAL(51, 6), // "action"
-QT_MOC_LITERAL(58, 10), // "moveToggle"
-QT_MOC_LITERAL(69, 7), // "checked"
-QT_MOC_LITERAL(77, 11), // "rulerToggle"
-QT_MOC_LITERAL(89, 13), // "drawNewObject"
-QT_MOC_LITERAL(103, 14), // "QList<Actor*>*"
-QT_MOC_LITERAL(118, 10), // "listactors"
+QT_MOC_LITERAL(58, 11), // "rulerToggle"
+QT_MOC_LITERAL(70, 7), // "checked"
+QT_MOC_LITERAL(78, 13), // "drawNewObject"
+QT_MOC_LITERAL(92, 14), // "QList<Actor*>*"
+QT_MOC_LITERAL(107, 10), // "listactors"
+QT_MOC_LITERAL(118, 10), // "moveToggle"
 QT_MOC_LITERAL(129, 16), // "showMenuSettings"
 QT_MOC_LITERAL(146, 20) // "showMenuCreateObject"
 
     },
     "ViewSimulation\0eqTextChanged\0\0createActor\0"
-    "QAction*\0action\0moveToggle\0checked\0"
-    "rulerToggle\0drawNewObject\0QList<Actor*>*\0"
-    "listactors\0showMenuSettings\0"
+    "QAction*\0action\0rulerToggle\0checked\0"
+    "drawNewObject\0QList<Actor*>*\0listactors\0"
+    "moveToggle\0showMenuSettings\0"
     "showMenuCreateObject"
 };
 #undef QT_MOC_LITERAL
@@ -66,16 +66,16 @@ static const uint qt_meta_data_ViewSimulation[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
        1,    0,   56,    2, 0x06,    1 /* Public */,
        3,    1,   57,    2, 0x06,    2 /* Public */,
        6,    1,   60,    2, 0x06,    4 /* Public */,
-       8,    1,   63,    2, 0x06,    6 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       9,    1,   66,    2, 0x0a,    8 /* Public */,
+       8,    1,   63,    2, 0x0a,    6 /* Public */,
+      11,    1,   66,    2, 0x0a,    8 /* Public */,
       12,    0,   69,    2, 0x08,   10 /* Private */,
       13,    0,   70,    2, 0x08,   11 /* Private */,
 
@@ -83,10 +83,10 @@ static const uint qt_meta_data_ViewSimulation[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 4,    5,
     QMetaType::Void, QMetaType::Bool,    7,
-    QMetaType::Void, QMetaType::Bool,    7,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 10,   11,
+    QMetaType::Void, 0x80000000 | 9,   10,
+    QMetaType::Void, QMetaType::Bool,    7,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -101,9 +101,9 @@ void ViewSimulation::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         switch (_id) {
         case 0: _t->eqTextChanged(); break;
         case 1: _t->createActor((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
-        case 2: _t->moveToggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 3: _t->rulerToggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 4: _t->drawNewObject((*reinterpret_cast< QList<Actor*>*(*)>(_a[1]))); break;
+        case 2: _t->rulerToggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 3: _t->drawNewObject((*reinterpret_cast< QList<Actor*>*(*)>(_a[1]))); break;
+        case 4: _t->moveToggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 5: _t->showMenuSettings(); break;
         case 6: _t->showMenuCreateObject(); break;
         default: ;
@@ -137,15 +137,8 @@ void ViewSimulation::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         }
         {
             using _t = void (ViewSimulation::*)(bool );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ViewSimulation::moveToggle)) {
-                *result = 2;
-                return;
-            }
-        }
-        {
-            using _t = void (ViewSimulation::*)(bool );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ViewSimulation::rulerToggle)) {
-                *result = 3;
+                *result = 2;
                 return;
             }
         }
@@ -159,8 +152,8 @@ const QMetaObject ViewSimulation::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_ViewSimulation_t
-, QtPrivate::TypeAndForceComplete<ViewSimulation, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QAction *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QList<Actor*> *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<ViewSimulation, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QAction *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QList<Actor*> *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -212,17 +205,10 @@ void ViewSimulation::createActor(QAction * _t1)
 }
 
 // SIGNAL 2
-void ViewSimulation::moveToggle(bool _t1)
-{
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
-}
-
-// SIGNAL 3
 void ViewSimulation::rulerToggle(bool _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 3, _a);
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

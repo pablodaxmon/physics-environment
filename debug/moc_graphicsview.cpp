@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_GraphicsView_t {
-    const uint offsetsAndSize[26];
-    char stringdata0[139];
+    const uint offsetsAndSize[24];
+    char stringdata0[127];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_GraphicsView_t, stringdata0) + ofs), len 
@@ -40,14 +40,13 @@ QT_MOC_LITERAL(73, 12), // "gridShowHide"
 QT_MOC_LITERAL(86, 7), // "checked"
 QT_MOC_LITERAL(94, 11), // "setGridtype"
 QT_MOC_LITERAL(106, 5), // "index"
-QT_MOC_LITERAL(112, 14), // "moveHandToggle"
-QT_MOC_LITERAL(127, 11) // "setMoveHand"
+QT_MOC_LITERAL(112, 14) // "moveHandToggle"
 
     },
     "GraphicsView\0zoomIn\0\0zoomOut\0zoomPercent\0"
     "percent\0zoomPercentFromLineEdit\0"
     "gridShowHide\0checked\0setGridtype\0index\0"
-    "moveHandToggle\0setMoveHand"
+    "moveHandToggle"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,7 +56,7 @@ static const uint qt_meta_data_GraphicsView[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,14 +64,13 @@ static const uint qt_meta_data_GraphicsView[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   62,    2, 0x0a,    1 /* Public */,
-       3,    0,   63,    2, 0x0a,    2 /* Public */,
-       4,    1,   64,    2, 0x0a,    3 /* Public */,
-       6,    0,   67,    2, 0x0a,    5 /* Public */,
-       7,    1,   68,    2, 0x0a,    6 /* Public */,
-       9,    1,   71,    2, 0x0a,    8 /* Public */,
-      11,    0,   74,    2, 0x0a,   10 /* Public */,
-      12,    1,   75,    2, 0x0a,   11 /* Public */,
+       1,    0,   56,    2, 0x0a,    1 /* Public */,
+       3,    0,   57,    2, 0x0a,    2 /* Public */,
+       4,    1,   58,    2, 0x0a,    3 /* Public */,
+       6,    0,   61,    2, 0x0a,    5 /* Public */,
+       7,    1,   62,    2, 0x0a,    6 /* Public */,
+       9,    1,   65,    2, 0x0a,    8 /* Public */,
+      11,    0,   68,    2, 0x0a,   10 /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -82,7 +80,6 @@ static const uint qt_meta_data_GraphicsView[] = {
     QMetaType::Void, QMetaType::Bool,    8,
     QMetaType::Void, QMetaType::Int,   10,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,    8,
 
        0        // eod
 };
@@ -100,7 +97,6 @@ void GraphicsView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 4: _t->gridShowHide((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 5: _t->setGridtype((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 6: _t->moveHandToggle(); break;
-        case 7: _t->setMoveHand((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -114,7 +110,7 @@ const QMetaObject GraphicsView::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_GraphicsView_t
 , QtPrivate::TypeAndForceComplete<GraphicsView, std::true_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -141,13 +137,13 @@ int GraphicsView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 7)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 8;
+        _id -= 7;
     }
     return _id;
 }

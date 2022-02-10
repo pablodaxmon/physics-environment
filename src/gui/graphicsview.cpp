@@ -4,10 +4,12 @@
 #include "pixmapbuilder.h"
 
 
+
 GraphicsView::GraphicsView(QGraphicsScene *scene, QWidget *parent) : QGraphicsView(scene, parent)
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     gridType = 0;
+
 
 
 }
@@ -103,15 +105,7 @@ void GraphicsView::scaleView(float ratio)
     scale(factor, factor);
 }
 
-bool GraphicsView::getMoveHand() const
-{
-    return moveHand;
-}
 
-void GraphicsView::setMoveHand(bool checked)
-{
-    moveHand = checked;
-}
 
 void GraphicsView::setEditLine(QLineEdit *newEditLine)
 {
@@ -119,49 +113,7 @@ void GraphicsView::setEditLine(QLineEdit *newEditLine)
     connect(editLine, &QLineEdit::editingFinished, this, &zoomPercentFromLineEdit);
 }
 
-void GraphicsView::mouseMoveEvent(QMouseEvent *event)
-{
 
-    if (event->buttons() && Qt::LeftButton && moveHand)
-        {
-        setTransformationAnchor(QGraphicsView::NoAnchor);
-            QPointF oldp = mapToScene(m_originX, m_originY);
-            QPointF newp = mapToScene(event->pos());
-            QPointF translation = newp - oldp;
-
-            translate(translation.x(), translation.y());
-
-            m_originX = event->x();
-            m_originY = event->y();
-
-    } else {
-       QGraphicsView::mousePressEvent(event);
-    }
-
-}
-
-void GraphicsView::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && moveHand)
-        {
-        setCursor(Qt::ClosedHandCursor);
-            // Store original position.
-            m_originX = event->x();
-            m_originY = event->y();
-    }  else {
-      QGraphicsView::mousePressEvent(event);
-    }
-}
-
-void GraphicsView::mouseReleaseEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && moveHand)
-        {
-            setCursor(Qt::ArrowCursor);
-        } else {
-        QGraphicsView::mousePressEvent(event);
-    }
-}
 
 
 

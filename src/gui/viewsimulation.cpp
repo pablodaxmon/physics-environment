@@ -7,6 +7,7 @@
 #define GRIDSCALE 20
 ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
 {
+    scene = new GraphicsScene(this);
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->setSpacing(0);
@@ -30,13 +31,38 @@ ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
 
 void ViewSimulation::drawNewObject(QList<Actor*> *listactors)
 {
-
-    qDebug() << "añadiendo lista de actores";
+qDebug() << "Viewsimulation:" << scene->items().size();
     for(int i = 0; i< listactors->size(); i++){
-        scene->addItem(listactors->at(i));
+        Actor* actor = listactors->at(i);
+        scene->addItem(actor);
+        actor->setGraphicsScene(dynamic_cast<GraphicsScene *>(scene));
     }
+}
+
+void ViewSimulation::moveToggle(bool checked)
+{
+    for(int i = 0; i< scene->items().size(); i++){
+        Actor* actor = dynamic_cast<Actor *>(scene->items().at(i));
+        if(actor != nullptr){
+            actor->setFlag(QGraphicsItem::ItemIsMovable, checked);
+        }
+
+    }
+}
+
+void ViewSimulation::setItemSelected()
+{
+    /*for(int i = 0; i< scene->items().size(); i++){
+        Actor* actor = dynamic_cast<Actor *>(scene->items().at(i));
+        if(actor != nullptr){
+            actor->setSelected(false);
+            actor->update();
+        }
+
+    }*/
 
 }
+
 
 
 
@@ -132,7 +158,7 @@ QWidget* ViewSimulation::simulationToolBar()
     wmain->setLayout(layout);
 
 
-    connect(btnHand, &QPushButton::toggled, viewScene, &GraphicsView::setMoveHand);
+    connect(btnHand, &QPushButton::toggled, scene, &GraphicsScene::setMoveHand);
     connect(typeGrid, &QComboBox::currentIndexChanged, viewScene, &GraphicsView::setGridtype);
     connect(btnGrid, &QPushButton::toggled, viewScene, &GraphicsView::gridShowHide);
     connect(btnGrid, &QPushButton::toggled, typeGrid, &QComboBox::setEnabled);
@@ -228,6 +254,10 @@ QWidget *ViewSimulation::timeControlToolBar()
 
     return res;
 }
+
+
+
+
 
 void ViewSimulation::paintEvent(QPaintEvent * event)
  {

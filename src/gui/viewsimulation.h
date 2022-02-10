@@ -7,7 +7,6 @@
 #include <QToolBar>
 #include <QToolButton>
 #include <QAction>
-#include <QGraphicsView>
 #include "graphicsview.h"
 #include <QLabel>
 #include <QToolButton>
@@ -16,6 +15,7 @@
 #include <QPushButton>
 #include "src/core/actor.h"
 #include "viewgraphicsresults.h"
+#include "graphicsscene.h"
 
 
 class ViewSimulation : public QWidget
@@ -28,12 +28,13 @@ public:
 
     float b = 5;
 
+
 public slots:
     void drawNewObject(QList<Actor*> *listactors);
+    void moveToggle(bool checked);
 signals:
     void eqTextChanged();
     void createActor(QAction * action);
-    void moveToggle(bool checked);
     void rulerToggle(bool checked);
 
 protected:
@@ -41,20 +42,16 @@ protected:
 
 private:
     void redrawCanvas();
-    GraphicsView *viewScene;
-    QGraphicsScene *scene = new QGraphicsScene(this);
-    float a = 5;
+    void paintEvent(QPaintEvent * event);
+    QWidget *simulationToolBar();
+    QWidget *timeControlToolBar();
 
+    GraphicsView *viewScene;
+    GraphicsScene *scene;
     QPushButton* addActorB;
     QPushButton* deleteActorB;
 
-
-
-
-    QWidget *simulationToolBar();
-    QWidget *timeControlToolBar();
-    void paintEvent(QPaintEvent * event);
-
+    float a = 5;
 
 private slots:
     void showMenuSettings();

@@ -9,6 +9,7 @@ release/physics.o
 release/timerloop.o
 release/actionitem.o
 release/dialogtypeenvironment.o
+release/graphicsscene.o
 release/graphicsview.o
 release/initialdialog.o
 release/listactionsmodel.o
@@ -29,6 +30,7 @@ release/moc_actorsystem.o
 release/moc_timerloop.o
 release/moc_actionitem.o
 release/moc_dialogtypeenvironment.o
+release/moc_graphicsscene.o
 release/moc_graphicsview.o
 release/moc_initialdialog.o
 release/moc_listactionsmodel.o

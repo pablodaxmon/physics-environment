@@ -17,17 +17,14 @@ public:
     void setEditLine(QLineEdit *newEditLine);
 
 
-    bool getMoveHand() const;
+
 
 protected:
 #if QT_CONFIG(wheelevent)
     void wheelEvent(QWheelEvent *) override;
 #endif
 
-    void mouseMoveEvent(QMouseEvent * event) override;
 
-    void mousePressEvent(QMouseEvent * event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
 
 public slots:
     void zoomIn();
@@ -39,7 +36,6 @@ public slots:
     void setGridtype(int index);
     void moveHandToggle();
 
-    void setMoveHand(bool checked);
 
 private:
     float currentScale = 1;
@@ -49,10 +45,7 @@ private:
 
     QLineEdit * editLine;
     int gridType;
-    int m_originX;
-    int m_originY;
     bool showHide;
-    bool moveHand;
 
 };
 

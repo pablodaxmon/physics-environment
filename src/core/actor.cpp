@@ -2,7 +2,9 @@
 
 Actor::Actor(QGraphicsItem *parent) : QGraphicsItem(parent)
 {
-    setFlag(ItemIsMovable);
+    selected = false;
+
+    setAcceptHoverEvents(true);
 }
 
 int Actor::getIndexInList()
@@ -28,46 +30,70 @@ QRectF Actor::boundingRect() const
 
 void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    QRectF rec = boundingRect();
     QBrush brush(Qt::blue);
 
-    if(pressed){
+    if(selected){
 
         brush.setColor(Qt::green);
     } else {
         brush.setColor(Qt::NoBrush);
     }
 
-    painter->setBrush(QColor(255,0,0,255));
-    painter->drawRect(0,0,50,50);
-
     painter->setBrush(brush);
-    painter->drawEllipse(10,10,40,40);
+    painter->drawRect(rec);
 
 
 
 
+
+}
+
+bool Actor::getSelected() const
+{
+    return selected;
+}
+
+void Actor::setSelected(bool newSelected)
+{
+    selected = newSelected;
+}
+
+void Actor::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+    graphicsScene->setClickItem(true);
+    update();
+}
+
+void Actor::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+
+    graphicsScene->setClickItem(false);
+    update();
 }
 
 void Actor::setPressed(bool newPressed)
 {
-    pressed = newPressed;
+    selected = newPressed;
 }
 
 void Actor::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "selected";
-    pressed = true;
     update();
     QGraphicsItem::mousePressEvent(event);
+
 
 }
 
 void Actor::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    pressed = false;
     update();
     QGraphicsItem::mouseReleaseEvent(event);
+}
 
+void Actor::setGraphicsScene(GraphicsScene *newGraphicsview)
+{
+    graphicsScene = newGraphicsview;
 }
 
 const QString &Actor::getName() const

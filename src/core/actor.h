@@ -13,6 +13,7 @@
 #include "src/core/equation.h"
 #include "src/core/equationrunner.h"
 #include "src/core/equationmaker.h"
+#include "src/gui/graphicsscene.h"
 
 
 class Actor : public QGraphicsItem
@@ -56,12 +57,19 @@ public:
 
     void setPressed(bool newPressed);
 
+    void setGraphicsScene(GraphicsScene *newGraphicsview);
+
+    /*bool getSelected() const;
+    void setSelected(bool newSelected);*/
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    bool pressed;
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    //bool selected;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 
 private:
 
@@ -76,6 +84,7 @@ private:
     float acceleration;
     float accelerationX;
     float accelerationY;
+    GraphicsScene * graphicsScene;
 
 
 

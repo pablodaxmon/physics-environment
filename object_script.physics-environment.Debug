@@ -9,6 +9,7 @@ debug/physics.o
 debug/timerloop.o
 debug/actionitem.o
 debug/dialogtypeenvironment.o
+debug/graphicsscene.o
 debug/graphicsview.o
 debug/initialdialog.o
 debug/listactionsmodel.o
@@ -29,6 +30,7 @@ debug/moc_actorsystem.o
 debug/moc_timerloop.o
 debug/moc_actionitem.o
 debug/moc_dialogtypeenvironment.o
+debug/moc_graphicsscene.o
 debug/moc_graphicsview.o
 debug/moc_initialdialog.o
 debug/moc_listactionsmodel.o

@@ -255,7 +255,6 @@ ViewSimulation* MainWindow::getViewSimulation() const
 
 void MainWindow::newSimulation(Session *session){
 
-    qDebug() << "created new simulation at " << session->getName();
 
     setWindowTitle(session->getName() + " - Physics Environment");
 
