@@ -47,6 +47,7 @@ void GraphicsView::gridShowHide(bool checked)
 
 
         setBackgroundBrush(Qt::NoBrush);
+
     } else {
         setBackgroundBrush(PixmapBuilder::drawPattern(gridType, 20, "#E9E9E9"));
     }
@@ -98,7 +99,6 @@ void GraphicsView::scaleView(float ratio)
     }
 
     currentScale *= factor;
-    qDebug() << "current scale " << currentScale;
     editLine->setText(QString::number(roundf(currentScale*100)));
     scale(factor, factor);
 }
@@ -144,11 +144,22 @@ void GraphicsView::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && moveHand)
         {
+        setCursor(Qt::ClosedHandCursor);
             // Store original position.
             m_originX = event->x();
             m_originY = event->y();
     }  else {
       QGraphicsView::mousePressEvent(event);
+    }
+}
+
+void GraphicsView::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton && moveHand)
+        {
+            setCursor(Qt::ArrowCursor);
+        } else {
+        QGraphicsView::mousePressEvent(event);
     }
 }
 
@@ -177,7 +188,6 @@ void GraphicsView::wheelEvent(QWheelEvent *e)
 
     currentScale *= factor;
 
-    qDebug() << "current scale " << currentScale;
 
 
     editLine->setText(QString::number(roundf(currentScale*100)));

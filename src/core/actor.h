@@ -19,15 +19,13 @@ class Actor : public QGraphicsItem
 {
 
 public:
-    explicit Actor(const char *nameActor, QGraphicsItem *parent = nullptr);
+    explicit Actor(QGraphicsItem *parent = nullptr);
 
     void updateData();
 
     int getIndexInList();
     void setIndexInList(int newIndexInList);
 
-    QString &getName();
-    void setName(char * newName);
 
     float getPositionX() const;
     void setPositionX(float newPositionX);
@@ -53,10 +51,15 @@ public:
     float getAccelerationY() const;
     void setAccelerationY(float newAccelerationY);
 
+    const QString &getName() const;
+    void setName(const QString &newName);
+
+    void setPressed(bool newPressed);
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    bool Pressed;
+    bool pressed;
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 

@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 static const unsigned char qt_resource_data[] = {
-  // C:/Users/Pablo/Documents/physics-environment/debug/physics-environment_en_US.qm
+  // C:/Users/Pablo/Documents/project/physics-environment/debug/physics-environment_en_US.qm
   0x0,0x0,0x0,0x21,
   0x3c,
   0xb8,0x64,0x18,0xca,0xef,0x9c,0x95,0xcd,0x21,0x1c,0xbf,0x60,0xa1,0xbd,0xdd,0xa7,

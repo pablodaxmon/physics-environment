@@ -1,11 +1,8 @@
 #include "actor.h"
 
-Actor::Actor(const char *nameActor,QGraphicsItem *parent) : QGraphicsItem(parent)
+Actor::Actor(QGraphicsItem *parent) : QGraphicsItem(parent)
 {
-
-
-
-
+    setFlag(ItemIsMovable);
 }
 
 int Actor::getIndexInList()
@@ -18,25 +15,10 @@ void Actor::setIndexInList(int newIndexInList)
     indexInList = newIndexInList;
 }
 
-QString &Actor::getName()
-{
-    return name;
-}
-
-void Actor::setName(char* newName)
-{
-    name = newName;
-}
-
-
-
 void Actor::updateData()
 {
 
-
-
 }
-
 
 QRectF Actor::boundingRect() const
 {
@@ -46,30 +28,35 @@ QRectF Actor::boundingRect() const
 
 void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QRectF rec = boundingRect();
     QBrush brush(Qt::blue);
 
-    if(Pressed){
-        brush.setColor(Qt::red);
+    if(pressed){
 
-    } else {
         brush.setColor(Qt::green);
+    } else {
+        brush.setColor(Qt::NoBrush);
     }
 
+    painter->setBrush(QColor(255,0,0,255));
+    painter->drawRect(0,0,50,50);
 
-    painter->fillRect(0,13,23,24,QColor(0,0,0,200));
-    painter->fillRect(75,13,23,24,QColor(0,0,0,200));
-    painter->fillRect(0,67,23,24,QColor(0,0,0,200));
-    painter->fillRect(75,67,23,24,QColor(0,0,0,200));
+    painter->setBrush(brush);
+    painter->drawEllipse(10,10,40,40);
 
-    painter->fillRect(5,25,90,56,QColor(255,125,5,255));
+
 
 
 }
 
+void Actor::setPressed(bool newPressed)
+{
+    pressed = newPressed;
+}
+
 void Actor::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Pressed = true;
+    qDebug() << "selected";
+    pressed = true;
     update();
     QGraphicsItem::mousePressEvent(event);
 
@@ -77,10 +64,20 @@ void Actor::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void Actor::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    Pressed = false;
+    pressed = false;
     update();
     QGraphicsItem::mouseReleaseEvent(event);
 
+}
+
+const QString &Actor::getName() const
+{
+    return name;
+}
+
+void Actor::setName(const QString &newName)
+{
+    name = newName;
 }
 
 float Actor::getAccelerationY() const

@@ -23,14 +23,15 @@ void ActorSystem::updateActors()
 
 }
 
-void ActorSystem::addActor()
+void ActorSystem::addActor(QAction * action)
 {
-    Actor* actore = new Actor("actor");
+
+    Actor* actore = new Actor();
+    actore->setName(action->text());
     listActors.append(actore);
-    actore->setIndexInList(listActors.indexOf(actore));
     actore->setIndexInList(listActors.lastIndexOf(actore));
 
-    emit addActorSignal(actore);
+    emit addActorSignal(&listActors);
 }
 
 

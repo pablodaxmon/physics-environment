@@ -51,8 +51,6 @@ public:
     MainToolBar *getMainToolbar() const;
 
 protected:
-    void settingMainContainer();
-    void settingInitialDialog();
     void createViews();
     void conecttingModulesViews();
 

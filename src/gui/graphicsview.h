@@ -27,6 +27,7 @@ protected:
     void mouseMoveEvent(QMouseEvent * event) override;
 
     void mousePressEvent(QMouseEvent * event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 public slots:
     void zoomIn();

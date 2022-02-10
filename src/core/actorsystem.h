@@ -19,19 +19,17 @@ class ActorSystem : public QObject
 public:
     explicit ActorSystem(QObject *parent = nullptr);
 
-
-
 private:
     QList<Actor*> listActors;
     Actor* selectedActor = NULL;
     EquationMaker* eqMaker = new EquationMaker();
 
 signals:
-    void addActorSignal(Actor* actor);
+    void addActorSignal(QList<Actor*> *actor);
 
 public slots:
     void updateActors();
-    void addActor();
+    void addActor(QAction * action);
     bool deleteActor(Actor *actor);
     void setSelectedActor(int index);
 

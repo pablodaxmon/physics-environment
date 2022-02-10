@@ -24,14 +24,17 @@ class ViewSimulation : public QWidget
 public:
     explicit ViewSimulation(QWidget *parent = nullptr);
 
-    void drawNewObject(QList<Actor*> &listactors);
     void setObjectSelected();
 
     float b = 5;
 
-
+public slots:
+    void drawNewObject(QList<Actor*> *listactors);
 signals:
     void eqTextChanged();
+    void createActor(QAction * action);
+    void moveToggle(bool checked);
+    void rulerToggle(bool checked);
 
 protected:
     QLineEdit * zoomEdit;

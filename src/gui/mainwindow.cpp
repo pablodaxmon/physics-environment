@@ -28,32 +28,50 @@ MainWindow:: MainWindow(QWidget *parent)
     dialogMain->show();
 
 
-    createActions();
-    createMenu();
+    /////////////////////////////////////////////////////
+    ///  Modulos para el funcionamiento del entorno /////
+    /// /////////////////////////////////////////////////
+    actorSystem = new ActorSystem;                   ///
+                                                    ///
 
-    viewActions = new ViewActions(mainContainer);
-    viewObjectList = new ViewObjectList(mainContainer);
-    viewProperties = new ViewProperties(mainContainer);
-    viewSimulation = new ViewSimulation(mainContainer);
-    //mainToolbar = new MainToolBar(mainContainer);
+    ////////////////////////////////////////////////////////////
+    ///    COMPONENTES DEL GUI                             /////
+    ////////////////////////////////////////////////////////////
+                                                             ///
+    viewActions = new ViewActions(mainContainer);            ///
+    viewObjectList = new ViewObjectList(mainContainer);      ///
+    viewProperties = new ViewProperties(mainContainer);      ///
+    viewSimulation = new ViewSimulation(mainContainer);      ///
+                                                             ///
+    ////////////////////////////////////////////////////////////
 
-    statusBar();
+
+
+    /// invisibles hasta cuando el usuario eliga el tipo de sesión
+    viewActions->setVisible(false);     ///
+    viewObjectList->setVisible(false);  ///
+    viewProperties->setVisible(false);  ///
+    viewSimulation->setVisible(false);  ///
+
+
+    ///  Creación e implemetancion de los menus del menubar  ///
+    createActions();            ///
+    createMenu();               ///
+    statusBar();                ///
+    ///////////////////////////////
+
+
+    /////////////////////////////////
+    /// Conexion del GUI con los componentes
+    /// ////////////////////////////
+    connect(viewSimulation, &ViewSimulation::createActor, actorSystem, &ActorSystem::addActor);
+    connect(actorSystem, &ActorSystem::addActorSignal, viewSimulation, &ViewSimulation::drawNewObject);
 
 
 }
 
-// crea un widget principal, y le asigna un layout nuevo.
-void MainWindow::settingMainContainer()
-{
-}
 
-// muestra el dialogo principal para elegir el tipo de entorno
-void MainWindow::settingInitialDialog()
-{
 
-    //verticalMainLayout->addWidget(dialogMain, Qt::AlignCenter);
-    //QObject::connect(dialogMain, &DialogTypeEnvironment::typeOnClick, this, newSimulation);
-}
 
 
 
@@ -246,6 +264,12 @@ void MainWindow::newSimulation(Session *session){
     dialogMain->close();
     //verticalMainLayout->addWidget(mainToolbar);
 
+
+    /// Establesemos la visibilidad de los componentes del GUI en 'true'
+    viewActions->setVisible(true);     ///
+    viewObjectList->setVisible(true);  ///
+    viewProperties->setVisible(true);  ///
+    viewSimulation->setVisible(true);  ///
 
     verticalMainLayout->addWidget(splitMain);
     verticalMainLayout->setSpacing(0);

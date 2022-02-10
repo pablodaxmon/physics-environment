@@ -26,13 +26,19 @@ ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
 
 }
 
-void ViewSimulation::drawNewObject(QList<Actor*> &listactors)
+
+
+void ViewSimulation::drawNewObject(QList<Actor*> *listactors)
 {
-    for(Actor* i : listactors){
-        scene->addItem(i);
+
+    qDebug() << "añadiendo lista de actores";
+    for(int i = 0; i< listactors->size(); i++){
+        scene->addItem(listactors->at(i));
     }
 
 }
+
+
 
 void ViewSimulation::redrawCanvas()
 {
@@ -138,6 +144,10 @@ QWidget* ViewSimulation::simulationToolBar()
     connect(btnZoomOut, &QPushButton::clicked, viewScene, &GraphicsView::zoomOut);
 
 
+    connect(btnMoveObject, &QPushButton::toggled, this, &ViewSimulation::moveToggle);
+    connect(btnRule, &QPushButton::toggled, this, &ViewSimulation::rulerToggle);
+
+
 
     return wmain;
 }
@@ -240,7 +250,10 @@ void ViewSimulation::showMenuCreateObject()
     menu->addAction(terrain);
     menu->addAction(staticCube);
 
-     menu->popup( this->mapToGlobal(QPoint(0,30)));
+    menu->popup( this->mapToGlobal(QPoint(0,30)));
+
+    connect(menu, &QMenu::triggered, this, &ViewSimulation::createActor);
+
 
 }
 
