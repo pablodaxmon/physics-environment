@@ -203,3 +203,9 @@ void ViewProperties::setValuesFromActor(QMap<Unit, float>* valores)
 
 }
 
+void ViewProperties::setSelectedActor(Actor *actor)
+{
+    qDebug() << "View properties : actor selected ";
+
+}
+

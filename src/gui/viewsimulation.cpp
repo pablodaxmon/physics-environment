@@ -15,7 +15,6 @@ ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
     scene->addLine(-2000,0,2000,0, QPen(QColor(230,20,20,255),0));
     scene->addLine(0,-2000,0,2000, QPen(QColor(20,20,230,255),0));
     scene->addEllipse(-6,-6,12,12);
-    viewScene->centerOn(-600,-600);
     viewScene->setContentsMargins(0,0,0,0);
     viewScene->show();
     mainLayout->addWidget(simulationToolBar());
@@ -24,18 +23,23 @@ ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
 
     setProperty("class", "viewSimulation");
 
+    //connect(scene, &QGraphicsScene::selectionChanged, this, &ViewSimulation::setSelectedActorSlots);
 
 }
 
 
 
-void ViewSimulation::drawNewObject(QList<Actor*> *listactors)
+void ViewSimulation::updateSceneObjects(QList<Actor*> *listactors)
 {
+
     for(int i = 0; i< listactors->size(); i++){
+
+        scene->addItem(listactors->at(i));
         Actor* actor = listactors->at(i);
-        scene->addItem(actor);
         actor->setGraphicsScene(dynamic_cast<GraphicsScene *>(scene));
     }
+    qDebug() << "ViewSimulation: actors count: " << listactors->size();
+    qDebug() << "ViewSimulation: items graphics count: " << scene->items().size();
 }
 
 void ViewSimulation::moveToggle(bool checked)
@@ -45,7 +49,6 @@ void ViewSimulation::moveToggle(bool checked)
         if(actor != nullptr){
             actor->setFlag(QGraphicsItem::ItemIsMovable, checked);
         }
-
     }
 }
 
@@ -60,6 +63,21 @@ void ViewSimulation::setItemSelected()
 
     }*/
 
+}
+
+void ViewSimulation::deleteObject()
+{
+    if(!scene->selectedItems().isEmpty()){
+
+        Actor* actorDeleted = dynamic_cast<Actor *>(scene->selectedItems().last());
+        scene->removeItem(actorDeleted);
+        emit deletedObject(actorDeleted);
+    }
+}
+
+void ViewSimulation::setSelectedActorSlots()
+{
+    emit setSelectedActorSignal(dynamic_cast<Actor *>(scene->selectedItems().last()));
 }
 
 
@@ -174,6 +192,7 @@ QWidget* ViewSimulation::simulationToolBar()
 
     connect(btnMoveObject, &QPushButton::toggled, this, &ViewSimulation::moveToggle);
     connect(btnRule, &QPushButton::toggled, this, &ViewSimulation::rulerToggle);
+    connect(btnDeleteObject, &QPushButton::clicked, this, &ViewSimulation::deleteObject);
 
 
 

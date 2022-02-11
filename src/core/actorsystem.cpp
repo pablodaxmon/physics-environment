@@ -35,16 +35,15 @@ void ActorSystem::addActor(QAction * action)
 }
 
 
-bool ActorSystem::deleteActor(Actor *actor)
+void ActorSystem::deleteActor(Actor *actor)
 {
-    return listActors.removeOne(actor);
+    listActors.removeOne(actor);
+    emit addActorSignal(&listActors);
 }
 
-void ActorSystem::setSelectedActor(int index)
+void ActorSystem::setSelectedActor(Actor *actor)
 {
-    if(index <= listActors.length()){
-        selectedActor = listActors.at(index);
-    };
+    selectedActor = actor;
 }
 
 

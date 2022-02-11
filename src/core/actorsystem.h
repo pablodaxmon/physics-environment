@@ -30,8 +30,8 @@ signals:
 public slots:
     void updateActors();
     void addActor(QAction * action);
-    bool deleteActor(Actor *actor);
-    void setSelectedActor(int index);
+    void deleteActor(Actor *actor);
+    void setSelectedActor(Actor *actor);
 
 };
 

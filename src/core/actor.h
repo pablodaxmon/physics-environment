@@ -61,6 +61,7 @@ public:
     /*bool getSelected() const;
     void setSelected(bool newSelected);*/
 
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -69,6 +70,7 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+
 
 private:
 
@@ -84,6 +86,7 @@ private:
     float accelerationX;
     float accelerationY;
     GraphicsScene * graphicsScene;
+
 
 
 

@@ -7,6 +7,7 @@
 #include <QStandardItemModel>
 #include <QTableView>
 #include <QMap>
+#include "src/core/actor.h"
 
 class ViewProperties : public QWidget
 {
@@ -16,6 +17,7 @@ public:
 
 public slots:
     void setValuesFromActor(QMap<Unit, float>* valores);
+    void setSelectedActor(Actor* actor);
 
 private:
     QTableView * table;

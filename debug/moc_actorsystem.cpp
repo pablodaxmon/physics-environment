@@ -24,8 +24,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ActorSystem_t {
-    const uint offsetsAndSize[26];
-    char stringdata0[129];
+    const uint offsetsAndSize[24];
+    char stringdata0[123];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_ActorSystem_t, stringdata0) + ofs), len 
@@ -42,14 +42,12 @@ QT_MOC_LITERAL(71, 8), // "QAction*"
 QT_MOC_LITERAL(80, 6), // "action"
 QT_MOC_LITERAL(87, 11), // "deleteActor"
 QT_MOC_LITERAL(99, 6), // "Actor*"
-QT_MOC_LITERAL(106, 16), // "setSelectedActor"
-QT_MOC_LITERAL(123, 5) // "index"
+QT_MOC_LITERAL(106, 16) // "setSelectedActor"
 
     },
     "ActorSystem\0addActorSignal\0\0QList<Actor*>*\0"
     "actor\0updateActors\0addActor\0QAction*\0"
-    "action\0deleteActor\0Actor*\0setSelectedActor\0"
-    "index"
+    "action\0deleteActor\0Actor*\0setSelectedActor"
 };
 #undef QT_MOC_LITERAL
 
@@ -81,8 +79,8 @@ static const uint qt_meta_data_ActorSystem[] = {
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 7,    8,
-    QMetaType::Bool, 0x80000000 | 10,    4,
-    QMetaType::Void, QMetaType::Int,   12,
+    QMetaType::Void, 0x80000000 | 10,    4,
+    QMetaType::Void, 0x80000000 | 10,    4,
 
        0        // eod
 };
@@ -96,9 +94,8 @@ void ActorSystem::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 0: _t->addActorSignal((*reinterpret_cast< QList<Actor*>*(*)>(_a[1]))); break;
         case 1: _t->updateActors(); break;
         case 2: _t->addActor((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
-        case 3: { bool _r = _t->deleteActor((*reinterpret_cast< Actor*(*)>(_a[1])));
-            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 4: _t->setSelectedActor((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->deleteActor((*reinterpret_cast< Actor*(*)>(_a[1]))); break;
+        case 4: _t->setSelectedActor((*reinterpret_cast< Actor*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -132,7 +129,7 @@ const QMetaObject ActorSystem::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_ActorSystem_t
 , QtPrivate::TypeAndForceComplete<ActorSystem, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QList<Actor*> *, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QAction *, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QAction *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>
 
 
 >,

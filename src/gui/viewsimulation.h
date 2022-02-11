@@ -30,14 +30,17 @@ public:
 
 
 public slots:
-    void drawNewObject(QList<Actor*> *listactors);
+    void updateSceneObjects(QList<Actor*> *listactors);
     void moveToggle(bool checked);
     void setItemSelected();
+    void deleteObject();
+    void setSelectedActorSlots();
 signals:
     void eqTextChanged();
     void createActor(QAction * action);
     void rulerToggle(bool checked);
     void deletedObject(Actor* object);
+    void setSelectedActorSignal(Actor* object);
 
 protected:
     QLineEdit * zoomEdit;

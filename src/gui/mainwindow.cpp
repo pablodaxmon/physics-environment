@@ -65,7 +65,10 @@ MainWindow:: MainWindow(QWidget *parent)
     /// Conexion del GUI con los componentes
     /// ////////////////////////////
     connect(viewSimulation, &ViewSimulation::createActor, actorSystem, &ActorSystem::addActor);
-    connect(actorSystem, &ActorSystem::addActorSignal, viewSimulation, &ViewSimulation::drawNewObject);
+    connect(actorSystem, &ActorSystem::addActorSignal, viewSimulation, &ViewSimulation::updateSceneObjects);
+    connect(viewSimulation, &ViewSimulation::deletedObject, actorSystem, &ActorSystem::deleteActor);
+    connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, actorSystem, &ActorSystem::setSelectedActor);
+    connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, viewProperties, &ViewProperties::setSelectedActor);
 
 
 }

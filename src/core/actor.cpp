@@ -30,18 +30,41 @@ QRectF Actor::boundingRect() const
 
 void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+
+
+    if(flags() & ItemIsMovable){
+        static const QPointF trianguloUp[3] = {
+            QPointF(50.0, 0),
+            QPointF(55.0, 10.0),
+            QPointF(45.0, 10.0)
+        };
+        static const QPointF trianguloDown[3] = {
+            QPointF(100.0, 50.0),
+            QPointF(90.0, 55.0),
+            QPointF(90.0, 45.0)
+        };
+        painter->setPen(QPen(QColor(228,0,0,255),1));
+        painter->drawLine(50,50,50,10);
+        painter->drawPolygon(trianguloUp, 3);
+
+        painter->setPen(QPen(QColor(0,0,220,255),1));
+        painter->drawLine(50,50,90,50);
+        painter->drawPolygon(trianguloDown, 3);
+
+    }
     QRectF rec = boundingRect();
     QBrush brush(Qt::blue);
 
-    qDebug() << " Actor : " << isSelected();
     if(isSelected()){
         brush.setColor(Qt::red);
     } else {
         brush.setColor(Qt::blue);
     }
 
+    painter->drawText(20,85,QString::number(pos().rx()));
+    painter->drawText(55,85,QString::number(pos().ry()));
     painter->setBrush(brush);
-    painter->drawRect(rec);
+    painter->drawRect(35,35,35,35);
 
 
 
@@ -71,6 +94,8 @@ void Actor::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     graphicsScene->setClickItem(false);
     update();
 }
+
+
 
 
 
