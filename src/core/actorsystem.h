@@ -19,6 +19,8 @@ class ActorSystem : public QObject
 public:
     explicit ActorSystem(QObject *parent = nullptr);
 
+    Actor *getSelectedActor() const;
+
 private:
     QList<Actor*> listActors;
     Actor* selectedActor = NULL;

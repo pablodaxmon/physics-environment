@@ -440,6 +440,21 @@ debug/tst_testactors.moc: tst_testactors.cpp \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QMetaEnum \
 		C:/Qt/6.2.0/mingw81_64/include/QtTest/qttestversion.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QCoreApplication \
+		../../../physics-environment/src/core/actor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPainter \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QVector2D \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QPointF \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QMap \
+		../../src/core/physics.h \
+		../../../physics-environment/src/core/equation.h \
+		../../../physics-environment/src/core/operationmath.h \
+		../../../physics-environment/src/core/equationrunner.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
+		../../../physics-environment/src/core/equationmaker.h \
+		../../../physics-environment/src/gui/graphicsscene.h \
 		debug/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/tests/TestActors/debug/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment/tests/TestActors -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtTest -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include tst_testactors.cpp -o debug\tst_testactors.moc
@@ -787,6 +802,21 @@ debug/tst_testactors.o: tst_testactors.cpp C:/Qt/6.2.0/mingw81_64/include/QtTest
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QMetaEnum \
 		C:/Qt/6.2.0/mingw81_64/include/QtTest/qttestversion.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QCoreApplication \
+		../../../physics-environment/src/core/actor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPainter \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QVector2D \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QPointF \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QMap \
+		../../src/core/physics.h \
+		../../../physics-environment/src/core/equation.h \
+		../../../physics-environment/src/core/operationmath.h \
+		../../../physics-environment/src/core/equationrunner.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
+		../../../physics-environment/src/core/equationmaker.h \
+		../../../physics-environment/src/gui/graphicsscene.h \
 		debug/tst_testactors.moc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\tst_testactors.o tst_testactors.cpp
 

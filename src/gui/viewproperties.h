@@ -16,9 +16,12 @@ public:
     explicit ViewProperties(QWidget *parent = nullptr);
 
 public slots:
+    void setValuesNull();
+    void edicionFinalizada();
     void setValuesFromActor(QMap<Unit, float>* valores);
-    void setSelectedActor(Actor* actor);
 
+signals:
+    void valuesChanged();
 private:
     QTableView * table;
     QStandardItemModel * model;
@@ -34,7 +37,7 @@ private:
     QLineEdit *aceyE;
     QLineEdit *aceE;
     QLineEdit *disE;
-
+    QMap<Unit, float>* valoresSelectedActor;
 };
 
 #endif // VIEWPROPERTIES_H

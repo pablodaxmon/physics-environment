@@ -40,8 +40,9 @@ MainWindow:: MainWindow(QWidget *parent)
                                                              ///
     viewActions = new ViewActions(mainContainer);            ///
     viewObjectList = new ViewObjectList(mainContainer);      ///
-    viewProperties = new ViewProperties(mainContainer);      ///
+    viewProperties = new ViewProperties(mainContainer);      /// ( false porque no hay objetos seleccionados)
     viewSimulation = new ViewSimulation(mainContainer);      ///
+    viewProperties->setEnabled(false);                       ///
                                                              ///
     ////////////////////////////////////////////////////////////
 
@@ -67,8 +68,7 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(viewSimulation, &ViewSimulation::createActor, actorSystem, &ActorSystem::addActor);
     connect(actorSystem, &ActorSystem::addActorSignal, viewSimulation, &ViewSimulation::updateSceneObjects);
     connect(viewSimulation, &ViewSimulation::deletedObject, actorSystem, &ActorSystem::deleteActor);
-    connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, actorSystem, &ActorSystem::setSelectedActor);
-    connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, viewProperties, &ViewProperties::setSelectedActor);
+    connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, this, &MainWindow::connectSelectedActor);
 
 
 }
@@ -77,11 +77,16 @@ void MainWindow::connectSelectedActor(Actor *actor)
 {
     if(actor != nullptr){
         actorSystem->setSelectedActor(actor);
-        connect(actor, &Actor::getValuesChanged, viewProperties, &ViewProperties::setSelectedActor);
-        connect(viewProperties, &ViewProperties::setSelectedActor, actor, &Actor::getValuesChanged);
+        connect(actor, &Actor::valuesChanged, viewProperties, &ViewProperties::setValuesFromActor);
+        viewProperties->setValuesFromActor(actor->getValues());
+        viewProperties->setEnabled(true);
+        connect(viewProperties, &ViewProperties::valuesChanged, actor, &Actor::setValues);
     } else {
-        disconnect(actor, &Actor::getValuesChanged, viewProperties, &ViewProperties::setSelectedActor);
-        disconnect(viewProperties, &ViewProperties::setSelectedActor, actor, &Actor::getValuesChanged);
+        qDebug() << "MainWindow: ningun actor seleccionado";
+        viewProperties->setValuesNull();
+        viewProperties->setEnabled(false);
+        disconnect(actor, &Actor::valuesChanged, viewProperties, &ViewProperties::setValuesFromActor);
+        disconnect(viewProperties, &ViewProperties::valuesChanged, actor, &Actor::setValues);
     }
 }
 

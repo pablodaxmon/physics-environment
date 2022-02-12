@@ -1,6 +1,5 @@
 #include <QtTest>
 #include <QCoreApplication>
-#include "src/core/equation.h"
 
 // add necessary includes here
 
@@ -30,7 +29,6 @@ TestActors::~TestActors()
 
 void TestActors::test_case1()
 {
-    Equation * equation = new Equation;
 
 }
 

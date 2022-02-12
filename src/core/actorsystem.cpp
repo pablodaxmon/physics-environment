@@ -5,6 +5,11 @@ ActorSystem::ActorSystem(QObject *parent) : QObject(parent)
 
 }
 
+Actor *ActorSystem::getSelectedActor() const
+{
+    return selectedActor;
+}
+
 
 
 //Llama a cada actor para cada frame.

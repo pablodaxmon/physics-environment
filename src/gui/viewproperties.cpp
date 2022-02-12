@@ -30,7 +30,7 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     titleContainer->setLayout(titleLayout);
 
 
-
+    valoresSelectedActor = nullptr;
 
 
 
@@ -176,46 +176,64 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
+    posxT->setAlignment(Qt::AlignRight);
+    posyT->setAlignment(Qt::AlignRight);
+    rotT->setAlignment(Qt::AlignRight);
+    masT->setAlignment(Qt::AlignRight);
+    velxT->setAlignment(Qt::AlignRight);
+    velyT->setAlignment(Qt::AlignRight);
+    velT->setAlignment(Qt::AlignRight);
+    acexT->setAlignment(Qt::AlignRight);
+    aceyT->setAlignment(Qt::AlignRight);
+    aceT->setAlignment(Qt::AlignRight);
+    disT->setAlignment(Qt::AlignRight);
+    connect(posxE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
+    connect(posyE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
+    connect(velE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
+    connect(velxE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
+    connect(velyE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
+    connect(aceE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
+    connect(acexE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
+    connect(aceyE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
+
 }
 
-void ViewProperties::setValuesFromActor(QMap<Unit, float>* valores)
+void ViewProperties::setValuesNull()
 {
-    model->clear();
+    valoresSelectedActor = nullptr;
+}
 
-    model->setHorizontalHeaderLabels({"Datos","Valores"});
-    QMap<Unit, float>::iterator i;
-    for(i = valores->begin(); i!= valores->end();i++){
-        QStandardItem *item = new QStandardItem;
-        item->setText(Physics::UnitToChar(i.key()));
-        item->setSelectable(false);
-        item->setEditable(true);
+void ViewProperties::edicionFinalizada()
+{
+    if(valoresSelectedActor != nullptr){
+        valoresSelectedActor->insert(Unit::PosicionX, posxE->text().toFloat());
+        valoresSelectedActor->insert(Unit::PosicionY, posyE->text().toFloat());
+        valoresSelectedActor->insert(Unit::Velocidad, velE->text().toFloat());
+        valoresSelectedActor->insert(Unit::VelocidadX, velxE->text().toFloat());
+        valoresSelectedActor->insert(Unit::VelocidadY, velyE->text().toFloat());
+        valoresSelectedActor->insert(Unit::Aceleracion, aceE->text().toFloat());
+        valoresSelectedActor->insert(Unit::AceleracionX, acexE->text().toFloat());
+        valoresSelectedActor->insert(Unit::AceleracionY, aceyE->text().toFloat());
 
 
-        QStandardItem *item2 = new QStandardItem;
-        item2->setText(QString::number(i.value()));
-        item2->setSelectable(false);
-        item2->setEditable(true);
-
-
-        model->appendRow({item, item2});
-
+        emit valuesChanged();
     }
 
 }
 
-void ViewProperties::setSelectedActor(Actor *actor)
+void ViewProperties::setValuesFromActor(QMap<Unit, float>* valores)
 {
-    posxE->setText(QString::number(actor->getPositionX()));
-    posyE->setText(QString::number(actor->getPositionX()));
-    rotE->setText(QString::number(actor->getPositionX()));
-    masE->setText(QString::number(actor->getPositionX()));
-    velxE->setText(QString::number(actor->getPositionX()));
-    velyE->setText(QString::number(actor->getPositionX()));
-    velE->setText(QString::number(actor->getPositionX()));
-    acexE->setText(QString::number(actor->getPositionX()));
-    aceyE->setText(QString::number(actor->getPositionX()));
-    aceE->setText(QString::number(actor->getPositionX()));
-    disE->setText(QString::number(actor->getPositionX()));
+    valoresSelectedActor = valores;
+    posxE->setText(QString::number(valoresSelectedActor->value(Unit::PosicionX)));
+    posyE->setText(QString::number(valoresSelectedActor->value(Unit::PosicionY)));
+    velxE->setText(QString::number(valoresSelectedActor->value(Unit::VelocidadX)));
+    velyE->setText(QString::number(valoresSelectedActor->value(Unit::VelocidadY)));
+    velE->setText(QString::number(valoresSelectedActor->value(Unit::Velocidad)));
+    acexE->setText(QString::number(valoresSelectedActor->value(Unit::AceleracionX)));
+    aceyE->setText(QString::number(valoresSelectedActor->value(Unit::AceleracionY)));
+    aceE->setText(QString::number(valoresSelectedActor->value(Unit::Aceleracion)));
 
 }
+
+
 

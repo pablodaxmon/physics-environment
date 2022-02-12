@@ -1,7 +1,22 @@
 #include "actor.h"
 
-Actor::Actor(QGraphicsItem *parent) : QGraphicsItem(parent)
+void Actor::setValues()
 {
+    setPos(values.value(Unit::PosicionX), values.value(Unit::PosicionY));
+    update();
+    qDebug() << "Actor: values changes from properties";
+}
+
+Actor::Actor(QGraphicsItem *parent) : QGraphicsObject(parent)
+{
+    values.insert(Unit::Velocidad, 0);
+    values.insert(Unit::VelocidadX, 0);
+    values.insert(Unit::VelocidadY, 0);
+    values.insert(Unit::Aceleracion, 0);
+    values.insert(Unit::AceleracionX, 0);
+    values.insert(Unit::AceleracionY, 0);
+    values.insert(Unit::PosicionX, 0);
+    values.insert(Unit::PosicionY, 0);
 
     setFlag(ItemIsSelectable, true);
     setAcceptHoverEvents(true);
@@ -96,6 +111,11 @@ void Actor::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     update();
 }
 
+QMap<Unit, float> *Actor::getValues()
+{
+    return &values;
+}
+
 
 
 
@@ -104,6 +124,7 @@ void Actor::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 
     update();
+    emit valuesChanged(&values);
     QGraphicsItem::mousePressEvent(event);
 
 
@@ -113,6 +134,17 @@ void Actor::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
     QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void Actor::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    update();
+    if(flags() & ItemIsMovable){
+        values.insert(Unit::PosicionX, pos().rx());
+        values.insert(Unit::PosicionY, pos().ry());
+        emit valuesChanged(&values);
+    }
+    QGraphicsItem::mouseMoveEvent(event);
 }
 
 void Actor::setGraphicsScene(GraphicsScene *newGraphicsview)
@@ -128,86 +160,6 @@ const QString &Actor::getName() const
 void Actor::setName(const QString &newName)
 {
     name = newName;
-}
-
-float Actor::getAccelerationY() const
-{
-    return accelerationY;
-}
-
-void Actor::setAccelerationY(float newAccelerationY)
-{
-    accelerationY = newAccelerationY;
-}
-
-float Actor::getAccelerationX() const
-{
-    return accelerationX;
-}
-
-void Actor::setAccelerationX(float newAccelerationX)
-{
-    accelerationX = newAccelerationX;
-}
-
-float Actor::getAcceleration() const
-{
-    return acceleration;
-}
-
-void Actor::setAcceleration(float newAcceleration)
-{
-    acceleration = newAcceleration;
-}
-
-float Actor::getSpeedY() const
-{
-    return speedY;
-}
-
-void Actor::setSpeedY(float newSpeedY)
-{
-    speedY = newSpeedY;
-}
-
-float Actor::getSpeedX() const
-{
-    return speedX;
-}
-
-void Actor::setSpeedX(float newSpeedX)
-{
-    speedX = newSpeedX;
-}
-
-float Actor::getSpeed() const
-{
-    return speed;
-}
-
-void Actor::setSpeed(float newSpeed)
-{
-    speed = newSpeed;
-}
-
-float Actor::getPositionY() const
-{
-    return positionY;
-}
-
-void Actor::setPositionY(float newPositionY)
-{
-    positionY = newPositionY;
-}
-
-float Actor::getPositionX() const
-{
-    return positionX;
-}
-
-void Actor::setPositionX(float newPositionX)
-{
-    positionX = newPositionX;
 }
 
 

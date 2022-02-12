@@ -23,7 +23,7 @@ ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
 
     setProperty("class", "viewSimulation");
 
-    //connect(scene, &QGraphicsScene::selectionChanged, this, &ViewSimulation::setSelectedActorSlots);
+    connect(scene, &QGraphicsScene::selectionChanged, this, &ViewSimulation::setSelectedActorSlots);
 
 }
 
@@ -38,8 +38,6 @@ void ViewSimulation::updateSceneObjects(QList<Actor*> *listactors)
         Actor* actor = listactors->at(i);
         actor->setGraphicsScene(dynamic_cast<GraphicsScene *>(scene));
     }
-    qDebug() << "ViewSimulation: actors count: " << listactors->size();
-    qDebug() << "ViewSimulation: items graphics count: " << scene->items().size();
 }
 
 void ViewSimulation::moveToggle(bool checked)
