@@ -58,6 +58,7 @@ protected:
 public slots:
 
     void newSimulation(Session *session);
+    void connectSelectedActor(Actor * actor);
 
 signals:
     void setItemSelected(const QModelIndex &index);

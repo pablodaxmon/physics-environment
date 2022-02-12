@@ -77,7 +77,13 @@ void ViewSimulation::deleteObject()
 
 void ViewSimulation::setSelectedActorSlots()
 {
-    emit setSelectedActorSignal(dynamic_cast<Actor *>(scene->selectedItems().last()));
+    if(!scene->selectedItems().isEmpty()){
+        emit setSelectedActorSignal(dynamic_cast<Actor *>(scene->selectedItems().last()));
+
+    } else {
+        emit setSelectedActorSignal(nullptr);
+
+    }
 }
 
 

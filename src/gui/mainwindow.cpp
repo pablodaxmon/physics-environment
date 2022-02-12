@@ -73,6 +73,20 @@ MainWindow:: MainWindow(QWidget *parent)
 
 }
 
+void MainWindow::connectSelectedActor(Actor *actor)
+{
+    if(actor != nullptr){
+        actorSystem->setSelectedActor(actor);
+        connect(actor, &Actor::getValuesChanged, viewProperties, &ViewProperties::setSelectedActor);
+        connect(viewProperties, &ViewProperties::setSelectedActor, actor, &Actor::getValuesChanged);
+    } else {
+        disconnect(actor, &Actor::getValuesChanged, viewProperties, &ViewProperties::setSelectedActor);
+        disconnect(viewProperties, &ViewProperties::setSelectedActor, actor, &Actor::getValuesChanged);
+    }
+}
+
+
+
 
 
 
@@ -276,7 +290,6 @@ void MainWindow::newSimulation(Session *session){
     verticalMainLayout->addWidget(splitMain);
     verticalMainLayout->setSpacing(0);
 }
-
 
 
 

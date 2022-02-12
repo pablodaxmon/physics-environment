@@ -31,6 +31,8 @@ QRectF Actor::boundingRect() const
 void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
+    QRectF rec = boundingRect();
+    painter->drawRect(rec);
 
     if(flags() & ItemIsMovable){
         static const QPointF trianguloUp[3] = {
@@ -52,7 +54,6 @@ void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
         painter->drawPolygon(trianguloDown, 3);
 
     }
-    QRectF rec = boundingRect();
     QBrush brush(Qt::blue);
 
     if(isSelected()){

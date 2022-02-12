@@ -15,6 +15,7 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
         QPointF translation = event->scenePos() - m_origin;
 
+        //m_origin = event->scenePos();
         views().first()->translate(translation.x(), translation.y());
 
     }

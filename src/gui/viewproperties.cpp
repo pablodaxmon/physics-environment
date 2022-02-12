@@ -65,17 +65,17 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     disT->setAlignment(Qt::AlignRight);
 
 
-    QLineEdit *posxE = new QLineEdit;
-    QLineEdit *posyE = new QLineEdit;
-    QLineEdit *rotE = new QLineEdit;
-    QLineEdit *masE = new QLineEdit;
-    QLineEdit *velxE = new QLineEdit;
-    QLineEdit *velyE = new QLineEdit;
-    QLineEdit *velE = new QLineEdit;
-    QLineEdit *acexE = new QLineEdit;
-    QLineEdit *aceyE = new QLineEdit;
-    QLineEdit *aceE = new QLineEdit;
-    QLineEdit *disE = new QLineEdit;
+    posxE = new QLineEdit;
+    posyE = new QLineEdit;
+    rotE = new QLineEdit;
+    masE = new QLineEdit;
+    velxE = new QLineEdit;
+    velyE = new QLineEdit;
+    velE = new QLineEdit;
+    acexE = new QLineEdit;
+    aceyE = new QLineEdit;
+    aceE = new QLineEdit;
+    disE = new QLineEdit;
 
 
     posxE->setAlignment(Qt::AlignCenter);
@@ -205,7 +205,17 @@ void ViewProperties::setValuesFromActor(QMap<Unit, float>* valores)
 
 void ViewProperties::setSelectedActor(Actor *actor)
 {
-    qDebug() << "View properties : actor selected ";
+    posxE->setText(QString::number(actor->getPositionX()));
+    posyE->setText(QString::number(actor->getPositionX()));
+    rotE->setText(QString::number(actor->getPositionX()));
+    masE->setText(QString::number(actor->getPositionX()));
+    velxE->setText(QString::number(actor->getPositionX()));
+    velyE->setText(QString::number(actor->getPositionX()));
+    velE->setText(QString::number(actor->getPositionX()));
+    acexE->setText(QString::number(actor->getPositionX()));
+    aceyE->setText(QString::number(actor->getPositionX()));
+    aceE->setText(QString::number(actor->getPositionX()));
+    disE->setText(QString::number(actor->getPositionX()));
 
 }
 

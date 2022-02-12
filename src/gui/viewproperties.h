@@ -23,6 +23,17 @@ private:
     QTableView * table;
     QStandardItemModel * model;
 
+    QLineEdit *posxE;
+    QLineEdit *posyE;
+    QLineEdit *rotE;
+    QLineEdit *masE;
+    QLineEdit *velxE;
+    QLineEdit *velyE;
+    QLineEdit *velE;
+    QLineEdit *acexE;
+    QLineEdit *aceyE;
+    QLineEdit *aceE;
+    QLineEdit *disE;
 
 };
 
