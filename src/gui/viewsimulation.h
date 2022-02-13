@@ -42,6 +42,20 @@ signals:
     void deletedObject(Actor* object);
     void setSelectedActorSignal(Actor* object);
 
+    /* reproduccion señales */
+
+    void playSignal();
+    void pauseSignal();
+    void stopSignal();
+    void reverseSignal();
+    void toStartSignal();
+    void toEndSignal();
+    void loopEnable(bool checked);
+    void loopInit(const QString &text);
+    void loopDuration(const QString &text);
+    void intervalDuration(const QString &text);
+
+
 protected:
     QLineEdit * zoomEdit;
 

@@ -12,6 +12,12 @@ class TimerLoop : public QObject
 public:
     explicit TimerLoop(ActorSystem& m_actorsystem, QObject *parent = nullptr);
 
+    bool getLoopEnable() const;
+
+    int getIntervalDuration() const;
+
+    float getInit() const;
+
 signals:
     void signalUpdate();
     void signalStart();
@@ -19,18 +25,25 @@ signals:
 
 private:
     QTimer *timer = new QTimer(this);
+    bool loopEnable;
     int intervalDuration;
+    float init;
     float durationLoop;
     int lastLapse;
 
 public slots:
     void update();
-    void setDurationLoop(float value);
-    void setDurationLoopInterval(float value);
+
     void startLoop();
     void stopLoop();
     void pauseLoop();
-    void restartLoop();
+    void toStartLoop();
+    void toEndLoop();
+
+    void setLoopEnable(bool newLoopEnable);
+    void setIntervalDuration(const QString &text);
+    void setInit(const QString &text);
+    void setDurationLoop(const QString &text);
 
 protected:
     ActorSystem& actorsistem;

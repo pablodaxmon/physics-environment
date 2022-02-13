@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     src/core/action.cpp \
+    src/core/actionssystem.cpp \
     src/core/actor.cpp \
     src/core/actorsystem.cpp \
     src/core/equation.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
 HEADERS += \
     core/Session.h \
     src/core/action.h \
+    src/core/actionssystem.h \
     src/core/actor.h \
     src/core/actorsystem.h \
     src/core/equation.h \

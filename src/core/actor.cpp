@@ -88,16 +88,6 @@ void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
 }
 
-/*bool Actor::getSelected() const
-{
-    return selected;
-}
-
-void Actor::setSelected(bool newSelected)
-{
-    selected = newSelected;
-}*/
-
 void Actor::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     graphicsScene->setClickItem(true);
@@ -115,10 +105,6 @@ QMap<Unit, float> *Actor::getValues()
 {
     return &values;
 }
-
-
-
-
 
 void Actor::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {

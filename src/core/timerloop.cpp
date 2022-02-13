@@ -7,15 +7,44 @@ TimerLoop::TimerLoop(ActorSystem& m_actorsystem, QObject *parent) : QObject(pare
     lastLapse = 0;
 }
 
-void TimerLoop::setDurationLoop(float value)
+bool TimerLoop::getLoopEnable() const
 {
-    durationLoop = value;
+    return loopEnable;
 }
 
-void TimerLoop::setDurationLoopInterval(float value)
+int TimerLoop::getIntervalDuration() const
 {
-    intervalDuration = value;
+    return intervalDuration;
 }
+
+void TimerLoop::setIntervalDuration(const QString &text)
+{
+    qDebug() << "TimerLoop: setIntervalDuration";
+}
+
+float TimerLoop::getInit() const
+{
+    return init;
+}
+
+void TimerLoop::setInit(const QString &text)
+{
+    qDebug() << "TimerLoop: setInit";
+}
+
+void TimerLoop::setDurationLoop(const QString &text)
+{
+
+    qDebug() << "TimerLoop: setDurationLoop";
+}
+
+void TimerLoop::setLoopEnable(bool newLoopEnable)
+{
+    qDebug() << "TimerLoop: setLoopEnable";
+    loopEnable = newLoopEnable;
+}
+
+
 
 void TimerLoop::startLoop()
 {
@@ -26,31 +55,44 @@ void TimerLoop::startLoop()
 
     emit signalStart();
 
+    qDebug() << "TimerLoop: startLoop";
 
 }
 
 void TimerLoop::stopLoop()
 {
+    qDebug() << "TimerLoop: stopLoop";
     lastLapse = 0;
     timer->stop();
 }
 
 void TimerLoop::pauseLoop()
 {
+    qDebug() << "TimerLoop: pauseLoop";
     timer->stop();
 }
 
-void TimerLoop::restartLoop()
+void TimerLoop::toStartLoop()
 {
+    qDebug() << "TimerLoop: toStartLoop";
     timer->stop();
     lastLapse = 0;
     timer->start();
+}
+
+
+
+void TimerLoop::toEndLoop()
+{
+
+    qDebug() << "TimerLoop: toEndLoop";
 }
 
 void TimerLoop::update()
 {
     lastLapse++;
 
+    qDebug() << "TimerLoop: update";
     actorsistem.updateActors();
 
 }

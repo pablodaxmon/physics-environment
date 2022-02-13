@@ -247,13 +247,19 @@ QWidget *ViewSimulation::timeControlToolBar()
 
     QLineEdit * timeNow = new QLineEdit;
     QPushButton * loopToggle = new QPushButton;
+    loopToggle->setCheckable(true);
     QPushButton * clockToggle = new QPushButton;
+    clockToggle->setCheckable(true);
     loopToggle->setProperty("class","icon");
     clockToggle->setProperty("class","icon");
     loopToggle->setIcon(QIcon(":/icons/resources/icons16/loop.png"));
     clockToggle->setIcon(QIcon(":/icons/resources/icons16/clock.png"));
+    QLineEdit * intervalInt = new QLineEdit;
+    intervalInt->setEnabled(false);
     QLineEdit * initLoop = new QLineEdit;
+    initLoop->setEnabled(false);
     QLineEdit * endLoop = new QLineEdit;
+    initLoop->setEnabled(false);
 
 
     mainContainer->addWidget(tiempoUnidad);
@@ -267,14 +273,34 @@ QWidget *ViewSimulation::timeControlToolBar()
     mainContainer->addWidget(finalButton);
     mainContainer->addWidget(stopButton);
     mainContainer->addStretch(1);
-    mainContainer->addWidget(timeNow);
-    mainContainer->addWidget(loopToggle);
     mainContainer->addWidget(clockToggle);
+    mainContainer->addWidget(timeNow);
+    mainContainer->addWidget(intervalInt);
+    mainContainer->addWidget(loopToggle);
     mainContainer->addWidget(initLoop);
     mainContainer->addWidget(endLoop);
     mainContainer->setSpacing(2);
 
     res->setLayout(mainContainer);
+
+
+    connect(clockToggle, &QPushButton::toggled, initLoop, &QLineEdit::setEnabled);
+    connect(clockToggle, &QPushButton::toggled, endLoop, &QLineEdit::setEnabled);
+    connect(clockToggle, &QPushButton::toggled, finalButton, &QPushButton::setEnabled);
+    connect(clockToggle, &QPushButton::toggled, this, &ViewSimulation::loopEnable);
+
+    connect(intervalInt, &QLineEdit::textEdited, this, &ViewSimulation::loopDuration);
+    connect(initLoop, &QLineEdit::textEdited, this, &ViewSimulation::loopInit);
+    connect(endLoop, &QLineEdit::textEdited, this, &ViewSimulation::intervalDuration);
+
+
+    connect(playButton, &QPushButton::clicked, this, &ViewSimulation::playSignal);
+    connect(pauseButton, &QPushButton::clicked, this, &ViewSimulation::pauseSignal);
+    connect(stopButton, &QPushButton::clicked, this, &ViewSimulation::stopSignal);
+    connect(reverseButton, &QPushButton::clicked, this, &ViewSimulation::reverseSignal);
+    connect(finalButton, &QPushButton::clicked, this, &ViewSimulation::toEndSignal);
+    connect(backButton, &QPushButton::clicked, this, &ViewSimulation::toStartSignal);
+
 
 
     return res;

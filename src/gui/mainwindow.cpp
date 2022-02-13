@@ -32,13 +32,13 @@ MainWindow:: MainWindow(QWidget *parent)
     ///  Modulos para el funcionamiento del entorno /////
     /// /////////////////////////////////////////////////
     actorSystem = new ActorSystem;                   ///
-                                                    ///
+    timerLoop   = new TimerLoop((*actorSystem));
 
     ////////////////////////////////////////////////////////////
     ///    COMPONENTES DEL GUI                             /////
     ////////////////////////////////////////////////////////////
                                                              ///
-    viewActions = new ViewActions(mainContainer);            ///
+    viewActions    = new ViewActions(mainContainer);         ///
     viewObjectList = new ViewObjectList(mainContainer);      ///
     viewProperties = new ViewProperties(mainContainer);      /// ( false porque no hay objetos seleccionados)
     viewSimulation = new ViewSimulation(mainContainer);      ///
@@ -69,6 +69,19 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(actorSystem, &ActorSystem::addActorSignal, viewSimulation, &ViewSimulation::updateSceneObjects);
     connect(viewSimulation, &ViewSimulation::deletedObject, actorSystem, &ActorSystem::deleteActor);
     connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, this, &MainWindow::connectSelectedActor);
+
+    connect(viewSimulation, &ViewSimulation::playSignal, timerLoop, &TimerLoop::startLoop);
+    connect(viewSimulation, &ViewSimulation::pauseSignal, timerLoop, &TimerLoop::pauseLoop);
+    connect(viewSimulation, &ViewSimulation::stopSignal, timerLoop, &TimerLoop::stopLoop);
+    connect(viewSimulation, &ViewSimulation::reverseSignal, timerLoop, &TimerLoop::stopLoop);
+    connect(viewSimulation, &ViewSimulation::toStartSignal, timerLoop, &TimerLoop::toStartLoop);
+    connect(viewSimulation, &ViewSimulation::toEndSignal, timerLoop, &TimerLoop::toEndLoop);
+
+
+    connect(viewSimulation, &ViewSimulation::loopEnable, timerLoop, &TimerLoop::setLoopEnable);
+    connect(viewSimulation, &ViewSimulation::loopInit, timerLoop, &TimerLoop::setInit);
+    connect(viewSimulation, &ViewSimulation::loopDuration, timerLoop, &TimerLoop::setDurationLoop);
+    connect(viewSimulation, &ViewSimulation::intervalDuration, timerLoop, &TimerLoop::setIntervalDuration);
 
 
 }
