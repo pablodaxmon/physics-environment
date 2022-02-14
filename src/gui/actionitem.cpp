@@ -1,7 +1,7 @@
 #include "actionitem.h"
 #include <QAction>
 
-ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(parent)
+ActionItem::ActionItem(QWidget *parent) : QWidget(parent)
 {
 
     setProperty("class", "action");
@@ -14,21 +14,14 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
 
 
     unitChanged = new QComboBox;
-    QAction* posicionX = new QAction("posicionX", this);
-    QAction* posicionY = new QAction("posicionY", this);
-    QAction* velocidadX = new QAction("velocidadX", this);
-    QAction* velocidadY = new QAction("velocidadY", this);
-    QAction* aceleracionX = new QAction("aceleracionX", this);
-    QAction* aceleracionY = new QAction("aceleracionY", this);
-    QAction* distancia = new QAction("distancia", this);
-
-    unitChanged->addAction(posicionX);
-    unitChanged->addAction(posicionY);
-    unitChanged->addAction(velocidadX);
-    unitChanged->addAction(velocidadY);
-    unitChanged->addAction(aceleracionX);
-    unitChanged->addAction(aceleracionY);
-    unitChanged->addAction(distancia);
+    unitChanged->addItem(tr("Posición X"));
+    unitChanged->addItem(tr("Posición Y"));
+    unitChanged->addItem(tr("Velocidad"));
+    unitChanged->addItem(tr("Velocidad X"));
+    unitChanged->addItem(tr("Velocidad Y"));
+    unitChanged->addItem(tr("Aceleración"));
+    unitChanged->addItem(tr("Aceleración X"));
+    unitChanged->addItem(tr("Aceleración Y"));
 
     QWidget * headW = new QWidget;
     QHBoxLayout * headL = new QHBoxLayout;
@@ -36,7 +29,7 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
     headW->setLayout(headL);
 
     headL->setContentsMargins(10,1,5,1);
-    QLabel * title = new QLabel(tr("Soy un sin nombre"));
+    title = new QLabel(tr("Soy un sin nombre"));
     QPushButton * info = new QPushButton;
     QPushButton * deleteItem = new QPushButton;
     info->setIcon(QIcon(":/icons/resources/icons16/hoja.png"));
@@ -56,10 +49,15 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
 
 
     conditionUnit = new QComboBox;
-    conditionUnit->addAction(velocidadY);
-    conditionUnit->addAction(aceleracionX);
-    conditionUnit->addAction(aceleracionY);
-    conditionUnit->addAction(distancia);
+    conditionUnit->addItem(tr("Tiempo"));
+    conditionUnit->addItem(tr("Posición X"));
+    conditionUnit->addItem(tr("Posición Y"));
+    conditionUnit->addItem(tr("Velocidad"));
+    conditionUnit->addItem(tr("Velocidad X"));
+    conditionUnit->addItem(tr("Velocidad Y"));
+    conditionUnit->addItem(tr("Aceleración"));
+    conditionUnit->addItem(tr("Aceleración X"));
+    conditionUnit->addItem(tr("Aceleración Y"));
 
     valueUniteChanged = new QLineEdit;
     conditionalValue = new QLineEdit;
@@ -79,69 +77,15 @@ ActionItem::ActionItem(Unit unit, const char * name, QWidget *parent) : QWidget(
 
     mainLayout->addLayout(gridLayout);
 
-    setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Minimum);
+    setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
 
 }
 
-Actor *ActionItem::getActorChanged() const
-{
-    return actorChanged;
-}
 
-void ActionItem::setActorChanged(Actor *newActorChanged)
-{
-    actorChanged = newActorChanged;
-}
 
-Actor *ActionItem::getActorCondition() const
-{
-    return actorCondition;
-}
 
-void ActionItem::setActorCondition(Actor *newActorCondition)
-{
-    actorCondition = newActorCondition;
-}
 
-QComboBox *ActionItem::getUnitChanged() const
-{
-    return unitChanged;
-}
 
-void ActionItem::setUnitChanged(QComboBox *newUnitChanged)
-{
-    unitChanged = newUnitChanged;
-}
-
-QLineEdit *ActionItem::getValueUniteChanged() const
-{
-    return valueUniteChanged;
-}
-
-void ActionItem::setValueUniteChanged(QLineEdit *newValueUniteChanged)
-{
-    valueUniteChanged = newValueUniteChanged;
-}
-
-QComboBox *ActionItem::getConditionUnit() const
-{
-    return conditionUnit;
-}
-
-void ActionItem::setConditionUnit(QComboBox *newConditionUnit)
-{
-    conditionUnit = newConditionUnit;
-}
-
-QLineEdit *ActionItem::getConditionalValue() const
-{
-    return conditionalValue;
-}
-
-void ActionItem::setConditionalValue(QLineEdit *newConditionalValue)
-{
-    conditionalValue = newConditionalValue;
-}
 
 void ActionItem::paintEvent(QPaintEvent *event)
 {
@@ -149,6 +93,65 @@ void ActionItem::paintEvent(QPaintEvent *event)
     opt.initFrom(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+
+float ActionItem::getValueCondition() const
+{
+    return conditionalValue->text().toFloat();
+}
+
+void ActionItem::setValueCondition(float newValueCondition)
+{
+    conditionalValue->setText(QString::number(newValueCondition));
+}
+
+float ActionItem::getValueTo() const
+{
+    return valueUniteChanged->text().toFloat();
+}
+
+void ActionItem::setValueTo(float newValueTo)
+{
+    valueUniteChanged->setText(QString::number(newValueTo));
+}
+
+int ActionItem::getUnitCond() const
+{
+    return conditionUnit->currentIndex();
+}
+
+void ActionItem::setUnitCond(int newUnitCond)
+{
+    conditionUnit->setCurrentIndex(newUnitCond);
+}
+int ActionItem::getUnitTo() const
+{
+    return unitChanged->currentIndex();
+}
+
+void ActionItem::setUnitTo(int newUnitTo)
+{
+    unitChanged->setCurrentIndex(newUnitTo);
+}
+const QString &ActionItem::getName() const
+{
+    return name;
+}
+
+void ActionItem::setName(const QString &newName)
+{
+    name = newName;
+    title->setText(name);
+}
+
+Actor *ActionItem::getActor() const
+{
+    return actor;
+}
+
+void ActionItem::setActor(Actor *newActor)
+{
+    actor = newActor;
 }
 
 

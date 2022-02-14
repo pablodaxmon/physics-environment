@@ -21,13 +21,15 @@ class Actor : public QGraphicsObject
 
     Q_OBJECT
 signals:
-    void valuesChanged(QMap<Unit, float>* valores);
+    void valuesChanged();
 public slots:
     void setValues();
+    void getValueFromID(int id);
 public:
     explicit Actor(QGraphicsItem *parent = nullptr);
 
-    void updateData();
+    void startData();
+    void updateData(float time);
 
     int getIndexInList();
     void setIndexInList(int newIndexInList);
@@ -46,6 +48,33 @@ public:
 
     QMap<Unit, float> *getValues();
 
+    float getPositionX() const;
+    void setPositionX(float newPositionX);
+
+    float getPositionY() const;
+    void setPositionY(float newPositionY);
+
+    float getVelocity() const;
+    void setVelocity(float newVelocity);
+
+    float getVelocityX() const;
+    void setVelocityX(float newVelocityX);
+
+    float getVelocityY() const;
+    void setVelocityY(float newVelocityY);
+
+    float getAceleration() const;
+    void setAceleration(float newAceleration);
+
+    float getAcelerationX() const;
+    void setAcelerationX(float newAcelerationX);
+
+    float getAcelerationY() const;
+    void setAcelerationY(float newAcelerationY);
+
+    float getMass() const;
+    void setMass(float newMass);
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -63,6 +92,26 @@ private:
     int indexInList;
     QMap<Unit, float> values;
     GraphicsScene * graphicsScene;
+
+    float positionX;
+    float positionY;
+    float velocity;
+    float velocityX;
+    float velocityY;
+    float aceleration;
+    float acelerationX;
+    float acelerationY;
+    float mass;
+
+//superprivate
+    float init_positionX;
+    float init_positionY;
+    float last_positionX;
+    float last_positionY;
+    float init_velocityX;
+    float init_velocityY;
+    float last_velocityX;
+    float last_velocityY;
 
 
 

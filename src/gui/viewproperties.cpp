@@ -21,7 +21,7 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
 
 
     QGridLayout *gridMain = new QGridLayout;
-    gridMain->setContentsMargins(20,0,10,0);
+    gridMain->setContentsMargins(20,10,10,20);
     mainLayout->setContentsMargins(0,0,0,0);
 
     QWidget *titleContainer = new QWidget(this);
@@ -167,7 +167,7 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
 
 
     gridMain->setHorizontalSpacing(0);
-    gridMain->setVerticalSpacing(0);
+    gridMain->setVerticalSpacing(2);
 
     mainLayout->addWidget(titleContainer);
     mainLayout->addLayout(gridMain);
@@ -198,22 +198,20 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
 
 }
 
-void ViewProperties::setValuesNull()
-{
-    valoresSelectedActor = nullptr;
-}
+
 
 void ViewProperties::edicionFinalizada()
 {
-    if(valoresSelectedActor != nullptr){
-        valoresSelectedActor->insert(Unit::PosicionX, posxE->text().toFloat());
-        valoresSelectedActor->insert(Unit::PosicionY, posyE->text().toFloat());
-        valoresSelectedActor->insert(Unit::Velocidad, velE->text().toFloat());
-        valoresSelectedActor->insert(Unit::VelocidadX, velxE->text().toFloat());
-        valoresSelectedActor->insert(Unit::VelocidadY, velyE->text().toFloat());
-        valoresSelectedActor->insert(Unit::Aceleracion, aceE->text().toFloat());
-        valoresSelectedActor->insert(Unit::AceleracionX, acexE->text().toFloat());
-        valoresSelectedActor->insert(Unit::AceleracionY, aceyE->text().toFloat());
+    if(actorSelected != nullptr){
+        actorSelected->setPositionX(posxE->text().toFloat());
+        actorSelected->setPositionY(posyE->text().toFloat());
+        actorSelected->setVelocity(velE->text().toFloat());
+        actorSelected->setVelocityX(velxE->text().toFloat());
+        actorSelected->setVelocityY(velyE->text().toFloat());
+        actorSelected->setAceleration(aceE->text().toFloat());
+        actorSelected->setAcelerationX(acexE->text().toFloat());
+        actorSelected->setAcelerationY(aceyE->text().toFloat());
+        actorSelected->setMass(masE->text().toFloat());
 
 
         emit valuesChanged();
@@ -221,17 +219,35 @@ void ViewProperties::edicionFinalizada()
 
 }
 
-void ViewProperties::setValuesFromActor(QMap<Unit, float>* valores)
+void ViewProperties::setValuesFromActor()
 {
-    valoresSelectedActor = valores;
-    posxE->setText(QString::number(valoresSelectedActor->value(Unit::PosicionX)));
-    posyE->setText(QString::number(valoresSelectedActor->value(Unit::PosicionY)));
-    velxE->setText(QString::number(valoresSelectedActor->value(Unit::VelocidadX)));
-    velyE->setText(QString::number(valoresSelectedActor->value(Unit::VelocidadY)));
-    velE->setText(QString::number(valoresSelectedActor->value(Unit::Velocidad)));
-    acexE->setText(QString::number(valoresSelectedActor->value(Unit::AceleracionX)));
-    aceyE->setText(QString::number(valoresSelectedActor->value(Unit::AceleracionY)));
-    aceE->setText(QString::number(valoresSelectedActor->value(Unit::Aceleracion)));
+    if(actorSelected != nullptr){
+        posxE->setText(QString::number(round(actorSelected->getPositionX())));
+        posyE->setText(QString::number(round(actorSelected->getPositionY())));
+        velxE->setText(QString::number(round(actorSelected->getVelocityX())));
+        velyE->setText(QString::number(round(actorSelected->getVelocityY())));
+        velE->setText(QString::number(round(actorSelected->getVelocity())));
+        acexE->setText(QString::number(round(actorSelected->getAcelerationX())));
+        aceyE->setText(QString::number(round(actorSelected->getAcelerationY())));
+        aceE->setText(QString::number(round(actorSelected->getAceleration())));
+        masE->setText(QString::number(round(actorSelected->getMass())));
+    }
+}
+
+void ViewProperties::setSelectedActor(Actor *newActorSelected)
+{
+    actorSelected = newActorSelected;
+
+    if(actorSelected != nullptr){
+        posxE->setText(QString::number(newActorSelected->getPositionX()));
+        posyE->setText(QString::number(newActorSelected->getPositionY()));
+        velxE->setText(QString::number(newActorSelected->getVelocityX()));
+        velyE->setText(QString::number(newActorSelected->getVelocityY()));
+        velE->setText(QString::number(newActorSelected->getVelocity()));
+        acexE->setText(QString::number(newActorSelected->getAcelerationX()));
+        aceyE->setText(QString::number(newActorSelected->getAcelerationY()));
+        aceE->setText(QString::number(newActorSelected->getAceleration()));
+    }
 
 }
 

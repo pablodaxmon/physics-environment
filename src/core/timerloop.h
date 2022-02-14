@@ -5,12 +5,13 @@
 #include <QTimer>
 #include <QDebug>
 #include "src/core/actorsystem.h"
+#include "actionssystem.h"
 
 class TimerLoop : public QObject
 {
     Q_OBJECT
 public:
-    explicit TimerLoop(ActorSystem& m_actorsystem, QObject *parent = nullptr);
+    explicit TimerLoop(ActorSystem& m_actorsystem,ActionsSystem& m_actions, QObject *parent = nullptr);
 
     bool getLoopEnable() const;
 
@@ -21,19 +22,21 @@ public:
 signals:
     void signalUpdate();
     void signalStart();
+    void timeChange(float time);
 
 
 private:
     QTimer *timer = new QTimer(this);
     bool loopEnable;
     int intervalDuration;
-    float init;
+    float initTimeLoop;
     float durationLoop;
-    int lastLapse;
+    float lastLapse;
 
 public slots:
     void update();
 
+    void setTimeNow(float time);
     void startLoop();
     void stopLoop();
     void pauseLoop();
@@ -47,6 +50,7 @@ public slots:
 
 protected:
     ActorSystem& actorsistem;
+    ActionsSystem& actionsSystem;
 
 };
 

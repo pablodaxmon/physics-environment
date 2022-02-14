@@ -2,25 +2,52 @@
 
 void Actor::setValues()
 {
-    setPos(values.value(Unit::PosicionX), values.value(Unit::PosicionY));
+    setPos(positionX, positionY);
     update();
     qDebug() << "Actor: values changes from properties";
 }
 
+void Actor::getValueFromID(int id)
+{
+
+}
+
 Actor::Actor(QGraphicsItem *parent) : QGraphicsObject(parent)
 {
-    values.insert(Unit::Velocidad, 0);
-    values.insert(Unit::VelocidadX, 0);
-    values.insert(Unit::VelocidadY, 0);
-    values.insert(Unit::Aceleracion, 0);
-    values.insert(Unit::AceleracionX, 0);
-    values.insert(Unit::AceleracionY, 0);
-    values.insert(Unit::PosicionX, 0);
-    values.insert(Unit::PosicionY, 0);
+// valores por defecto
+    positionX = 0;
+    positionY = 0;
+    velocity = 0;
+    velocityX = 0;
+    velocityY = 0;
+    aceleration = 0;
+    acelerationX = 0;
+    acelerationY = 0;
+    mass = 0;
 
+
+    setPos(positionX, positionY);
     setFlag(ItemIsSelectable, true);
     setAcceptHoverEvents(true);
 }
+
+void Actor::startData()
+{
+    init_positionX = positionX;
+    init_positionY = positionY;
+    init_velocityX = velocityX;
+    init_velocityY = velocityY;
+}
+
+void Actor::updateData(float time)
+{
+    positionX = init_positionX + velocityX*time + (acelerationX*time*time/2);
+    positionY = init_positionY+ velocityY*time + (acelerationY*time*time/2);
+    setPos(positionX, positionY);
+    update();
+    emit valuesChanged();
+}
+
 
 int Actor::getIndexInList()
 {
@@ -32,10 +59,7 @@ void Actor::setIndexInList(int newIndexInList)
     indexInList = newIndexInList;
 }
 
-void Actor::updateData()
-{
 
-}
 
 QRectF Actor::boundingRect() const
 {
@@ -46,8 +70,6 @@ QRectF Actor::boundingRect() const
 void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
-    QRectF rec = boundingRect();
-    painter->drawRect(rec);
 
     if(flags() & ItemIsMovable){
         static const QPointF trianguloUp[3] = {
@@ -77,12 +99,16 @@ void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
         brush.setColor(Qt::blue);
     }
 
-    painter->drawText(20,85,QString::number(pos().rx()));
-    painter->drawText(55,85,QString::number(pos().ry()));
     painter->setBrush(brush);
-    painter->drawRect(35,35,35,35);
+    painter->drawRect(28,28,42,42);
+
+    painter->setPen(QColor(114,114,114,114));
+    painter->setBrush(Qt::NoBrush);
 
 
+
+
+    painter->drawText(25,85,name);
 
 
 
@@ -101,6 +127,121 @@ void Actor::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     update();
 }
 
+float Actor::getMass() const
+{
+    return mass;
+}
+
+void Actor::setMass(float newMass)
+{
+    mass = newMass;
+}
+
+float Actor::getAcelerationY() const
+{
+    return acelerationY;
+}
+
+void Actor::setAcelerationY(float newAcelerationY)
+{
+    acelerationY = newAcelerationY;
+    setPos(positionX, positionY);
+    emit valuesChanged();
+    update();
+}
+
+float Actor::getAcelerationX() const
+{
+    return acelerationX;
+}
+
+void Actor::setAcelerationX(float newAcelerationX)
+{
+    acelerationX = newAcelerationX;
+    setPos(positionX, positionY);
+    emit valuesChanged();
+    update();
+}
+
+float Actor::getAceleration() const
+{
+    return aceleration;
+}
+
+void Actor::setAceleration(float newAceleration)
+{
+    aceleration = newAceleration;
+    setPos(positionX, positionY);
+    emit valuesChanged();
+    update();
+}
+
+float Actor::getVelocityY() const
+{
+    return velocityY;
+}
+
+void Actor::setVelocityY(float newVelocityY)
+{
+    velocityY = newVelocityY;
+    setPos(positionX, positionY);
+    emit valuesChanged();
+    update();
+}
+
+float Actor::getVelocityX() const
+{
+    return velocityX;
+}
+
+void Actor::setVelocityX(float newVelocityX)
+{
+    velocityX = newVelocityX;
+    setPos(positionX, positionY);
+    emit valuesChanged();
+    update();
+}
+
+float Actor::getVelocity() const
+{
+    return velocity;
+}
+
+void Actor::setVelocity(float newVelocity)
+{
+    velocity = newVelocity;
+    setPos(positionX, positionY);
+    emit valuesChanged();
+    update();
+}
+
+float Actor::getPositionY() const
+{
+    return positionY;
+}
+
+void Actor::setPositionY(float newPositionY)
+{
+    positionY = newPositionY;
+    setPos(positionX, positionY);
+    emit valuesChanged();
+
+    update();
+}
+
+float Actor::getPositionX() const
+{
+    return positionX;
+}
+
+void Actor::setPositionX(float newPositionX)
+{
+    positionX = newPositionX;
+    setPos(positionX, positionY);
+    emit valuesChanged();
+    update();
+}
+
 QMap<Unit, float> *Actor::getValues()
 {
     return &values;
@@ -110,7 +251,7 @@ void Actor::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 
     update();
-    emit valuesChanged(&values);
+    emit valuesChanged();
     QGraphicsItem::mousePressEvent(event);
 
 
@@ -126,9 +267,9 @@ void Actor::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
     if(flags() & ItemIsMovable){
-        values.insert(Unit::PosicionX, pos().rx());
-        values.insert(Unit::PosicionY, pos().ry());
-        emit valuesChanged(&values);
+        positionX = pos().rx();
+        positionY = pos().ry();
+        emit valuesChanged();
     }
     QGraphicsItem::mouseMoveEvent(event);
 }
@@ -146,6 +287,7 @@ const QString &Actor::getName() const
 void Actor::setName(const QString &newName)
 {
     name = newName;
+    update();
 }
 
 

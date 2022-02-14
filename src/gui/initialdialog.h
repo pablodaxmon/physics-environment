@@ -36,7 +36,6 @@ private slots:
     void createNewSesionSlot();
     void loadSesionSlot();
     void loadLastSesionSlot();
-
 signals:
     void createNewSesion(Session * session);
     void loadSesion();

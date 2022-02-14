@@ -84,6 +84,11 @@ void ViewSimulation::setSelectedActorSlots()
     }
 }
 
+void ViewSimulation::setTimeNow(float time)
+{
+    timeNow->setText(QString::number(round(time)));
+}
+
 
 
 
@@ -245,7 +250,16 @@ QWidget *ViewSimulation::timeControlToolBar()
     stopButton->setProperty("class","icon");
     finalButton->setProperty("class","icon");
 
-    QLineEdit * timeNow = new QLineEdit;
+    timeNow = new QLineEdit;
+    intervalInt = new QLineEdit;
+    initLoop = new QLineEdit;
+    endLoop = new QLineEdit;
+
+    timeNow->setValidator(new QIntValidator);
+    timeNow->setAlignment(Qt::AlignRight);
+    timeNow->setFixedWidth(60);
+
+
     QPushButton * loopToggle = new QPushButton;
     loopToggle->setCheckable(true);
     QPushButton * clockToggle = new QPushButton;
@@ -254,11 +268,26 @@ QWidget *ViewSimulation::timeControlToolBar()
     clockToggle->setProperty("class","icon");
     loopToggle->setIcon(QIcon(":/icons/resources/icons16/loop.png"));
     clockToggle->setIcon(QIcon(":/icons/resources/icons16/clock.png"));
-    QLineEdit * intervalInt = new QLineEdit;
+
+    QLabel* txt1 = new QLabel(tr("Tiempo "), this);
+    QLabel* txt2 = new QLabel(tr("Intervalo "));
+
+    QLabel* txt3 = new QLabel(tr("Loop "));
+
+
+    intervalInt->setValidator(new QIntValidator);
+    intervalInt->setAlignment(Qt::AlignRight);
+    intervalInt->setFixedWidth(60);
     intervalInt->setEnabled(false);
-    QLineEdit * initLoop = new QLineEdit;
+
+    initLoop->setValidator(new QIntValidator);
+    initLoop->setAlignment(Qt::AlignRight);
+    initLoop->setFixedWidth(60);
     initLoop->setEnabled(false);
-    QLineEdit * endLoop = new QLineEdit;
+
+    endLoop->setValidator(new QIntValidator);
+    endLoop->setAlignment(Qt::AlignRight);
+    endLoop->setFixedWidth(60);
     initLoop->setEnabled(false);
 
 
@@ -273,9 +302,12 @@ QWidget *ViewSimulation::timeControlToolBar()
     mainContainer->addWidget(finalButton);
     mainContainer->addWidget(stopButton);
     mainContainer->addStretch(1);
+    mainContainer->addWidget(txt1);
     mainContainer->addWidget(clockToggle);
     mainContainer->addWidget(timeNow);
+    mainContainer->addWidget(txt2);
     mainContainer->addWidget(intervalInt);
+    mainContainer->addWidget(txt3);
     mainContainer->addWidget(loopToggle);
     mainContainer->addWidget(initLoop);
     mainContainer->addWidget(endLoop);
@@ -284,10 +316,10 @@ QWidget *ViewSimulation::timeControlToolBar()
     res->setLayout(mainContainer);
 
 
-    connect(clockToggle, &QPushButton::toggled, initLoop, &QLineEdit::setEnabled);
-    connect(clockToggle, &QPushButton::toggled, endLoop, &QLineEdit::setEnabled);
-    connect(clockToggle, &QPushButton::toggled, finalButton, &QPushButton::setEnabled);
-    connect(clockToggle, &QPushButton::toggled, this, &ViewSimulation::loopEnable);
+    connect(loopToggle, &QPushButton::toggled, initLoop, &QLineEdit::setEnabled);
+    connect(loopToggle, &QPushButton::toggled, endLoop, &QLineEdit::setEnabled);
+    connect(loopToggle, &QPushButton::toggled, finalButton, &QPushButton::setEnabled);
+    connect(loopToggle, &QPushButton::toggled, this, &ViewSimulation::loopEnable);
 
     connect(intervalInt, &QLineEdit::textEdited, this, &ViewSimulation::loopDuration);
     connect(initLoop, &QLineEdit::textEdited, this, &ViewSimulation::loopInit);
@@ -300,6 +332,7 @@ QWidget *ViewSimulation::timeControlToolBar()
     connect(reverseButton, &QPushButton::clicked, this, &ViewSimulation::reverseSignal);
     connect(finalButton, &QPushButton::clicked, this, &ViewSimulation::toEndSignal);
     connect(backButton, &QPushButton::clicked, this, &ViewSimulation::toStartSignal);
+    connect(timeNow, &QLineEdit::textEdited, this, &ViewSimulation::timeNowChanged);
 
 
 
@@ -344,9 +377,9 @@ void ViewSimulation::showMenuSettings()
 {
     QMenu *menu = new QMenu( this );
 
-    QAction* car = new QAction("Auto", this);
-    QAction* ball = new QAction("Pelota", this);
-    QAction* terrain = new QAction("Terreno (solo side view)", this);
+    QAction* car        = new QAction("Auto", this);
+    QAction* ball       = new QAction("Pelota", this);
+    QAction* terrain    = new QAction("Terreno (solo side view)", this);
     QAction* staticCube = new QAction("cubo estatico", this);
     menu->addAction(car);
     menu->addAction(ball);

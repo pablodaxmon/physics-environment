@@ -16,7 +16,6 @@
 #include "viewobjectlist.h"
 #include "viewactions.h"
 #include "viewproperties.h"
-#include "dialogtypeenvironment.h"
 #include "maintoolbar.h"
 #include "initialdialog.h"
 
@@ -29,8 +28,8 @@
 #include "src/core/operationmath.h"
 #include "src/core/physics.h"
 #include "src/core/timerloop.h"
-#include "src/core/action.h"
 #include "src/core/Session.h"
+#include "src/core/actionssystem.h"
 
 
 class MainWindow : public QMainWindow
@@ -122,6 +121,7 @@ private:
 
 
     ActorSystem* actorSystem;
+    ActionsSystem* actionsSystem;
     EquationMaker* equationMaker;
     TimerLoop* timerLoop;
 
@@ -129,6 +129,7 @@ private:
     ViewActions *viewActions;
     ViewProperties *viewProperties;
     ViewSimulation *viewSimulation;
+    ViewGraphicsResults * viewGraphicsResult;
     SplitterMain *splitMain;
     ViewObjectList *viewObjectList;
     MainToolBar *mainToolbar;

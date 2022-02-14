@@ -15,10 +15,11 @@ class ViewProperties : public QWidget
 public:
     explicit ViewProperties(QWidget *parent = nullptr);
 
+    void setSelectedActor(Actor *newActorSelected);
+
 public slots:
-    void setValuesNull();
     void edicionFinalizada();
-    void setValuesFromActor(QMap<Unit, float>* valores);
+    void setValuesFromActor();
 
 signals:
     void valuesChanged();
@@ -37,6 +38,8 @@ private:
     QLineEdit *aceyE;
     QLineEdit *aceE;
     QLineEdit *disE;
+
+    Actor * actorSelected;
     QMap<Unit, float>* valoresSelectedActor;
 };
 

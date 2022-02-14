@@ -7,7 +7,6 @@
 #include "src/core/equation.h"
 #include "src/core/equationrunner.h"
 #include "src/core/equationmaker.h"
-#include "src/core/action.h"
 #include <QMap>
 #include <map>
 #include <QString>
@@ -32,7 +31,8 @@ MainWindow:: MainWindow(QWidget *parent)
     ///  Modulos para el funcionamiento del entorno /////
     /// /////////////////////////////////////////////////
     actorSystem = new ActorSystem;                   ///
-    timerLoop   = new TimerLoop((*actorSystem));
+    actionsSystem = new ActionsSystem;               ///
+    timerLoop   = new TimerLoop((*actorSystem), (*actionsSystem));
 
     ////////////////////////////////////////////////////////////
     ///    COMPONENTES DEL GUI                             /////
@@ -42,8 +42,9 @@ MainWindow:: MainWindow(QWidget *parent)
     viewObjectList = new ViewObjectList(mainContainer);      ///
     viewProperties = new ViewProperties(mainContainer);      /// ( false porque no hay objetos seleccionados)
     viewSimulation = new ViewSimulation(mainContainer);      ///
+    viewGraphicsResult = new ViewGraphicsResults(mainContainer);      ///
     viewProperties->setEnabled(false);                       ///
-                                                             ///
+    viewActions->isSelectedActor(false);                     ///
     ////////////////////////////////////////////////////////////
 
 
@@ -69,6 +70,7 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(actorSystem, &ActorSystem::addActorSignal, viewSimulation, &ViewSimulation::updateSceneObjects);
     connect(viewSimulation, &ViewSimulation::deletedObject, actorSystem, &ActorSystem::deleteActor);
     connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, this, &MainWindow::connectSelectedActor);
+    connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, actionsSystem, &ActionsSystem::setSelectedActor);
 
     connect(viewSimulation, &ViewSimulation::playSignal, timerLoop, &TimerLoop::startLoop);
     connect(viewSimulation, &ViewSimulation::pauseSignal, timerLoop, &TimerLoop::pauseLoop);
@@ -82,6 +84,10 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(viewSimulation, &ViewSimulation::loopInit, timerLoop, &TimerLoop::setInit);
     connect(viewSimulation, &ViewSimulation::loopDuration, timerLoop, &TimerLoop::setDurationLoop);
     connect(viewSimulation, &ViewSimulation::intervalDuration, timerLoop, &TimerLoop::setIntervalDuration);
+    connect(timerLoop, &TimerLoop::timeChange, viewSimulation, &ViewSimulation::setTimeNow);
+    connect(timerLoop, &TimerLoop::timeChange, viewGraphicsResult, &ViewGraphicsResults::setTimeNow);
+    connect(viewActions, &ViewActions::addedNewAction, actionsSystem, &ActionsSystem::addNewAction);
+    connect(viewGraphicsResult, &ViewGraphicsResults::changeTime, timerLoop, &TimerLoop::setTimeNow);
 
 
 }
@@ -90,13 +96,20 @@ void MainWindow::connectSelectedActor(Actor *actor)
 {
     if(actor != nullptr){
         actorSystem->setSelectedActor(actor);
+        viewProperties->setSelectedActor(actor);
+        actionsSystem->setSelectedActor(actor);
+        viewActions->setSelectedActor(actor);
+        viewActions->isSelectedActor(true);
         connect(actor, &Actor::valuesChanged, viewProperties, &ViewProperties::setValuesFromActor);
-        viewProperties->setValuesFromActor(actor->getValues());
         viewProperties->setEnabled(true);
         connect(viewProperties, &ViewProperties::valuesChanged, actor, &Actor::setValues);
     } else {
         qDebug() << "MainWindow: ningun actor seleccionado";
-        viewProperties->setValuesNull();
+        actorSystem->setSelectedActor(nullptr);
+        viewProperties->setSelectedActor(nullptr);
+        actionsSystem->setSelectedActor(nullptr);
+        viewActions->setSelectedActor(nullptr);
+        viewActions->isSelectedActor(false);
         viewProperties->setEnabled(false);
         disconnect(actor, &Actor::valuesChanged, viewProperties, &ViewProperties::setValuesFromActor);
         disconnect(viewProperties, &ViewProperties::valuesChanged, actor, &Actor::setValues);
@@ -293,7 +306,7 @@ void MainWindow::newSimulation(Session *session){
 
     setWindowTitle(session->getName() + " - Physics Environment");
 
-    splitMain = new SplitterMain(mainContainer,viewObjectList, viewActions, viewProperties, viewSimulation);
+    splitMain = new SplitterMain(mainContainer,viewGraphicsResult,viewObjectList, viewActions, viewProperties, viewSimulation);
 
     dialogMain->close();
     //verticalMainLayout->addWidget(mainToolbar);

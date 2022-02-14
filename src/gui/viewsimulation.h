@@ -35,6 +35,7 @@ public slots:
     void setItemSelected();
     void deleteObject();
     void setSelectedActorSlots();
+    void setTimeNow(float time);
 signals:
     void eqTextChanged();
     void createActor(QAction * action);
@@ -55,6 +56,7 @@ signals:
     void loopDuration(const QString &text);
     void intervalDuration(const QString &text);
 
+    void timeNowChanged(const QString &text);
 
 protected:
     QLineEdit * zoomEdit;
@@ -70,7 +72,10 @@ private:
     QPushButton* addActorB;
     QPushButton* deleteActorB;
 
-    float a = 5;
+    QLineEdit * timeNow;
+    QLineEdit * intervalInt;
+    QLineEdit * initLoop;
+    QLineEdit * endLoop;
 
 private slots:
     void showMenuSettings();

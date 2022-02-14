@@ -10,19 +10,28 @@ Actor *ActorSystem::getSelectedActor() const
     return selectedActor;
 }
 
-
-
-//Llama a cada actor para cada frame.
-void ActorSystem::updateActors()
+void ActorSystem::startActors()
 {
     if(!listActors.isEmpty()){
         QListIterator<Actor*> i(listActors);
         while(i.hasNext()){
-            i.next()->updateData();
+            i.next()->startData();
+        }
+    }
+}
+
+
+
+//Llama a cada actor para cada frame.
+void ActorSystem::updateActors(float time)
+{
+    if(!listActors.isEmpty()){
+        QListIterator<Actor*> i(listActors);
+        while(i.hasNext()){
+            i.next()->updateData(time);
         }
     }
     if(selectedActor != NULL){
-        qDebug() << "actualizanco actores";
 
     }
 
@@ -32,8 +41,8 @@ void ActorSystem::addActor(QAction * action)
 {
 
     Actor* actore = new Actor();
-    actore->setName(action->text());
     listActors.append(actore);
+    actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
     actore->setIndexInList(listActors.lastIndexOf(actore));
 
     emit addActorSignal(&listActors);

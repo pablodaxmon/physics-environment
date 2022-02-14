@@ -1,7 +1,9 @@
 #include "timerloop.h"
 #include <string>
 
-TimerLoop::TimerLoop(ActorSystem& m_actorsystem, QObject *parent) : QObject(parent), actorsistem(m_actorsystem)
+TimerLoop::TimerLoop(ActorSystem& m_actorsystem, ActionsSystem& m_actions, QObject *parent) : QObject(parent)
+  , actorsistem(m_actorsystem)
+  , actionsSystem(m_actions)
 {
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     lastLapse = 0;
@@ -19,23 +21,23 @@ int TimerLoop::getIntervalDuration() const
 
 void TimerLoop::setIntervalDuration(const QString &text)
 {
-    qDebug() << "TimerLoop: setIntervalDuration";
+    intervalDuration = (&text)->toFloat();
 }
 
 float TimerLoop::getInit() const
 {
-    return init;
+    return initTimeLoop;
 }
 
 void TimerLoop::setInit(const QString &text)
 {
-    qDebug() << "TimerLoop: setInit";
+
+    initTimeLoop = (&text)->toFloat();
 }
 
 void TimerLoop::setDurationLoop(const QString &text)
 {
 
-    qDebug() << "TimerLoop: setDurationLoop";
 }
 
 void TimerLoop::setLoopEnable(bool newLoopEnable)
@@ -53,6 +55,7 @@ void TimerLoop::startLoop()
     }
     timer->start(30);
 
+    actorsistem.startActors();
     emit signalStart();
 
     qDebug() << "TimerLoop: startLoop";
@@ -64,6 +67,9 @@ void TimerLoop::stopLoop()
     qDebug() << "TimerLoop: stopLoop";
     lastLapse = 0;
     timer->stop();
+    actorsistem.updateActors(0);
+    actionsSystem.executeAction(0);
+    emit timeChange(0);
 }
 
 void TimerLoop::pauseLoop()
@@ -90,9 +96,23 @@ void TimerLoop::toEndLoop()
 
 void TimerLoop::update()
 {
+    qDebug() << "TimerLoop: update";
     lastLapse++;
 
-    qDebug() << "TimerLoop: update";
-    actorsistem.updateActors();
+    if(loopEnable){
+        if((lastLapse*30)/1000 > intervalDuration){
+            lastLapse = initTimeLoop;
+        }
 
+    }
+    actorsistem.updateActors((lastLapse*30)/1000);
+    actionsSystem.executeAction((lastLapse*30)/1000);
+    emit timeChange((lastLapse*30)/1000);
+
+}
+
+void TimerLoop::setTimeNow(float time)
+{
+    lastLapse = (100*time)/3;
+    emit timeChange(time);
 }

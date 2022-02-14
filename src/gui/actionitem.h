@@ -18,35 +18,38 @@ class ActionItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ActionItem(Unit unidad, const char * name, QWidget *parent = nullptr);
+    explicit ActionItem(QWidget *parent = nullptr);
 
 
 
 
 
-    Actor *getActorChanged() const;
-    void setActorChanged(Actor *newActorChanged);
-
-    Actor *getActorCondition() const;
-    void setActorCondition(Actor *newActorCondition);
-
-    QComboBox *getUnitChanged() const;
-    void setUnitChanged(QComboBox *newUnitChanged);
-
-    QLineEdit *getValueUniteChanged() const;
-    void setValueUniteChanged(QLineEdit *newValueUniteChanged);
-
-    QComboBox *getConditionUnit() const;
-    void setConditionUnit(QComboBox *newConditionUnit);
-
-    QLineEdit *getConditionalValue() const;
-    void setConditionalValue(QLineEdit *newConditionalValue);
 
     void paintEvent(QPaintEvent *event) override;
+
+    float getValueCondition() const;
+    void setValueCondition(float newValueCondition);
+
+    float getValueTo() const;
+    void setValueTo(float newValueTo);
+
+    int getUnitCond() const;
+    void setUnitCond(int newUnitCond);
+
+    int getUnitTo() const;
+    void setUnitTo(int newUnitTo);
+
+    const QString &getName() const;
+    void setName(const QString &newName);
+
+    Actor *getActor() const;
+    void setActor(Actor *newActor);
+
 signals:
 
 private:
-
+    Actor * actor;
+    QLabel * title;
     Actor * actorChanged;
     Actor * actorCondition;
 
@@ -56,6 +59,9 @@ private:
 
     QComboBox * conditionUnit;
     QLineEdit * conditionalValue;
+
+
+    QString name;
 
 
 };

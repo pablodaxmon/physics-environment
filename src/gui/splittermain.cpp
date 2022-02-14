@@ -5,13 +5,11 @@
 #include <QVBoxLayout>
 #include <QGraphicsView>
 #include <QGraphicsScene>
-#include "viewgraphicsresults.h"
 
 #include <QLabel>
-SplitterMain::SplitterMain(QWidget *parent, QWidget *vListObjects, QWidget *vActions, QWidget *vProperties, QWidget *vSimulation) : QWidget(parent)
+SplitterMain::SplitterMain(QWidget *parent,ViewGraphicsResults *graphisResults,  QWidget *vListObjects, QWidget *vActions, QWidget *vProperties, QWidget *vSimulation) : QWidget(parent)
 {
 
-    ViewGraphicsResults * graphisResults = new ViewGraphicsResults(this);
     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
     QHBoxLayout *container = new QHBoxLayout(this);
 

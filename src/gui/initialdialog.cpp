@@ -11,13 +11,13 @@ InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
     QPushButton * createNewButton = new QPushButton(tr("Crear nuevo entorno"));
     createNewButton->setProperty("class", "noicon");
     createNewButton->setFixedHeight(35);
-    QLineEdit* nameEdit = new QLineEdit;
-    QLineEdit* descriptionEdit = new QLineEdit;
+    nameEdit = new QLineEdit;
+    descriptionEdit = new QLineEdit;
 
 
 
     QFormLayout * formLayout = new QFormLayout;
-    formLayout->addRow(tr("Nombre de la sesion"), nameEdit);
+    formLayout->addRow(tr("Nombre de la sesión"), nameEdit);
     formLayout->addRow(tr("Descripción"), descriptionEdit);
 
     formLayout->setHorizontalSpacing(80);
@@ -25,7 +25,6 @@ InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
 
     createLayout->addLayout(formLayout);
     createLayout->addWidget(createTypeBox());
-    createLayout->addWidget(createViewBox());
     createLayout->addWidget(createNewButton);
 
 
@@ -37,7 +36,6 @@ InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
     setLayout(mainLaydout);
 
     resize(570, height());
-    setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
     connect(createNewButton, &QPushButton::clicked, this, InitialDialog::createNewSesionSlot);
 
@@ -45,21 +43,19 @@ InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
 
 QGroupBox *InitialDialog::createTypeBox()
 {
-    QGroupBox *groupBox = new QGroupBox(tr("E&xclusive Radio Buttons"));
+    QGroupBox *groupBox = new QGroupBox(tr("Opciones adicionales"));
     groupBox->setCheckable(true);
     groupBox->setChecked(false);
 
-    QRadioButton *radio1 = new QRadioButton(tr("Rad&io button 1"));
-    QRadioButton *radio2 = new QRadioButton(tr("Radi&o button 2"));
-    QRadioButton *radio3 = new QRadioButton(tr("Radio &button 3"));
+    QRadioButton *radio1 = new QRadioButton(tr("vista superior"));
+    QRadioButton *radio2 = new QRadioButton(tr("vista lateral"));
     radio1->setChecked(true);
-    QCheckBox *checkBox = new QCheckBox(tr("Ind&ependent checkbox"));
+    QCheckBox *checkBox = new QCheckBox(tr("Gravedad"));
     checkBox->setChecked(true);
 
     QVBoxLayout *vbox = new QVBoxLayout;
     vbox->addWidget(radio1);
     vbox->addWidget(radio2);
-    vbox->addWidget(radio3);
     vbox->addWidget(checkBox);
     vbox->addStretch(1);
     groupBox->setLayout(vbox);
@@ -95,7 +91,7 @@ QGroupBox *InitialDialog::createViewBox()
 
 void InitialDialog::createNewSesionSlot()
 {
-    Session * session = new Session(TypeSession::Cinematic, ViewSession::Up, tr("NombreDeLaSession"), tr("Descripcion de la session"));
+    Session * session = new Session(TypeSession::Cinematic, ViewSession::Up, nameEdit->text(), descriptionEdit->text());
 
     emit createNewSesion(session);
 

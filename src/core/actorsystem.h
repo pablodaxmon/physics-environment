@@ -30,7 +30,8 @@ signals:
     void addActorSignal(QList<Actor*> *actor);
 
 public slots:
-    void updateActors();
+    void startActors();
+    void updateActors(float time);
     void addActor(QAction * action);
     void deleteActor(Actor *actor);
     void setSelectedActor(Actor *actor);

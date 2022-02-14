@@ -21,6 +21,14 @@ QSize ViewGraphicsResults::minimumSizeHint() const
     return QSize(50,50);
 }
 
+void ViewGraphicsResults::setTimeNow(float time)
+{
+    float timeFixed = time*30;
+    cursorPos = timeFixed;
+    update();
+
+}
+
 void ViewGraphicsResults::paintEvent(QPaintEvent *event)
 {
 
@@ -54,21 +62,44 @@ void ViewGraphicsResults::paintEvent(QPaintEvent *event)
 
      painter.setPen(QColor("#4F575A"));
      for(int i = 0;i< round(width()/60);i++){
-        painter.drawText(28+i*60,17,"9");
+        painter.drawText(i*60-3,17,QString::number(i*2));
 
      }
+
+
+     painter.setPen(QPen(QColor("#202020"),2));
+
+     painter.drawLine(cursorPos-15,0,cursorPos+15,0);
+     painter.drawLine(cursorPos,0,cursorPos,height()-4);
+
+     painter.drawLine(cursorPos-15,height(),cursorPos+15,height());
+
 
 
 }
 
 void ViewGraphicsResults::wheelEvent(QWheelEvent *event)
 {
-     QPoint numDegrees = event->angleDelta() / 8;
+     /*QPoint numDegrees = event->angleDelta() / 8;
      QPoint numSteps = numDegrees / 15;
      wheelPos += (numDegrees.y()/15)*10;
      if(wheelPos>30 || wheelPos<-30){
          wheelPos = 0;
      }
-     update();
-     event->ignore();
+     update();*/
+    event->ignore();
 }
+
+void ViewGraphicsResults::mousePressEvent(QMouseEvent *event)
+{
+
+    cursorPos = event->localPos().rx();
+    float res = cursorPos;
+    update();
+
+    emit changeTime(res/33);
+    QWidget::mousePressEvent(event);
+
+}
+
+
