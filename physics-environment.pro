@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    sessiondata.cpp \
     src/core/actionssystem.cpp \
     src/core/actor.cpp \
     src/core/actorsystem.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
     src/core/equationrunner.cpp \
     src/core/operationmath.cpp \
     src/core/physics.cpp \
+    src/core/sessionmanager.cpp \
     src/core/timerloop.cpp \
     src/gui/actionitem.cpp \
     src/gui/createactiondialog.cpp \
@@ -38,6 +40,7 @@ SOURCES += \
 
 HEADERS += \
     core/Session.h \
+    sessiondata.h \
     src/core/actionssystem.h \
     src/core/actor.h \
     src/core/actorsystem.h \
@@ -46,6 +49,7 @@ HEADERS += \
     src/core/equationrunner.h \
     src/core/operationmath.h \
     src/core/physics.h \
+    src/core/sessionmanager.h \
     src/core/timerloop.h \
     src/gui/actionitem.h \
     src/gui/createactiondialog.h \
