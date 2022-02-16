@@ -42,9 +42,13 @@ MainWindow:: MainWindow(QWidget *parent)
     viewObjectList = new ViewObjectList(mainContainer);      ///
     viewProperties = new ViewProperties(mainContainer);      /// ( false porque no hay objetos seleccionados)
     viewSimulation = new ViewSimulation(mainContainer);      ///
-    viewGraphicsResult = new ViewGraphicsResults(mainContainer);      ///
+    viewGraphicsResult = new ViewGraphicsResults(mainContainer);///
     viewProperties->setEnabled(false);                       ///
-    viewActions->isSelectedActor(false);                     ///
+    viewActions->isSelectedActor(false);
+    actionsSystem->setContainerItems(viewActions->getContainerList());///
+    splitMain = new SplitterMain(mainContainer,viewGraphicsResult,viewObjectList, viewActions, viewProperties, viewSimulation);
+
+
     ////////////////////////////////////////////////////////////
 
 
@@ -54,6 +58,7 @@ MainWindow:: MainWindow(QWidget *parent)
     viewObjectList->setVisible(false);  ///
     viewProperties->setVisible(false);  ///
     viewSimulation->setVisible(false);  ///
+    splitMain->setVisible(false);  ///
 
 
     ///  Creación e implemetancion de los menus del menubar  ///
@@ -91,6 +96,8 @@ MainWindow:: MainWindow(QWidget *parent)
 
 
 
+    QObject::connect(dialogMain, &InitialDialog::loadSesion, sessionManager, &SessionManager::loadSession);
+    QObject::connect(dialogMain, &InitialDialog::loadSesion, this, newSimulation);
     QObject::connect(dialogMain, &InitialDialog::createNewSesion, sessionManager, &SessionManager::createSession);
     QObject::connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);
 }
@@ -137,10 +144,22 @@ void MainWindow::conecttingModulesViews()
 
 }
 
+void MainWindow::showInitialdialog()
+{
+    /// Establesemos la visibilidad de los componentes del GUI en 'true'
+    viewActions->setVisible(false);     ///
+    viewObjectList->setVisible(false);  ///
+    viewProperties->setVisible(false);  ///
+    viewSimulation->setVisible(false);  ///
+    splitMain->setVisible(false);       ///
+    dialogMain->show();
+}
+
 
 void MainWindow::createActions(){
     actNewSimulation = new QAction(QIcon(":/icons/resources/icons16/image_add.png"),tr("&New simulation"), this);
     actNewSimulation->setStatusTip("Create a new simulation");
+    connect(actNewSimulation, &QAction::triggered, this, &MainWindow::showInitialdialog);
 
 
     actLoadSimulation = new QAction(QIcon(":/icons/resources/icons16/drive_add.png"),tr("&Load simulation"), this);
@@ -309,8 +328,8 @@ ViewSimulation* MainWindow::getViewSimulation() const
 void MainWindow::newSimulation()
 {
 
+    setWindowTitle(sessionManager->getSession()->getName() + tr(" - UMSS"));
 
-    splitMain = new SplitterMain(mainContainer,viewGraphicsResult,viewObjectList, viewActions, viewProperties, viewSimulation);
 
     dialogMain->close();
     //verticalMainLayout->addWidget(mainToolbar);
@@ -321,6 +340,7 @@ void MainWindow::newSimulation()
     viewObjectList->setVisible(true);  ///
     viewProperties->setVisible(true);  ///
     viewSimulation->setVisible(true);  ///
+    splitMain->setVisible(true);       ///
 
     verticalMainLayout->addWidget(splitMain);
     verticalMainLayout->setSpacing(0);

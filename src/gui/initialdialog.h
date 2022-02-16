@@ -12,6 +12,7 @@
 #include <QListView>
 #include <QStyledItemDelegate>
 #include <QDialogButtonBox>
+#include <QListWidgetItem>
 #include "src/core/Session.h"
 
 
@@ -30,14 +31,17 @@ private:
     QLineEdit* descriptionEdit;
 
     QWidget *createListSessions();
-    QWidget *itemListWidget();
+    QWidget *itemListWidget(const QString &text, const QString &text2);
     QGroupBox *createTypeBox();
     QGroupBox *createViewBox();
-
+    QListWidgetItem *itemNow = nullptr;
+    QPushButton * loadButton;
 private slots:
     void createNewSesionSlot();
     void loadSesionSlot();
     void loadLastSesionSlot();
+    void setCurrentItem(QListWidgetItem *item);
+    void setEnabledLoadButton();
 signals:
     void createNewSesion(ViewSession _view, QString _name, QString _description);
     void loadSesion(QString url);

@@ -51,7 +51,7 @@ void SessionManager::saveSession()
     dataValues["description"] = session->getDescription();
     dataValues["direction"] = info.absolutePath();
 
-    data[session->getName()] = dataValues;
+    data[info.fileName()] = dataValues;
 
 
     dataOverWriter.write(QJsonDocument(data).toJson());
@@ -62,8 +62,57 @@ void SessionManager::saveSession()
 
 void SessionManager::createSession( ViewSession _view, QString _name, QString _description)
 {
+    actionsSystem->reset();
+    actorsSystem->reset();
     session = new Session( _view, _name, _description);
 
+}
+
+void SessionManager::loadSession(QString url)
+{
+    actionsSystem->reset();
+    actorsSystem->reset();
+    QFile data(url);
+    if (!data.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open save file.");
+        return;
+    }
+    QByteArray dataArray = data.readAll();
+    QJsonDocument dataDoc(QJsonDocument::fromJson(dataArray));
+
+    QJsonObject dataJson = dataDoc.object();
+
+    session = new Session( ViewSession::Free, dataJson["nameSession"].toString(), dataJson["description"].toString());
+
+    QJsonArray arrayActors = dataJson["actors"].toArray();
+
+    for( int i = 0;i<arrayActors.size();i++){
+        QJsonObject actorObj = arrayActors[i].toObject();
+
+        Actor* actor = actorsSystem->addActorNS();
+        actor->setName(actorObj["name"].toString());
+
+        actor->setIdentifier(actorObj["identifier"].toString());
+        actor->setPositionX(actorObj["posX"].toDouble());
+        actor->setPositionY(actorObj["posY"].toDouble());
+
+    }
+
+    QJsonArray arrayActions = dataJson["actions"].toArray();
+
+    for( int i = 0;i<arrayActions.size();i++){
+        QJsonObject actionObj = arrayActions[i].toObject();
+        Actor* actor;
+        for(int j = 0;j<actorsSystem->getListActors().count();j++){
+            actor = actorsSystem->getListActors().at(j);
+            if(actor->getIdentifier() == actionObj["identifier"].toString()){
+                break;
+            }
+        }
+
+        actionsSystem->addNewActionFromJson(actionObj, actor);
+
+    }
 }
 
 void SessionManager::writeData(QJsonObject& json)

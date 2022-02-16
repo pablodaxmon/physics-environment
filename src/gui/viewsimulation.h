@@ -36,6 +36,7 @@ public slots:
     void deleteObject();
     void setSelectedActorSlots();
     void setTimeNow(float time);
+    void reset();
 signals:
     void eqTextChanged();
     void createActor(QAction * action);

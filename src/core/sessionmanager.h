@@ -27,6 +27,7 @@ public:
 public slots:
 
     void createSession( ViewSession _view, QString _name, QString _description);
+    void loadSession(QString url);
     void saveSession();
 private:
     ActionsSystem* actionsSystem;

@@ -97,6 +97,11 @@ void ViewActions::AddNewAction(int unidadCondition, int unidadTo, float valueCon
 
 }
 
+QVBoxLayout *ViewActions::getContainerList() const
+{
+    return containerList;
+}
+
 void ViewActions::setSelectedActor(Actor *newSelectedActor)
 {
     selectedActor = newSelectedActor;

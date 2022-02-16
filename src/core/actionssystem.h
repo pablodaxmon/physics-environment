@@ -15,15 +15,21 @@ public:
     explicit ActionsSystem(QObject *parent = nullptr);
     void writeJson(QJsonObject &json);
 
+
+    void setContainerItems(QBoxLayout *newContainerItems);
+
 public slots:
     void setSelectedActor(Actor *newSelectedActor);
     void addNewAction(ActionItem *item);
+    void addNewActionFromJson(const QJsonObject &json, Actor *actor);
     void executeAction(float time);
+    void reset();
 signals:
 
 private:
-    QList<ActionItem*> * listActions;
+    QList<ActionItem*> listActions;
     Actor* selectedActor;
+    QBoxLayout* containerItems;
 
 };
 

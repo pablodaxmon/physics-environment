@@ -89,6 +89,16 @@ void ViewSimulation::setTimeNow(float time)
     timeNow->setText(QString::number(round(time)));
 }
 
+void ViewSimulation::reset()
+{
+    scene->clear();
+    scene->addLine(-2000,0,2000,0, QPen(QColor(230,20,20,255),0));
+    scene->addLine(0,-2000,0,2000, QPen(QColor(20,20,230,255),0));
+    scene->addEllipse(-6,-6,12,12);
+
+    viewScene->update();
+}
+
 
 
 

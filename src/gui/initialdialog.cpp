@@ -3,6 +3,9 @@
 #include <QVBoxLayout>
 #include <QListWidget>
 #include <QFormLayout>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
 {
@@ -38,52 +41,74 @@ InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
     mainLaydout->addWidget(createListSessions());
 
 
-    QPushButton * loadButton = new QPushButton(tr("Cargar entorno"));
+    loadButton = new QPushButton(tr("Cargar entorno"));
+    loadButton->setEnabled(false);
     loadButton->setProperty("class", "noicon");
     mainLaydout->addWidget(loadButton);
     setLayout(mainLaydout);
 
     resize(570, height());
 
-    connect(createNewButton, &QPushButton::clicked, this, InitialDialog::createNewSesionSlot);
+    connect(createNewButton, &QPushButton::clicked, this, &InitialDialog::createNewSesionSlot);
+
+    connect(loadButton, &QPushButton::clicked, this, &InitialDialog::loadSesionSlot);
 
 }
 
 QWidget *InitialDialog::createListSessions()
 {
-    // header
+    //widget
     QWidget *widgetContainer = new QWidget(this);
-    widgetContainer->setFixedHeight(400);
     QVBoxLayout *widgetLayout = new QVBoxLayout;
-    widgetLayout->setContentsMargins(0,0,0,0);
-    ///
-
     QListWidget* list = new QListWidget(widgetContainer);
-    QListWidgetItem* item = new QListWidgetItem();
-    item->setSizeHint(QSize(100, 50));
+    widgetContainer->setFixedHeight(400);
+    widgetLayout->setContentsMargins(0,0,0,0);
 
-    list->addItem(item);
-    list->setItemWidget(item, itemListWidget());
+
+    // reading data
+
+
+    QFile data("datastorage.json");
+    if (!data.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open save file.");
+    }
+    QByteArray tempdata = data.readAll();
+    QJsonDocument loadData(QJsonDocument::fromJson(tempdata));
+    QJsonObject jsonData = loadData.object();
+
+    //data to items
+
+    foreach (const QString& key, jsonData.keys()) {
+        QJsonValue value = jsonData.value(key);
+        QListWidgetItem* item = new QListWidgetItem();
+        item->setSizeHint(QSize(100, 50));
+        item->setData(Qt::UserRole, key);
+        list->addItem(item);
+        list->setItemWidget(item, itemListWidget(key, value['description'].toString()));
+    }
+
 
 
 
     QLabel * title = new QLabel(tr("Cargar sesión"));
-
     widgetContainer->setLayout(widgetLayout);
-
     widgetLayout->addWidget(title);
     widgetLayout->addWidget(list);
+
+
+    connect(list, QListWidget::itemClicked, this, InitialDialog::setCurrentItem);
+    connect(list, QListWidget::itemClicked, this, InitialDialog::setEnabledLoadButton);
     return widgetContainer;
 
 }
 
-QWidget *InitialDialog::itemListWidget()
+QWidget *InitialDialog::itemListWidget(const QString &text, const QString &text2)
 {
     QWidget * res = new QWidget;
     QHBoxLayout * layout = new QHBoxLayout;
     res->setLayout(layout);
-    QLabel* label1 = new QLabel(tr("Partida de ldia de hoyy"), res);
-    QLabel* label2 = new QLabel(tr(" 15 de febrero de 2022"), res);
+    QLabel* label1 = new QLabel(text);
+    QLabel* label2 = new QLabel(text2);
     layout->addWidget(label1);
     layout->addWidget(label2);
 
@@ -151,10 +176,11 @@ void InitialDialog::createNewSesionSlot()
 
 void InitialDialog::loadSesionSlot()
 {
+    if(itemNow != nullptr){
+        emit loadSesion(itemNow->data(Qt::UserRole).toString());
+        close();
+    }
 
-    emit loadSesion(tr("hola.dat"));
-
-    close();
 }
 
 void InitialDialog::loadLastSesionSlot()
@@ -162,4 +188,14 @@ void InitialDialog::loadLastSesionSlot()
     emit loadSesion(tr("hola.dat"));
 
     close();
+}
+
+void InitialDialog::setCurrentItem(QListWidgetItem *item)
+{
+    itemNow = item;
+}
+
+void InitialDialog::setEnabledLoadButton()
+{
+    loadButton->setEnabled(true);
 }

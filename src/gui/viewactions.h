@@ -13,6 +13,8 @@ public:
 
     void setSelectedActor(Actor *newSelectedActor);
 
+    QVBoxLayout *getContainerList() const;
+
 signals:
     void addedNewAction(ActionItem* action);
     void actionsChanged(ActionItem* action);

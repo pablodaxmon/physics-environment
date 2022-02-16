@@ -1,5 +1,6 @@
 #include "actorsystem.h"
 
+#include<time.h>
 ActorSystem::ActorSystem(QObject *parent) : QObject(parent)
 {
 
@@ -16,6 +17,8 @@ void ActorSystem::writeJson(QJsonObject &json)
     for(int i = 0;i<listActors.size();i++){
         QJsonObject actorObject;
         Actor * actor = listActors.value(i);
+        actorObject["identifier"] = actor->getIdentifier();
+        actorObject["name"] = actor->getName();
         actorObject["posX"] = actor->getPositionX();
         actorObject["posY"] = actor->getPositionY();
         actorObject["vel"] = actor->getVelocity();
@@ -65,27 +68,61 @@ void ActorSystem::updateActors(float time)
 
 }
 
-void ActorSystem::addActor(QAction * action)
+void ActorSystem::addActor()
 {
+    srand(time(0));
 
     Actor* actore = new Actor();
     listActors.append(actore);
+    actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
     actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
     actore->setIndexInList(listActors.lastIndexOf(actore));
 
     emit addActorSignal(&listActors);
 }
 
+//no slot fuunctions
+Actor* ActorSystem::addActorNS()
+{
+    srand(time(0));
+
+    Actor* actore = new Actor();
+    listActors.append(actore);
+    actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
+    actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
+    actore->setIndexInList(listActors.lastIndexOf(actore));
+
+    emit addActorSignal(&listActors);
+
+    return actore;
+}
+
+const QList<Actor *> &ActorSystem::getListActors() const
+{
+    return listActors;
+}
+
 
 void ActorSystem::deleteActor(Actor *actor)
 {
     listActors.removeOne(actor);
+    delete actor;
     emit addActorSignal(&listActors);
 }
 
 void ActorSystem::setSelectedActor(Actor *actor)
 {
     selectedActor = actor;
+}
+
+void ActorSystem::reset()
+{
+
+    qDeleteAll(listActors);
+    listActors.clear();
+    qDebug() << "Actorsistem: count actors: " << listActors.length();
+    emit addActorSignal(&listActors);
+
 }
 
 

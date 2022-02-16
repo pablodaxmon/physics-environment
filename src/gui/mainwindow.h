@@ -53,6 +53,7 @@ public:
 protected:
     void createViews();
     void conecttingModulesViews();
+    void showInitialdialog();
 
 
 public slots:

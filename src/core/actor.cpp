@@ -127,6 +127,16 @@ void Actor::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     update();
 }
 
+const QString &Actor::getIdentifier() const
+{
+    return identifier;
+}
+
+void Actor::setIdentifier(const QString &newIdentifier)
+{
+    identifier = newIdentifier;
+}
+
 float Actor::getMass() const
 {
     return mass;

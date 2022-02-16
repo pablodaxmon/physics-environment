@@ -24,6 +24,9 @@ public:
     Actor *getSelectedActor() const;
     void writeJson(QJsonObject &json);
     void readJson(const QJsonObject &json) const;
+    Actor* addActorNS();
+
+    const QList<Actor *> &getListActors() const;
 
 private:
     QList<Actor*> listActors;
@@ -36,9 +39,10 @@ signals:
 public slots:
     void startActors();
     void updateActors(float time);
-    void addActor(QAction * action);
+    void addActor();
     void deleteActor(Actor *actor);
     void setSelectedActor(Actor *actor);
+    void reset();
 
 
 };

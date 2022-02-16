@@ -75,6 +75,9 @@ public:
     float getMass() const;
     void setMass(float newMass);
 
+    const QString &getIdentifier() const;
+    void setIdentifier(const QString &newIdentifier);
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -89,6 +92,7 @@ protected:
 private:
 
     QString name;
+    QString identifier;
     int indexInList;
     QMap<Unit, float> values;
     GraphicsScene * graphicsScene;

@@ -2,16 +2,16 @@
 
 ActionsSystem::ActionsSystem(QObject *parent) : QObject(parent)
 {
-    listActions = new QList<ActionItem*>();
 }
 
 void ActionsSystem::writeJson(QJsonObject &json)
 {
     QJsonArray actionsArray;
-    for(int i = 0;i<listActions->size();i++){
+    for(int i = 0;i<listActions.size();i++){
         QJsonObject actionObject;
-        ActionItem * action = listActions->at(i);
+        ActionItem * action = listActions.at(i);
 
+        actionObject["actorTo"] = action->getActor()->getIdentifier();
         actionObject["valueTo"] = action->getValueTo();
         actionObject["valueCond"] = action->getValueCondition();
         actionObject["unitTo"] = action->getUnitTo();
@@ -31,16 +31,34 @@ void ActionsSystem::setSelectedActor(Actor *newSelectedActor)
 
 void ActionsSystem::addNewAction(ActionItem* item)
 {
-    listActions->append(item);
 
+    listActions.append(item);
+
+}
+
+void ActionsSystem::addNewActionFromJson(const QJsonObject &json, Actor* actor)
+{
+
+    ActionItem * action = new ActionItem;
+    action->setValueCondition(json["valueCond"].toDouble());
+    action->setValueTo(json["valueTo"].toDouble());
+    action->setUnitCond(json["unitCond"].toDouble());
+    action->setUnitTo(json["unitTo"].toDouble());
+
+
+    action->setName(actor->getName());
+    action->setActor(actor);
+
+    listActions.append(action);
+    containerItems->insertWidget(0,action);
 }
 
 void ActionsSystem::executeAction(float time)
 {
     float m_time = round(time);
     float variableCondition;
-    for(int i = 0;i<listActions->size();i++){
-        ActionItem * act = listActions->at(i);
+    for(int i = 0;i<listActions.size();i++){
+        ActionItem * act = listActions.at(i);
         switch (act->getUnitCond()) {
         case 0:
             variableCondition = m_time;
@@ -109,4 +127,27 @@ qDebug() << "ActionsSystem :variableCondition" << variableCondition << "    getV
     }
 
 }
+
+void ActionsSystem::reset()
+{
+    qDebug() << "ActionsSystem containerCount bef: " << listActions.size();
+    qDebug() << "ActionsSystem containerCount bef: " << containerItems->count();
+    for(int i = 0;i<listActions.size();i++){
+        ActionItem * act = listActions.at(i);
+        containerItems->removeWidget(act);
+
+    }
+    qDeleteAll(listActions);
+    listActions.clear();
+
+    qDebug() << "ActionsSystem containerCount af: " << listActions.size();
+    qDebug() << "ActionsSystem containerCount af: " << containerItems->count();
+
+}
+
+void ActionsSystem::setContainerItems(QBoxLayout *newContainerItems)
+{
+    containerItems = newContainerItems;
+}
+
 
