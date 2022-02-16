@@ -30,6 +30,7 @@
 #include "src/core/timerloop.h"
 #include "src/core/Session.h"
 #include "src/core/actionssystem.h"
+#include "src/core/sessionmanager.h"
 
 
 class MainWindow : public QMainWindow
@@ -56,7 +57,7 @@ protected:
 
 public slots:
 
-    void newSimulation(Session *session);
+    void newSimulation();
     void connectSelectedActor(Actor * actor);
 
 signals:
@@ -84,10 +85,10 @@ signals:
     void aboutProgrammers();
     void help();
     void versionInfo();
-
 private:
     void createActions();
     void createMenu();
+
     QMenu *fileMenu;
     QMenu *editMenu;
     QMenu *simulationMenu;
@@ -123,6 +124,7 @@ private:
     ActorSystem* actorSystem;
     ActionsSystem* actionsSystem;
     EquationMaker* equationMaker;
+    SessionManager* sessionManager;
     TimerLoop* timerLoop;
 
 

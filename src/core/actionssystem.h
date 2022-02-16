@@ -5,13 +5,15 @@
 #include <QObject>
 #include "src/gui/actionitem.h"
 #include "actor.h"
-
+#include "QJsonArray"
+#include "QJsonObject"
 
 class ActionsSystem : public QObject
 {
     Q_OBJECT
 public:
     explicit ActionsSystem(QObject *parent = nullptr);
+    void writeJson(QJsonObject &json);
 
 public slots:
     void setSelectedActor(Actor *newSelectedActor);

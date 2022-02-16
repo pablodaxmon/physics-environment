@@ -29,6 +29,8 @@ private:
     QLineEdit* nameEdit;
     QLineEdit* descriptionEdit;
 
+    QWidget *createListSessions();
+    QWidget *itemListWidget();
     QGroupBox *createTypeBox();
     QGroupBox *createViewBox();
 
@@ -37,9 +39,8 @@ private slots:
     void loadSesionSlot();
     void loadLastSesionSlot();
 signals:
-    void createNewSesion(Session * session);
-    void loadSesion();
-    void loadLastSesion();
+    void createNewSesion(ViewSession _view, QString _name, QString _description);
+    void loadSesion(QString url);
 
 
 };

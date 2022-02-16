@@ -23,7 +23,6 @@ MainWindow:: MainWindow(QWidget *parent)
     mainContainer->setLayout(verticalMainLayout);
 
     dialogMain = new InitialDialog(this);
-    QObject::connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);
     dialogMain->show();
 
 
@@ -33,6 +32,7 @@ MainWindow:: MainWindow(QWidget *parent)
     actorSystem = new ActorSystem;                   ///
     actionsSystem = new ActionsSystem;               ///
     timerLoop   = new TimerLoop((*actorSystem), (*actionsSystem));
+    sessionManager   = new SessionManager(actionsSystem, actorSystem);
 
     ////////////////////////////////////////////////////////////
     ///    COMPONENTES DEL GUI                             /////
@@ -90,6 +90,9 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(viewGraphicsResult, &ViewGraphicsResults::changeTime, timerLoop, &TimerLoop::setTimeNow);
 
 
+
+    QObject::connect(dialogMain, &InitialDialog::createNewSesion, sessionManager, &SessionManager::createSession);
+    QObject::connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);
 }
 
 void MainWindow::connectSelectedActor(Actor *actor)
@@ -123,6 +126,7 @@ void MainWindow::connectSelectedActor(Actor *actor)
 
 
 
+
 //crea las ventanas del programa
 void MainWindow::createViews()
 {
@@ -144,9 +148,9 @@ void MainWindow::createActions(){
     connect(actLoadSimulation, &QAction::triggered, this, &MainWindow::loadSimulation);
 
 
-    actLoadLastSimulation = new QAction(QIcon(":/icons/resources/icons16/folder_page.png"),tr("&Load last simulation"), this);
-    actLoadLastSimulation->setStatusTip("Create a new simulation");
-    connect(actLoadLastSimulation, &QAction::triggered, this, &MainWindow::loadLastSimulation);
+    actLoadLastSimulation = new QAction(QIcon(":/icons/resources/icons16/folder_page.png"),tr("&Save simulation"), this);
+    actLoadLastSimulation->setStatusTip("Save simulation");
+    connect(actLoadLastSimulation, &QAction::triggered, sessionManager, &SessionManager::saveSession);
 
 
     actRecentSimulations = new QAction(QIcon(":/icons/resources/icons16/folder_palette.png"),tr("&Recent simulations"), this);
@@ -280,6 +284,7 @@ void MainWindow::createMenu(){
 
 }
 
+
 MainToolBar *MainWindow::getMainToolbar() const
 {
     return mainToolbar;
@@ -301,10 +306,9 @@ ViewSimulation* MainWindow::getViewSimulation() const
 }
 
 
-void MainWindow::newSimulation(Session *session){
+void MainWindow::newSimulation()
+{
 
-
-    setWindowTitle(session->getName() + " - Physics Environment");
 
     splitMain = new SplitterMain(mainContainer,viewGraphicsResult,viewObjectList, viewActions, viewProperties, viewSimulation);
 

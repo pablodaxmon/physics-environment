@@ -9,7 +9,6 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    sessiondata.cpp \
     src/core/actionssystem.cpp \
     src/core/actor.cpp \
     src/core/actorsystem.cpp \
@@ -40,7 +39,7 @@ SOURCES += \
 
 HEADERS += \
     core/Session.h \
-    sessiondata.h \
+    src/core/Session.h \
     src/core/actionssystem.h \
     src/core/actor.h \
     src/core/actorsystem.h \

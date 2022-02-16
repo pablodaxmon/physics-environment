@@ -1,6 +1,7 @@
 #include "initialdialog.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QListWidget>
 #include <QFormLayout>
 
 InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
@@ -12,6 +13,7 @@ InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
     createNewButton->setProperty("class", "noicon");
     createNewButton->setFixedHeight(35);
     nameEdit = new QLineEdit;
+    nameEdit->setText("untitle");
     descriptionEdit = new QLineEdit;
 
 
@@ -33,12 +35,59 @@ InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
     mainBox->setLayout(createLayout);
 
     mainLaydout->addWidget(mainBox);
+    mainLaydout->addWidget(createListSessions());
+
+
+    QPushButton * loadButton = new QPushButton(tr("Cargar entorno"));
+    loadButton->setProperty("class", "noicon");
+    mainLaydout->addWidget(loadButton);
     setLayout(mainLaydout);
 
     resize(570, height());
 
     connect(createNewButton, &QPushButton::clicked, this, InitialDialog::createNewSesionSlot);
 
+}
+
+QWidget *InitialDialog::createListSessions()
+{
+    // header
+    QWidget *widgetContainer = new QWidget(this);
+    widgetContainer->setFixedHeight(400);
+    QVBoxLayout *widgetLayout = new QVBoxLayout;
+    widgetLayout->setContentsMargins(0,0,0,0);
+    ///
+
+    QListWidget* list = new QListWidget(widgetContainer);
+    QListWidgetItem* item = new QListWidgetItem();
+    item->setSizeHint(QSize(100, 50));
+
+    list->addItem(item);
+    list->setItemWidget(item, itemListWidget());
+
+
+
+    QLabel * title = new QLabel(tr("Cargar sesión"));
+
+    widgetContainer->setLayout(widgetLayout);
+
+    widgetLayout->addWidget(title);
+    widgetLayout->addWidget(list);
+    return widgetContainer;
+
+}
+
+QWidget *InitialDialog::itemListWidget()
+{
+    QWidget * res = new QWidget;
+    QHBoxLayout * layout = new QHBoxLayout;
+    res->setLayout(layout);
+    QLabel* label1 = new QLabel(tr("Partida de ldia de hoyy"), res);
+    QLabel* label2 = new QLabel(tr(" 15 de febrero de 2022"), res);
+    layout->addWidget(label1);
+    layout->addWidget(label2);
+
+    return res;
 }
 
 QGroupBox *InitialDialog::createTypeBox()
@@ -91,9 +140,8 @@ QGroupBox *InitialDialog::createViewBox()
 
 void InitialDialog::createNewSesionSlot()
 {
-    Session * session = new Session(TypeSession::Cinematic, ViewSession::Up, nameEdit->text(), descriptionEdit->text());
 
-    emit createNewSesion(session);
+    emit createNewSesion(ViewSession::Up, nameEdit->text(), descriptionEdit->text());
 
     close();
 
@@ -104,9 +152,14 @@ void InitialDialog::createNewSesionSlot()
 void InitialDialog::loadSesionSlot()
 {
 
+    emit loadSesion(tr("hola.dat"));
+
+    close();
 }
 
 void InitialDialog::loadLastSesionSlot()
 {
+    emit loadSesion(tr("hola.dat"));
 
+    close();
 }

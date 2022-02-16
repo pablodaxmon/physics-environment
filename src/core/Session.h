@@ -9,11 +9,10 @@ enum class ViewSession {Up, Side, Free};
 
 class Session{
 public:
-    Session(TypeSession _type, ViewSession _view, QString _name, QString _description) : type(_type),view(_view),name(_name),description(_description)
+    Session( ViewSession _view, QString _name, QString _description) : view(_view),name(_name),description(_description)
     {
     }
 
-    const TypeSession type;
     const ViewSession view;
     const QString name;
     const QString description;
@@ -42,9 +41,6 @@ inline const QString &Session::getDescription() const
     return description;
 }
 
-inline TypeSession Session::getType() const
-{
-    return type;
-}
+
 
 #endif // SESSION_H

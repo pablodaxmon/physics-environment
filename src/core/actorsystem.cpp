@@ -10,6 +10,34 @@ Actor *ActorSystem::getSelectedActor() const
     return selectedActor;
 }
 
+void ActorSystem::writeJson(QJsonObject &json)
+{
+    QJsonArray actorsArray;
+    for(int i = 0;i<listActors.size();i++){
+        QJsonObject actorObject;
+        Actor * actor = listActors.value(i);
+        actorObject["posX"] = actor->getPositionX();
+        actorObject["posY"] = actor->getPositionY();
+        actorObject["vel"] = actor->getVelocity();
+        actorObject["velX"] = actor->getVelocityX();
+        actorObject["velY"] = actor->getVelocityY();
+        actorObject["ace"] = actor->getAceleration();
+        actorObject["aceX"] = actor->getAcelerationX();
+        actorObject["aceY"] = actor->getAcelerationY();
+        actorObject["mass"] = actor->getMass();
+
+        actorsArray.append(actorObject);
+    }
+
+    json["actors"] = actorsArray;
+
+}
+
+void ActorSystem::readJson(const QJsonObject &json) const
+{
+
+}
+
 void ActorSystem::startActors()
 {
     if(!listActors.isEmpty()){

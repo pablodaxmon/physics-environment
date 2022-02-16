@@ -12,6 +12,8 @@
 #include <QModelIndex>
 #include <QListIterator>
 #include "src/core/equationmaker.h"
+#include "QJsonObject"
+#include "QJsonArray"
 
 class ActorSystem : public QObject
 {
@@ -20,6 +22,8 @@ public:
     explicit ActorSystem(QObject *parent = nullptr);
 
     Actor *getSelectedActor() const;
+    void writeJson(QJsonObject &json);
+    void readJson(const QJsonObject &json) const;
 
 private:
     QList<Actor*> listActors;
@@ -35,6 +39,7 @@ public slots:
     void addActor(QAction * action);
     void deleteActor(Actor *actor);
     void setSelectedActor(Actor *actor);
+
 
 };
 

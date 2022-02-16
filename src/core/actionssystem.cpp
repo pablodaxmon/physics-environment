@@ -2,7 +2,26 @@
 
 ActionsSystem::ActionsSystem(QObject *parent) : QObject(parent)
 {
-listActions = new QList<ActionItem*>();
+    listActions = new QList<ActionItem*>();
+}
+
+void ActionsSystem::writeJson(QJsonObject &json)
+{
+    QJsonArray actionsArray;
+    for(int i = 0;i<listActions->size();i++){
+        QJsonObject actionObject;
+        ActionItem * action = listActions->at(i);
+
+        actionObject["valueTo"] = action->getValueTo();
+        actionObject["valueCond"] = action->getValueCondition();
+        actionObject["unitTo"] = action->getUnitTo();
+        actionObject["unitCond"] = action->getUnitCond();
+
+        actionsArray.append(actionObject);
+    }
+
+    json["actions"] = actionsArray;
+
 }
 
 void ActionsSystem::setSelectedActor(Actor *newSelectedActor)
