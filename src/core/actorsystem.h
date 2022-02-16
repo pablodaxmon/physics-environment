@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVector2D>
 #include "src/core/actor.h"
+#include "src/core/actordinamic.h"
 #include <QList>
 #include <QDebug>
 #include "src/gui/viewsimulation.h"
@@ -14,6 +15,7 @@
 #include "src/core/equationmaker.h"
 #include "QJsonObject"
 #include "QJsonArray"
+#include "src/box2d/box2d.h"
 
 class ActorSystem : public QObject
 {
@@ -28,10 +30,16 @@ public:
 
     const QList<Actor *> &getListActors() const;
 
+    void setIsBoxType(bool newIsBoxType);
+
+    b2World *getWorld() const;
+
 private:
     QList<Actor*> listActors;
     Actor* selectedActor = NULL;
     EquationMaker* eqMaker = new EquationMaker();
+    bool isBoxType;
+    b2World *world ;
 
 signals:
     void addActorSignal(QList<Actor*> *actor);
@@ -43,6 +51,7 @@ public slots:
     void deleteActor(Actor *actor);
     void setSelectedActor(Actor *actor);
     void reset();
+
 
 
 };

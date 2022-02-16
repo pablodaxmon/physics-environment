@@ -18,6 +18,8 @@ public:
 
     void setContainerItems(QBoxLayout *newContainerItems);
 
+    void setIsBoxType(bool newIsBoxType);
+
 public slots:
     void setSelectedActor(Actor *newSelectedActor);
     void addNewAction(ActionItem *item);
@@ -31,6 +33,7 @@ private:
     Actor* selectedActor;
     QBoxLayout* containerItems;
 
+    bool isBoxType;
 };
 
 #endif // ACTIONSSYSTEM_H

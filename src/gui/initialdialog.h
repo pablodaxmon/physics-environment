@@ -30,6 +30,9 @@ private:
     QLineEdit* nameEdit;
     QLineEdit* descriptionEdit;
 
+    QRadioButton *option1;
+    QRadioButton *option2;
+    QCheckBox *isGravity;
     QWidget *createListSessions();
     QWidget *itemListWidget(const QString &text, const QString &text2);
     QGroupBox *createTypeBox();
@@ -43,7 +46,7 @@ private slots:
     void setCurrentItem(QListWidgetItem *item);
     void setEnabledLoadButton();
 signals:
-    void createNewSesion(ViewSession _view, QString _name, QString _description);
+    void createNewSesion(ViewSession _view, QString _name, QString _description, bool isBox2d, bool gravity);
     void loadSesion(QString url);
 
 

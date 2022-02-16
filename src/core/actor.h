@@ -15,7 +15,18 @@
 #include "src/core/equationmaker.h"
 #include "src/gui/graphicsscene.h"
 
+struct DataStruct
+{
+    float posX;
+    float posY;
+    float VelX;
+    float VelY;
+    float Vel;
+    float AceX;
+    float AceY;
+    float Ace;
 
+};
 class Actor : public QGraphicsObject
 {
 
@@ -28,8 +39,8 @@ public slots:
 public:
     explicit Actor(QGraphicsItem *parent = nullptr);
 
-    void startData();
-    void updateData(float time);
+    virtual void startData();
+    virtual void updateData(float time);
 
     int getIndexInList();
     void setIndexInList(int newIndexInList);
@@ -89,7 +100,6 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 
 
-private:
 
     QString name;
     QString identifier;
@@ -117,6 +127,14 @@ private:
     float last_velocityX;
     float last_velocityY;
 
+    QVector<float> positionXData;
+    QVector<float> positionYData;
+    QVector<float> velocityData;
+    QVector<float> velocityXData;
+    QVector<float> velocityYData;
+    QVector<float> acelerationData;
+    QVector<float> acelerationXData;
+    QVector<float> acelerationYData;
 
 
 

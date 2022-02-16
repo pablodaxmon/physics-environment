@@ -109,6 +109,7 @@ void MainWindow::connectSelectedActor(Actor *actor)
         viewProperties->setSelectedActor(actor);
         actionsSystem->setSelectedActor(actor);
         viewActions->setSelectedActor(actor);
+        viewGraphicsResult->setSelectedActor(actor);
         viewActions->isSelectedActor(true);
         connect(actor, &Actor::valuesChanged, viewProperties, &ViewProperties::setValuesFromActor);
         viewProperties->setEnabled(true);

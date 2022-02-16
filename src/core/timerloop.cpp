@@ -53,7 +53,7 @@ void TimerLoop::startLoop()
     if(intervalDuration == 0){
         intervalDuration = 200;
     }
-    timer->start(30);
+    timer->start(16);
 
     actorsistem.startActors();
     emit signalStart();

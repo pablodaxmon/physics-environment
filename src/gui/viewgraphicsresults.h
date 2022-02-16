@@ -7,6 +7,7 @@
 #include <QTime>
 #include <QTimer>
 #include <QDragMoveEvent>
+#include "src/core/actor.h"
 
 class ViewGraphicsResults : public QWidget
 {
@@ -16,10 +17,12 @@ public:
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
+
 signals:
     void changeTime(float time);
 public slots:
     void setTimeNow(float time);
+    void setSelectedActor(Actor *newActorSelected);
 protected:
     void paintEvent(QPaintEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
@@ -29,6 +32,10 @@ protected:
     int cursorPos = 0;
 
     int view;
+
+    Actor* actorSelected = nullptr;
+
+
 
 
 

@@ -39,7 +39,7 @@ private:
     QLineEdit *aceE;
     QLineEdit *disE;
 
-    Actor * actorSelected;
+    Actor * actorSelected = nullptr;
     QMap<Unit, float>* valoresSelectedActor;
 };
 

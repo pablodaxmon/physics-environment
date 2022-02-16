@@ -3,6 +3,10 @@
 #include<time.h>
 ActorSystem::ActorSystem(QObject *parent) : QObject(parent)
 {
+    b2Vec2 gravity(0.0f,10.0f);
+    world = new b2World(gravity);
+
+
 
 }
 
@@ -57,10 +61,13 @@ void ActorSystem::startActors()
 void ActorSystem::updateActors(float time)
 {
     if(!listActors.isEmpty()){
+        world->Step(1.0f/60.0f,6,2);
         QListIterator<Actor*> i(listActors);
         while(i.hasNext()){
             i.next()->updateData(time);
         }
+
+
     }
     if(selectedActor != NULL){
 
@@ -72,11 +79,33 @@ void ActorSystem::addActor()
 {
     srand(time(0));
 
-    Actor* actore = new Actor();
-    listActors.append(actore);
-    actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
-    actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
-    actore->setIndexInList(listActors.lastIndexOf(actore));
+    qDebug() << isBoxType;
+    if(isBoxType){
+        Actor* actore = new Actor();
+        listActors.append(actore);
+        actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
+        actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
+        actore->setIndexInList(listActors.lastIndexOf(actore));
+    } else {
+        ActorDinamic* actore = new ActorDinamic();
+        listActors.append(actore);
+        actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
+        actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
+        actore->setIndexInList(listActors.lastIndexOf(actore));
+        b2BodyDef bodyDef;
+        bodyDef.type = b2_dynamicBody;
+        bodyDef.awake = true;
+        bodyDef.position.Set(0,0);
+
+        b2Body* bodyDyn = world->CreateBody(&bodyDef);
+        b2CircleShape shape;
+        shape.m_radius = 1.0f;
+        bodyDyn->CreateFixture(&shape, 1.0f);
+
+        actore->setBody(bodyDyn);
+
+    }
+
 
     emit addActorSignal(&listActors);
 }
@@ -100,6 +129,16 @@ Actor* ActorSystem::addActorNS()
 const QList<Actor *> &ActorSystem::getListActors() const
 {
     return listActors;
+}
+
+void ActorSystem::setIsBoxType(bool newIsBoxType)
+{
+    isBoxType = newIsBoxType;
+}
+
+b2World *ActorSystem::getWorld() const
+{
+    return world;
 }
 
 

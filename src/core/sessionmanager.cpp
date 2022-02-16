@@ -6,6 +6,11 @@ SessionManager::SessionManager(ActionsSystem* actionss, ActorSystem* actorss, QO
 
 }
 
+bool SessionManager::getTypeSession()
+{
+    return session->getIsBox2d();
+}
+
 
 
 void SessionManager::saveSession()
@@ -19,6 +24,8 @@ void SessionManager::saveSession()
     QJsonObject sessionObject;
     sessionObject["nameSession"] = session->getName();
     sessionObject["descriptionSession"] = session->getDescription();
+    sessionObject["isBox2d"] = session->getIsBox2d();
+    sessionObject["isGravity"] = session->getIsGravity();
     actionsSystem->writeJson(sessionObject);
     actorsSystem->writeJson(sessionObject);
     saveFile.write(QJsonDocument(sessionObject).toJson());
@@ -60,11 +67,13 @@ void SessionManager::saveSession()
 
 }
 
-void SessionManager::createSession( ViewSession _view, QString _name, QString _description)
+void SessionManager::createSession( ViewSession _view, QString _name, QString _description, bool isBox2d, bool isGravity)
 {
     actionsSystem->reset();
     actorsSystem->reset();
-    session = new Session( _view, _name, _description);
+    session = new Session( _view, _name, _description,isBox2d,isGravity);
+    actionsSystem->setIsBoxType(session->getIsBox2d());
+    actorsSystem->setIsBoxType(session->getIsBox2d());
 
 }
 
@@ -82,7 +91,12 @@ void SessionManager::loadSession(QString url)
 
     QJsonObject dataJson = dataDoc.object();
 
-    session = new Session( ViewSession::Free, dataJson["nameSession"].toString(), dataJson["description"].toString());
+    session = new Session( ViewSession::Free, dataJson["nameSession"].toString(), dataJson["description"].toString(), dataJson["isBox2d"].toBool(), dataJson["isGravity"].toBool());
+
+    actionsSystem->setIsBoxType(session->getIsBox2d());
+    actorsSystem->setIsBoxType(session->getIsBox2d());
+
+
 
     QJsonArray arrayActors = dataJson["actors"].toArray();
 

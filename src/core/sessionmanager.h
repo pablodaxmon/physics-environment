@@ -21,12 +21,13 @@ public:
 
 
 
+    bool getTypeSession();
     void writeData(QJsonObject& json);
 
     Session *getSession() const;
 public slots:
 
-    void createSession( ViewSession _view, QString _name, QString _description);
+    void createSession(ViewSession _view, QString _name, QString _description, bool isBox2d, bool isGravity);
     void loadSession(QString url);
     void saveSession();
 private:

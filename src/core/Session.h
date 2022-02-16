@@ -9,14 +9,19 @@ enum class ViewSession {Up, Side, Free};
 
 class Session{
 public:
-    Session( ViewSession _view, QString _name, QString _description) : view(_view),name(_name),description(_description)
+    Session(  ViewSession _view, QString _name, QString _description, bool _isBox2d, bool _gravity) : view(_view),
+        name(_name),
+        description(_description),
+        isBox2d(_isBox2d),
+        isGravity(_gravity)
     {
     }
 
     const ViewSession view;
     const QString name;
     const QString description;
-
+    const bool isBox2d;
+    const bool isGravity;
 
 
 
@@ -24,7 +29,19 @@ public:
     ViewSession getView() const;
     const QString &getName() const;
     const QString &getDescription() const;
+    bool getIsBox2d() const;
+    bool getIsGravity() const;
 };
+
+inline bool Session::getIsBox2d() const
+{
+    return isBox2d;
+}
+
+inline bool Session::getIsGravity() const
+{
+    return isGravity;
+}
 
 inline ViewSession Session::getView() const
 {

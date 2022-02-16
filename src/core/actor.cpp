@@ -37,15 +37,35 @@ void Actor::startData()
     init_positionY = positionY;
     init_velocityX = velocityX;
     init_velocityY = velocityY;
+
+    positionXData.clear();
+    positionYData.clear();
+    velocityData.clear();
+    velocityXData.clear();
+    velocityYData.clear();
+    acelerationData.clear();
+    acelerationXData.clear();
+    acelerationYData.clear();
 }
 
 void Actor::updateData(float time)
 {
+    qDebug() << "Actornormal update";
     positionX = init_positionX + velocityX*time + (acelerationX*time*time/2);
     positionY = init_positionY+ velocityY*time + (acelerationY*time*time/2);
     setPos(positionX, positionY);
     update();
     emit valuesChanged();
+    positionXData.append(positionX);
+    positionYData.append(positionY);
+    velocityData.append(velocity);
+    velocityXData.append(velocityX);
+    velocityYData.append(velocityY);
+    acelerationData.append(aceleration);
+    acelerationXData.append(acelerationX);
+    acelerationYData.append(acelerationY);
+
+
 }
 
 

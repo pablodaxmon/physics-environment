@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     src/core/actionssystem.cpp \
     src/core/actor.cpp \
+    src/core/actordinamic.cpp \
     src/core/actorsystem.cpp \
     src/core/equation.cpp \
     src/core/equationmaker.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     src/core/Session.h \
     src/core/actionssystem.h \
     src/core/actor.h \
+    src/core/actordinamic.h \
     src/core/actorsystem.h \
     src/core/equation.h \
     src/core/equationmaker.h \
@@ -96,3 +98,4 @@ DEPENDPATH += $$PWD/.
 
 win32:!win32-g++: PRE_TARGETDEPS += $$PWD/./box2d.lib
 else:win32-g++: PRE_TARGETDEPS += $$PWD/./libbox2d.a
+

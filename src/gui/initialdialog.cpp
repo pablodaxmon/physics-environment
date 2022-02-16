@@ -117,20 +117,18 @@ QWidget *InitialDialog::itemListWidget(const QString &text, const QString &text2
 
 QGroupBox *InitialDialog::createTypeBox()
 {
-    QGroupBox *groupBox = new QGroupBox(tr("Opciones adicionales"));
-    groupBox->setCheckable(true);
-    groupBox->setChecked(false);
+    QGroupBox *groupBox = new QGroupBox(tr("Opciones:"));
 
-    QRadioButton *radio1 = new QRadioButton(tr("vista superior"));
-    QRadioButton *radio2 = new QRadioButton(tr("vista lateral"));
-    radio1->setChecked(true);
-    QCheckBox *checkBox = new QCheckBox(tr("Gravedad"));
-    checkBox->setChecked(true);
+    option1 = new QRadioButton(tr("Basado en formula de aceleración"));
+    option2 = new QRadioButton(tr("Basado en leyes de newton"));
+    option1->setChecked(true);
+    isGravity = new QCheckBox(tr("Gravedad"));
+    isGravity->setChecked(false);
 
     QVBoxLayout *vbox = new QVBoxLayout;
-    vbox->addWidget(radio1);
-    vbox->addWidget(radio2);
-    vbox->addWidget(checkBox);
+    vbox->addWidget(option1);
+    vbox->addWidget(option2);
+    vbox->addWidget(isGravity);
     vbox->addStretch(1);
     groupBox->setLayout(vbox);
 
@@ -166,7 +164,7 @@ QGroupBox *InitialDialog::createViewBox()
 void InitialDialog::createNewSesionSlot()
 {
 
-    emit createNewSesion(ViewSession::Up, nameEdit->text(), descriptionEdit->text());
+    emit createNewSesion(ViewSession::Up, nameEdit->text(), descriptionEdit->text(), option1->isChecked(), isGravity->isChecked());
 
     close();
 

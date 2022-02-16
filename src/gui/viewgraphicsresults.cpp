@@ -74,6 +74,10 @@ void ViewGraphicsResults::paintEvent(QPaintEvent *event)
 
      painter.drawLine(cursorPos-15,height(),cursorPos+15,height());
 
+     if(actorSelected != nullptr){
+     }
+
+
 
 
 }
@@ -100,6 +104,11 @@ void ViewGraphicsResults::mousePressEvent(QMouseEvent *event)
     emit changeTime(res/33);
     QWidget::mousePressEvent(event);
 
+}
+
+void ViewGraphicsResults::setSelectedActor(Actor *newActorSelected)
+{
+    actorSelected = newActorSelected;
 }
 
 

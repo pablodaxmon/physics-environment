@@ -145,6 +145,11 @@ void ActionsSystem::reset()
 
 }
 
+void ActionsSystem::setIsBoxType(bool newIsBoxType)
+{
+    isBoxType = newIsBoxType;
+}
+
 void ActionsSystem::setContainerItems(QBoxLayout *newContainerItems)
 {
     containerItems = newContainerItems;
