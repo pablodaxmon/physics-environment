@@ -42,7 +42,6 @@ void TimerLoop::setDurationLoop(const QString &text)
 
 void TimerLoop::setLoopEnable(bool newLoopEnable)
 {
-    qDebug() << "TimerLoop: setLoopEnable";
     loopEnable = newLoopEnable;
 }
 
@@ -53,34 +52,31 @@ void TimerLoop::startLoop()
     if(intervalDuration == 0){
         intervalDuration = 200;
     }
-    timer->start(16);
+    timer->start(20);
 
     actorsistem.startActors();
     emit signalStart();
 
-    qDebug() << "TimerLoop: startLoop";
 
 }
 
 void TimerLoop::stopLoop()
 {
-    qDebug() << "TimerLoop: stopLoop";
     lastLapse = 0;
     timer->stop();
     actorsistem.updateActors(0);
+    actorsistem.stopActors();
     actionsSystem.executeAction(0);
     emit timeChange(0);
 }
 
 void TimerLoop::pauseLoop()
 {
-    qDebug() << "TimerLoop: pauseLoop";
     timer->stop();
 }
 
 void TimerLoop::toStartLoop()
 {
-    qDebug() << "TimerLoop: toStartLoop";
     timer->stop();
     lastLapse = 0;
     timer->start();
@@ -91,12 +87,10 @@ void TimerLoop::toStartLoop()
 void TimerLoop::toEndLoop()
 {
 
-    qDebug() << "TimerLoop: toEndLoop";
 }
 
 void TimerLoop::update()
 {
-    qDebug() << "TimerLoop: update";
     lastLapse++;
 
     if(loopEnable){

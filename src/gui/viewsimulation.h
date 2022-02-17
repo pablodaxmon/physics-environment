@@ -77,6 +77,7 @@ private:
     QLineEdit * intervalInt;
     QLineEdit * initLoop;
     QLineEdit * endLoop;
+    bool isBoxType;
 
 private slots:
     void showMenuSettings();

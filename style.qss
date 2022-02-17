@@ -8,8 +8,16 @@ QMainWindow {
     border: black;
 }
 
-
-
+QListView::item {
+    height: 35px;
+}
+QListView::item:hover {
+    background-color: #E0F4F2;
+}
+QListView::item:selected {
+    color: black;
+    background-color: #BEECEB;
+}
 
 QLineEdit {
     padding: 1px 3px 1px 3px;
@@ -25,10 +33,18 @@ QLineEdit:disabled {
     border-style: solid;
     border-color: #ADB9BD;
 }
+QLineEdit[class=noeditable]{
+    padding: 1px 3px 1px 3px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #9EC2CF;
+}
 
 QWidget[class=header]{
 
-    min-height: 26px;
+    min-height: 32px;
+
     background-color : #4C4C4C;
 }
 

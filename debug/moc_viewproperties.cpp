@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ViewProperties_t {
-    const uint offsetsAndSize[24];
-    char stringdata0[121];
+    const uint offsetsAndSize[10];
+    char stringdata0[67];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_ViewProperties_t, stringdata0) + ofs), len 
@@ -32,21 +32,12 @@ static const qt_meta_stringdata_ViewProperties_t qt_meta_stringdata_ViewProperti
 QT_MOC_LITERAL(0, 14), // "ViewProperties"
 QT_MOC_LITERAL(15, 13), // "valuesChanged"
 QT_MOC_LITERAL(29, 0), // ""
-QT_MOC_LITERAL(30, 4), // "Unit"
-QT_MOC_LITERAL(35, 4), // "unit"
-QT_MOC_LITERAL(40, 5), // "value"
-QT_MOC_LITERAL(46, 18), // "setValuesFromActor"
-QT_MOC_LITERAL(65, 17), // "QMap<Unit,float>*"
-QT_MOC_LITERAL(83, 7), // "valores"
-QT_MOC_LITERAL(91, 16), // "setSelectedActor"
-QT_MOC_LITERAL(108, 6), // "Actor*"
-QT_MOC_LITERAL(115, 5) // "actor"
+QT_MOC_LITERAL(30, 17), // "edicionFinalizada"
+QT_MOC_LITERAL(48, 18) // "setValuesFromActor"
 
     },
-    "ViewProperties\0valuesChanged\0\0Unit\0"
-    "unit\0value\0setValuesFromActor\0"
-    "QMap<Unit,float>*\0valores\0setSelectedActor\0"
-    "Actor*\0actor"
+    "ViewProperties\0valuesChanged\0\0"
+    "edicionFinalizada\0setValuesFromActor"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,18 +55,18 @@ static const uint qt_meta_data_ViewProperties[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    2,   32,    2, 0x06,    1 /* Public */,
+       1,    0,   32,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       6,    1,   37,    2, 0x0a,    4 /* Public */,
-       9,    1,   40,    2, 0x0a,    6 /* Public */,
+       3,    0,   33,    2, 0x0a,    2 /* Public */,
+       4,    0,   34,    2, 0x0a,    3 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, 0x80000000 | 3, QMetaType::Float,    4,    5,
+    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 7,    8,
-    QMetaType::Void, 0x80000000 | 10,   11,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -86,21 +77,22 @@ void ViewProperties::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         auto *_t = static_cast<ViewProperties *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->valuesChanged((*reinterpret_cast< Unit(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2]))); break;
-        case 1: _t->setValuesFromActor((*reinterpret_cast< QMap<Unit,float>*(*)>(_a[1]))); break;
-        case 2: _t->setSelectedActor((*reinterpret_cast< Actor*(*)>(_a[1]))); break;
+        case 0: _t->valuesChanged(); break;
+        case 1: _t->edicionFinalizada(); break;
+        case 2: _t->setValuesFromActor(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (ViewProperties::*)(Unit , float );
+            using _t = void (ViewProperties::*)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ViewProperties::valuesChanged)) {
                 *result = 0;
                 return;
             }
         }
     }
+    (void)_a;
 }
 
 const QMetaObject ViewProperties::staticMetaObject = { {
@@ -110,8 +102,8 @@ const QMetaObject ViewProperties::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_ViewProperties_t
-, QtPrivate::TypeAndForceComplete<ViewProperties, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Unit, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QMap<Unit,float> *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>
+, QtPrivate::TypeAndForceComplete<ViewProperties, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -150,10 +142,9 @@ int ViewProperties::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void ViewProperties::valuesChanged(Unit _t1, float _t2)
+void ViewProperties::valuesChanged()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

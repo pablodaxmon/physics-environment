@@ -1,5 +1,6 @@
 #include "graphicsscene.h"
 #include <QGraphicsView>
+#include <QDebug>
 
 GraphicsScene::GraphicsScene(QObject *parent) : QGraphicsScene(parent)
 {
@@ -11,12 +12,12 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->buttons() && Qt::LeftButton && !clickItem && moveHand)
     {
-        views().first()->setTransformationAnchor(QGraphicsView::NoAnchor);
+        graphicsView->setTransformationAnchor(QGraphicsView::NoAnchor);
 
         QPointF translation = event->scenePos() - m_origin;
 
-        //m_origin = event->scenePos();
-        views().first()->translate(translation.x(), translation.y());
+        qDebug() << "GraphicsScene::mouseMoveEvent  " << translation;
+        graphicsView->translate(round(translation.rx()),round(translation.ry()));
 
     }
 
@@ -28,7 +29,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && !clickItem && moveHand)
     {
-        views().first()->setCursor(Qt::ClosedHandCursor);
+        graphicsView->setCursor(Qt::ClosedHandCursor);
         // Store original position.
         m_origin = event->scenePos();
     }
@@ -42,10 +43,15 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
     {
-        views().first()->setCursor(Qt::ArrowCursor);
+        graphicsView->setCursor(Qt::ArrowCursor);
     }
 
     QGraphicsScene::mouseReleaseEvent(event);
+}
+
+void GraphicsScene::setGraphicsView(QGraphicsView *newGraphicsView)
+{
+    graphicsView = newGraphicsView;
 }
 
 bool GraphicsScene::getMoveHand() const

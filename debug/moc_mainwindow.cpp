@@ -23,8 +23,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    const uint offsetsAndSize[62];
-    char stringdata0[335];
+    const uint offsetsAndSize[58];
+    char stringdata0[318];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_MainWindow_t, stringdata0) + ofs), len 
@@ -56,11 +56,9 @@ QT_MOC_LITERAL(236, 16), // "aboutProgrammers"
 QT_MOC_LITERAL(253, 4), // "help"
 QT_MOC_LITERAL(258, 11), // "versionInfo"
 QT_MOC_LITERAL(270, 13), // "newSimulation"
-QT_MOC_LITERAL(284, 8), // "Session*"
-QT_MOC_LITERAL(293, 7), // "session"
-QT_MOC_LITERAL(301, 20), // "connectSelectedActor"
-QT_MOC_LITERAL(322, 6), // "Actor*"
-QT_MOC_LITERAL(329, 5) // "actor"
+QT_MOC_LITERAL(284, 20), // "connectSelectedActor"
+QT_MOC_LITERAL(305, 6), // "Actor*"
+QT_MOC_LITERAL(312, 5) // "actor"
 
     },
     "MainWindow\0setItemSelected\0\0QModelIndex\0"
@@ -70,8 +68,8 @@ QT_MOC_LITERAL(329, 5) // "actor"
     "worldValues\0addObject\0startSimulation\0"
     "stopSimulation\0recordValues\0calculateValues\0"
     "aboutProgrammers\0help\0versionInfo\0"
-    "newSimulation\0Session*\0session\0"
-    "connectSelectedActor\0Actor*\0actor"
+    "newSimulation\0connectSelectedActor\0"
+    "Actor*\0actor"
 };
 #undef QT_MOC_LITERAL
 
@@ -112,8 +110,8 @@ static const uint qt_meta_data_MainWindow[] = {
       24,    0,  174,    2, 0x06,   22 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      25,    1,  175,    2, 0x0a,   23 /* Public */,
-      28,    1,  178,    2, 0x0a,   25 /* Public */,
+      25,    0,  175,    2, 0x0a,   23 /* Public */,
+      26,    1,  176,    2, 0x0a,   24 /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -139,8 +137,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 26,   27,
-    QMetaType::Void, 0x80000000 | 29,   30,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 27,   28,
 
        0        // eod
 };
@@ -172,7 +170,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 18: _t->aboutProgrammers(); break;
         case 19: _t->help(); break;
         case 20: _t->versionInfo(); break;
-        case 21: _t->newSimulation((*reinterpret_cast< Session*(*)>(_a[1]))); break;
+        case 21: _t->newSimulation(); break;
         case 22: _t->connectSelectedActor((*reinterpret_cast< Actor*(*)>(_a[1]))); break;
         default: ;
         }
@@ -347,7 +345,7 @@ const QMetaObject MainWindow::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_MainWindow_t
 , QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Session *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>
 
 
 >,

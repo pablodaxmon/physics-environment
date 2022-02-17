@@ -15,18 +15,6 @@
 #include "src/core/equationmaker.h"
 #include "src/gui/graphicsscene.h"
 
-struct DataStruct
-{
-    float posX;
-    float posY;
-    float VelX;
-    float VelY;
-    float Vel;
-    float AceX;
-    float AceY;
-    float Ace;
-
-};
 class Actor : public QGraphicsObject
 {
 
@@ -41,6 +29,7 @@ public:
 
     virtual void startData();
     virtual void updateData(float time);
+    virtual void stopData();
 
     int getIndexInList();
     void setIndexInList(int newIndexInList);
@@ -118,6 +107,7 @@ protected:
     float mass;
 
 //superprivate
+    float lastTime;
     float init_positionX;
     float init_positionY;
     float last_positionX;
@@ -126,15 +116,27 @@ protected:
     float init_velocityY;
     float last_velocityX;
     float last_velocityY;
+    float init_acelerationX;
+    float init_acelerationY;
 
-    QVector<float> positionXData;
-    QVector<float> positionYData;
-    QVector<float> velocityData;
-    QVector<float> velocityXData;
-    QVector<float> velocityYData;
-    QVector<float> acelerationData;
-    QVector<float> acelerationXData;
-    QVector<float> acelerationYData;
+
+    float display_velocity;
+    float display_velocityX;
+    float display_velocityY;
+    float display_aceleration;
+    float display_acelerationX;
+    float display_acelerationY;
+    float display_mass;
+
+
+    QVector<QPoint> positionXData;
+    QVector<QPoint> positionYData;
+    QVector<QPoint> velocityData;
+    QVector<QPoint> velocityXData;
+    QVector<QPoint> velocityYData;
+    QVector<QPoint> acelerationData;
+    QVector<QPoint> acelerationXData;
+    QVector<QPoint> acelerationYData;
 
 
 

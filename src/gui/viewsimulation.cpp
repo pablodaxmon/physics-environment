@@ -8,10 +8,12 @@
 ViewSimulation::ViewSimulation(QWidget *parent) : QWidget(parent)
 {
     scene = new GraphicsScene(this);
+    viewScene = new GraphicsView(scene, this);
+    viewScene->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+    scene->setGraphicsView(viewScene);
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->setSpacing(0);
-    viewScene = new GraphicsView(scene, this);
     scene->addLine(-2000,0,2000,0, QPen(QColor(230,20,20,255),0));
     scene->addLine(0,-2000,0,2000, QPen(QColor(20,20,230,255),0));
     scene->addEllipse(-6,-6,12,12);
@@ -349,6 +351,11 @@ QWidget *ViewSimulation::timeControlToolBar()
     return res;
 }
 
+void ViewSimulation::setIsBoxType(bool newIsBoxType)
+{
+    isBoxType = newIsBoxType;
+}
+
 
 
 
@@ -366,13 +373,17 @@ void ViewSimulation::showMenuCreateObject()
     QMenu *menu = new QMenu( this );
 
     QAction* car = new QAction("Auto", this);
-    QAction* ball = new QAction("Pelota", this);
-    QAction* terrain = new QAction("Terreno (solo side view)", this);
-    QAction* staticCube = new QAction("cubo estatico", this);
+    QAction* cuadrado = new QAction("Cuadrado", this);
+    QAction* triangulo = new QAction("Triangulo", this);
+    QAction* circulo = new QAction("Circulo", this);
+    QAction* staticCube = new QAction("Cubo estatico", this);
+    QAction* staticTriangle = new QAction("Triangulo estatico", this);
     menu->addAction(car);
-    menu->addAction(ball);
-    menu->addAction(terrain);
+    menu->addAction(cuadrado);
+    menu->addAction(triangulo);
+    menu->addAction(circulo);
     menu->addAction(staticCube);
+    menu->addAction(staticTriangle);
 
     menu->popup( this->mapToGlobal(QPoint(0,30)));
 

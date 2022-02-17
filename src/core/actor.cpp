@@ -15,6 +15,7 @@ void Actor::getValueFromID(int id)
 Actor::Actor(QGraphicsItem *parent) : QGraphicsObject(parent)
 {
 // valores por defecto
+    lastTime = 0;
     positionX = 0;
     positionY = 0;
     velocity = 0;
@@ -25,6 +26,14 @@ Actor::Actor(QGraphicsItem *parent) : QGraphicsObject(parent)
     acelerationY = 0;
     mass = 0;
 
+    display_velocity = 0;
+    display_velocityX = 0;
+    display_velocityY = 0;
+    display_aceleration = 0;
+    display_acelerationX = 0;
+    display_acelerationY = 0;
+
+    emit valuesChanged();
 
     setPos(positionX, positionY);
     setFlag(ItemIsSelectable, true);
@@ -37,6 +46,8 @@ void Actor::startData()
     init_positionY = positionY;
     init_velocityX = velocityX;
     init_velocityY = velocityY;
+    init_acelerationX = acelerationX;
+    init_acelerationY = acelerationY;
 
     positionXData.clear();
     positionYData.clear();
@@ -50,22 +61,51 @@ void Actor::startData()
 
 void Actor::updateData(float time)
 {
-    qDebug() << "Actornormal update";
+    last_positionX = positionX;
+    last_positionY = positionY;
     positionX = init_positionX + velocityX*time + (acelerationX*time*time/2);
-    positionY = init_positionY+ velocityY*time + (acelerationY*time*time/2);
+    positionY = init_positionY + velocityY*time + (acelerationY*time*time/2);
+
     setPos(positionX, positionY);
+
+    last_velocityX = display_velocityX;
+    last_velocityY = display_velocityY;
+
+    display_velocityX = (fabsf(positionX-last_positionX))/(time-lastTime);
+    display_velocityY = (fabsf(positionY-last_positionY))/(time-lastTime);
+
+
+    display_acelerationX = (fabsf(display_velocityX-last_velocityX))/(time-lastTime);
+    display_acelerationY = (fabsf(display_velocityY-last_velocityY))/(time-lastTime);
+
+    display_velocity = sqrtf(display_velocityX*display_velocityX + display_velocityY*display_velocityY);
+    display_aceleration = sqrtf(display_acelerationX*display_acelerationX + display_acelerationY*display_acelerationY);
+
     update();
     emit valuesChanged();
-    positionXData.append(positionX);
-    positionYData.append(positionY);
-    velocityData.append(velocity);
-    velocityXData.append(velocityX);
-    velocityYData.append(velocityY);
-    acelerationData.append(aceleration);
-    acelerationXData.append(acelerationX);
-    acelerationYData.append(acelerationY);
+    positionXData.append(QPoint(positionX,time*50));
+    positionYData.append(QPoint(positionY,time*50));
+    velocityData.append(QPoint(velocity,time*50));
+    velocityXData.append(QPoint(velocityX,time*50));
+    velocityYData.append(QPoint(velocityY,time*50));
+    acelerationData.append(QPoint(aceleration,time*50));
+    acelerationXData.append(QPoint(acelerationX,time*50));
+    acelerationYData.append(QPoint(acelerationY,time*50));
 
+    lastTime = time;
 
+}
+
+void Actor::stopData()
+{
+    display_velocity = 0;
+    display_velocityX = 0;
+    display_velocityY = 0;
+    display_aceleration = 0;
+    display_acelerationX = 0;
+    display_acelerationY = 0;
+
+    emit valuesChanged();
 }
 
 
@@ -169,7 +209,7 @@ void Actor::setMass(float newMass)
 
 float Actor::getAcelerationY() const
 {
-    return acelerationY;
+    return display_acelerationY;
 }
 
 void Actor::setAcelerationY(float newAcelerationY)
@@ -182,7 +222,7 @@ void Actor::setAcelerationY(float newAcelerationY)
 
 float Actor::getAcelerationX() const
 {
-    return acelerationX;
+    return display_acelerationX;
 }
 
 void Actor::setAcelerationX(float newAcelerationX)
@@ -195,7 +235,7 @@ void Actor::setAcelerationX(float newAcelerationX)
 
 float Actor::getAceleration() const
 {
-    return aceleration;
+    return display_aceleration;
 }
 
 void Actor::setAceleration(float newAceleration)
@@ -208,7 +248,7 @@ void Actor::setAceleration(float newAceleration)
 
 float Actor::getVelocityY() const
 {
-    return velocityY;
+    return display_velocityY;
 }
 
 void Actor::setVelocityY(float newVelocityY)
@@ -221,7 +261,7 @@ void Actor::setVelocityY(float newVelocityY)
 
 float Actor::getVelocityX() const
 {
-    return velocityX;
+    return display_velocityX;
 }
 
 void Actor::setVelocityX(float newVelocityX)
@@ -234,7 +274,7 @@ void Actor::setVelocityX(float newVelocityX)
 
 float Actor::getVelocity() const
 {
-    return velocity;
+    return display_velocity;
 }
 
 void Actor::setVelocity(float newVelocity)

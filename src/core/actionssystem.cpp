@@ -90,8 +90,7 @@ void ActionsSystem::executeAction(float time)
         default:
             break;
         }
-qDebug() << "ActionsSystem :variableCondition" << variableCondition << "    getValueCondition" <<act->getValueCondition();
-        if(variableCondition == act->getValueCondition()){
+       if(variableCondition == act->getValueCondition()){
 
             switch(act->getUnitTo()){
                 case 0:
@@ -130,8 +129,6 @@ qDebug() << "ActionsSystem :variableCondition" << variableCondition << "    getV
 
 void ActionsSystem::reset()
 {
-    qDebug() << "ActionsSystem containerCount bef: " << listActions.size();
-    qDebug() << "ActionsSystem containerCount bef: " << containerItems->count();
     for(int i = 0;i<listActions.size();i++){
         ActionItem * act = listActions.at(i);
         containerItems->removeWidget(act);
@@ -140,8 +137,6 @@ void ActionsSystem::reset()
     qDeleteAll(listActions);
     listActions.clear();
 
-    qDebug() << "ActionsSystem containerCount af: " << listActions.size();
-    qDebug() << "ActionsSystem containerCount af: " << containerItems->count();
 
 }
 

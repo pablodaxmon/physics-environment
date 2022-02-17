@@ -41,7 +41,6 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
 
     QLabel *posxT = new QLabel(tr("Posición X"), this);
     QLabel *posyT = new QLabel(tr("Y"), this);
-    QLabel *rotT = new QLabel(tr("Rotación"), this);
     QLabel *masT = new QLabel(tr("Masa"), this);
     QLabel *velxT = new QLabel(tr("Velocidad X"), this);
     QLabel *velyT = new QLabel(tr("Velocidad Y"), this);
@@ -49,12 +48,10 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     QLabel *acexT = new QLabel(tr("Aceleración X"), this);
     QLabel *aceyT = new QLabel(tr("Aceleración Y"), this);
     QLabel *aceT = new QLabel(tr(" Aceleración"), this);
-    QLabel *disT = new QLabel(tr("Distancia a"), this);
 
 
     posxT->setAlignment(Qt::AlignRight);
     posyT->setAlignment(Qt::AlignRight);
-    rotT->setAlignment(Qt::AlignRight);
     masT->setAlignment(Qt::AlignRight);
     velxT->setAlignment(Qt::AlignRight);
     velyT->setAlignment(Qt::AlignRight);
@@ -62,12 +59,10 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     acexT->setAlignment(Qt::AlignRight);
     aceyT->setAlignment(Qt::AlignRight);
     aceT->setAlignment(Qt::AlignRight);
-    disT->setAlignment(Qt::AlignRight);
 
 
     posxE = new QLineEdit;
     posyE = new QLineEdit;
-    rotE = new QLineEdit;
     masE = new QLineEdit;
     velxE = new QLineEdit;
     velyE = new QLineEdit;
@@ -75,12 +70,19 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     acexE = new QLineEdit;
     aceyE = new QLineEdit;
     aceE = new QLineEdit;
-    disE = new QLineEdit;
+
+    posxE->setValidator(new QDoubleValidator);
+    posyE->setValidator(new QDoubleValidator);
+    velxE->setReadOnly(true);
+    velyE->setReadOnly(true);
+    velE->setReadOnly(true);
+    acexE->setReadOnly(true);
+    aceyE->setReadOnly(true);
+    aceE->setReadOnly(true);
 
 
     posxE->setAlignment(Qt::AlignCenter);
     posyE->setAlignment(Qt::AlignCenter);
-    rotE->setAlignment(Qt::AlignCenter);
     masE->setAlignment(Qt::AlignCenter);
     velxE->setAlignment(Qt::AlignCenter);
     velyE->setAlignment(Qt::AlignCenter);
@@ -88,7 +90,13 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     acexE->setAlignment(Qt::AlignCenter);
     aceyE->setAlignment(Qt::AlignCenter);
     aceE->setAlignment(Qt::AlignCenter);
-    disE->setAlignment(Qt::AlignCenter);
+
+    velxE->setProperty("class","noeditable");
+    velyE->setProperty("class","noeditable");
+    velE->setProperty("class","noeditable");
+    acexE->setProperty("class","noeditable");
+    aceyE->setProperty("class","noeditable");
+    aceE->setProperty("class","noeditable");
 
     QPushButton * posxB = new QPushButton;
     QPushButton * posyB = new QPushButton;
@@ -111,25 +119,10 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     acexB->setProperty("class", "icon");
     aceyB->setProperty("class", "icon");
 
-    /*posxB->setFixedSize(35,22);
-    posyB->setFixedSize(35,22);
-    velxB->setFixedSize(35,22);
-    velyB->setFixedSize(35,22);
-    acexB->setFixedSize(35,22);
-    aceyB->setFixedSize(35,22);*/
-
-    /*posxB->setIcon(QIcon(":/icons/resources/icons16/book.png"));
-    posyB->setIcon(QIcon(":/icons/resources/icons16/book.png"));
-    velxB->setIcon(QIcon(":/icons/resources/icons16/book.png"));
-    velyB->setIcon(QIcon(":/icons/resources/icons16/book.png"));
-    acexB->setIcon(QIcon(":/icons/resources/icons16/book.png"));
-    aceyB->setIcon(QIcon(":/icons/resources/icons16/book.png"));*/
-
 
 
     gridMain->addWidget(posxT, 1,0,1,1);
     gridMain->addWidget(posyT, 2,0,1,1);
-    gridMain->addWidget(rotT, 3,0,1,1);
     gridMain->addWidget(masT, 4,0);
     gridMain->addWidget(spacer,5,1); /// spacer
     gridMain->addWidget(velxT, 6,0);
@@ -140,11 +133,9 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     gridMain->addWidget(aceyT, 11,0);
     gridMain->addWidget(aceT, 12,0);
     gridMain->addWidget(spacer,13,1); /// spacer
-    gridMain->addWidget(disT, 14,0);
 
     gridMain->addWidget(posxE, 1,2);
     gridMain->addWidget(posyE, 2,2);
-    gridMain->addWidget(rotE, 3,2);
     gridMain->addWidget(masE, 4,2);
     gridMain->addWidget(velxE, 6,2);
     gridMain->addWidget(velyE, 7,2);
@@ -152,7 +143,6 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     gridMain->addWidget(acexE, 10,2);
     gridMain->addWidget(aceyE, 11,2);
     gridMain->addWidget(aceE, 12,2);
-    gridMain->addWidget(disE, 14,2);
 
     gridMain->addWidget(posxB, 1,3);
     gridMain->addWidget(posyB, 2,3);
@@ -178,7 +168,6 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
 
     posxT->setAlignment(Qt::AlignRight);
     posyT->setAlignment(Qt::AlignRight);
-    rotT->setAlignment(Qt::AlignRight);
     masT->setAlignment(Qt::AlignRight);
     velxT->setAlignment(Qt::AlignRight);
     velyT->setAlignment(Qt::AlignRight);
@@ -186,15 +175,8 @@ ViewProperties::ViewProperties(QWidget *parent) : QWidget(parent)
     acexT->setAlignment(Qt::AlignRight);
     aceyT->setAlignment(Qt::AlignRight);
     aceT->setAlignment(Qt::AlignRight);
-    disT->setAlignment(Qt::AlignRight);
     connect(posxE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
     connect(posyE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
-    connect(velE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
-    connect(velxE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
-    connect(velyE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
-    connect(aceE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
-    connect(acexE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
-    connect(aceyE, &QLineEdit::editingFinished, this, &ViewProperties::edicionFinalizada);
 
 }
 
@@ -205,12 +187,6 @@ void ViewProperties::edicionFinalizada()
     if(actorSelected != nullptr){
         actorSelected->setPositionX(posxE->text().toFloat());
         actorSelected->setPositionY(posyE->text().toFloat());
-        actorSelected->setVelocity(velE->text().toFloat());
-        actorSelected->setVelocityX(velxE->text().toFloat());
-        actorSelected->setVelocityY(velyE->text().toFloat());
-        actorSelected->setAceleration(aceE->text().toFloat());
-        actorSelected->setAcelerationX(acexE->text().toFloat());
-        actorSelected->setAcelerationY(aceyE->text().toFloat());
         actorSelected->setMass(masE->text().toFloat());
 
 
@@ -222,15 +198,15 @@ void ViewProperties::edicionFinalizada()
 void ViewProperties::setValuesFromActor()
 {
     if(actorSelected != nullptr){
-        posxE->setText(QString::number(round(actorSelected->getPositionX())));
-        posyE->setText(QString::number(round(actorSelected->getPositionY())));
-        velxE->setText(QString::number(round(actorSelected->getVelocityX())));
-        velyE->setText(QString::number(round(actorSelected->getVelocityY())));
-        velE->setText(QString::number(round(actorSelected->getVelocity())));
-        acexE->setText(QString::number(round(actorSelected->getAcelerationX())));
-        aceyE->setText(QString::number(round(actorSelected->getAcelerationY())));
-        aceE->setText(QString::number(round(actorSelected->getAceleration())));
-        masE->setText(QString::number(round(actorSelected->getMass())));
+        posxE->setText(QString::number((actorSelected->getPositionX()),'f',2));
+        posyE->setText(QString::number((actorSelected->getPositionY()),'f',2));
+        velxE->setText(QString::number((actorSelected->getVelocityX()),'f',2));
+        velyE->setText(QString::number((actorSelected->getVelocityY()),'f',2));
+        velE->setText(QString::number((actorSelected->getVelocity()),'f',2));
+        acexE->setText(QString::number((actorSelected->getAcelerationX()),'f',2));
+        aceyE->setText(QString::number((actorSelected->getAcelerationY()),'f',2));
+        aceE->setText(QString::number((actorSelected->getAceleration()),'f',2));
+        masE->setText(QString::number((actorSelected->getMass()),'f',2));
     }
 }
 
@@ -239,14 +215,14 @@ void ViewProperties::setSelectedActor(Actor *newActorSelected)
     actorSelected = newActorSelected;
 
     if(actorSelected != nullptr){
-        posxE->setText(QString::number(newActorSelected->getPositionX()));
-        posyE->setText(QString::number(newActorSelected->getPositionY()));
-        velxE->setText(QString::number(newActorSelected->getVelocityX()));
-        velyE->setText(QString::number(newActorSelected->getVelocityY()));
-        velE->setText(QString::number(newActorSelected->getVelocity()));
-        acexE->setText(QString::number(newActorSelected->getAcelerationX()));
-        aceyE->setText(QString::number(newActorSelected->getAcelerationY()));
-        aceE->setText(QString::number(newActorSelected->getAceleration()));
+        posxE->setText(QString::number(newActorSelected->getPositionX(),'f',2));
+        posyE->setText(QString::number(newActorSelected->getPositionY(),'f',2));
+        velxE->setText(QString::number(newActorSelected->getVelocityX(),'f',2));
+        velyE->setText(QString::number(newActorSelected->getVelocityY(),'f',2));
+        velE->setText(QString::number(newActorSelected->getVelocity(),'f',2));
+        acexE->setText(QString::number(newActorSelected->getAcelerationX(),'f',2));
+        aceyE->setText(QString::number(newActorSelected->getAcelerationY(),'f',2));
+        aceE->setText(QString::number(newActorSelected->getAceleration(),'f',2));
     }
 
 }

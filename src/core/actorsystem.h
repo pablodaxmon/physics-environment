@@ -16,6 +16,7 @@
 #include "QJsonObject"
 #include "QJsonArray"
 #include "src/box2d/box2d.h"
+#include "QStringListModel"
 
 class ActorSystem : public QObject
 {
@@ -34,22 +35,28 @@ public:
 
     b2World *getWorld() const;
 
+    QStringListModel *getModel() const;
+
 private:
     QList<Actor*> listActors;
     Actor* selectedActor = NULL;
     EquationMaker* eqMaker = new EquationMaker();
     bool isBoxType;
     b2World *world ;
+    QStringListModel* model;
 
 signals:
     void addActorSignal(QList<Actor*> *actor);
+    void selectedActorSignal(Actor* actor);
 
 public slots:
     void startActors();
     void updateActors(float time);
+    void stopActors();
     void addActor();
     void deleteActor(Actor *actor);
     void setSelectedActor(Actor *actor);
+    void setSelectedActorFromView(const QModelIndex &index);
     void reset();
 
 

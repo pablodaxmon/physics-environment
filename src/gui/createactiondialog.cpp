@@ -27,7 +27,12 @@ CreateActionDialog::CreateActionDialog(QWidget *parent) : QDialog(parent)
     crearAction->setProperty("class","normal");
 
     valueCondition = new QLineEdit;
+    valueCondition->setText(tr("0"));
     valueTo = new QLineEdit;
+    valueTo->setText(tr("0"));
+
+    valueCondition->setValidator(new QDoubleValidator);
+    valueTo->setValidator(new QDoubleValidator);
 
     variableComdition = new QComboBox;
     variableComdition->addItem(tr("Tiempo"));

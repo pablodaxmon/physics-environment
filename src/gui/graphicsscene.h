@@ -15,6 +15,8 @@ public:
     void setClickItem(bool newClickItem);
 
     bool getMoveHand() const;
+    void setGraphicsView(QGraphicsView *newGraphicsView);
+
 public slots:
     void setMoveHand(bool newMoveHand);
 signals:
@@ -27,6 +29,7 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 private:
 
+    QGraphicsView* graphicsView;
     QPointF m_origin;
     bool clickItem;
     bool moveHand;

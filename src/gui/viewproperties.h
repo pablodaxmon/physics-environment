@@ -29,7 +29,6 @@ private:
 
     QLineEdit *posxE;
     QLineEdit *posyE;
-    QLineEdit *rotE;
     QLineEdit *masE;
     QLineEdit *velxE;
     QLineEdit *velyE;
@@ -37,7 +36,6 @@ private:
     QLineEdit *acexE;
     QLineEdit *aceyE;
     QLineEdit *aceE;
-    QLineEdit *disE;
 
     Actor * actorSelected = nullptr;
     QMap<Unit, float>* valoresSelectedActor;

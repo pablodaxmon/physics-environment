@@ -5,7 +5,7 @@ ActorSystem::ActorSystem(QObject *parent) : QObject(parent)
 {
     b2Vec2 gravity(0.0f,10.0f);
     world = new b2World(gravity);
-
+    model = new QStringListModel;
 
 
 }
@@ -47,6 +47,7 @@ void ActorSystem::readJson(const QJsonObject &json) const
 
 void ActorSystem::startActors()
 {
+    qDebug() << "Actorsystem: start";
     if(!listActors.isEmpty()){
         QListIterator<Actor*> i(listActors);
         while(i.hasNext()){
@@ -75,17 +76,36 @@ void ActorSystem::updateActors(float time)
 
 }
 
+void ActorSystem::stopActors()
+{
+    if(!listActors.isEmpty()){
+        world->Step(1.0f/60.0f,6,2);
+        QListIterator<Actor*> i(listActors);
+        while(i.hasNext()){
+            i.next()->stopData();
+        }
+
+
+    }
+}
+
 void ActorSystem::addActor()
 {
     srand(time(0));
 
-    qDebug() << isBoxType;
     if(isBoxType){
         Actor* actore = new Actor();
         listActors.append(actore);
         actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
         actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
         actore->setIndexInList(listActors.lastIndexOf(actore));
+
+        if(model->insertRow(model->rowCount())) {
+            QModelIndex index = model->index(model->rowCount() - 1, 0);
+            model->setData(index, actore->getName());
+            model->setData(index, actore->getIdentifier(), Qt::AccessibleDescriptionRole);
+        }
+
     } else {
         ActorDinamic* actore = new ActorDinamic();
         listActors.append(actore);
@@ -103,6 +123,12 @@ void ActorSystem::addActor()
         bodyDyn->CreateFixture(&shape, 1.0f);
 
         actore->setBody(bodyDyn);
+
+        if(model->insertRow(model->rowCount())) {
+            QModelIndex index = model->index(model->rowCount() - 1, 0);
+            model->setData(index, actore->getName());
+            model->setData(index, actore->getIdentifier(), Qt::AccessibleDescriptionRole);
+        }
 
     }
 
@@ -141,6 +167,11 @@ b2World *ActorSystem::getWorld() const
     return world;
 }
 
+QStringListModel *ActorSystem::getModel() const
+{
+    return model;
+}
+
 
 void ActorSystem::deleteActor(Actor *actor)
 {
@@ -152,6 +183,17 @@ void ActorSystem::deleteActor(Actor *actor)
 void ActorSystem::setSelectedActor(Actor *actor)
 {
     selectedActor = actor;
+}
+
+void ActorSystem::setSelectedActorFromView(const QModelIndex &index)
+{
+    for(int i = 0;i<listActors.size();i++){
+        Actor* actor = listActors.at(i);
+        if(actor->getName() == index.data()){
+            emit selectedActorSignal(actor);
+        }
+    }
+
 }
 
 void ActorSystem::reset()

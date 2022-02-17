@@ -47,7 +47,7 @@ MainWindow:: MainWindow(QWidget *parent)
     viewActions->isSelectedActor(false);
     actionsSystem->setContainerItems(viewActions->getContainerList());///
     splitMain = new SplitterMain(mainContainer,viewGraphicsResult,viewObjectList, viewActions, viewProperties, viewSimulation);
-
+    viewObjectList->setModel(actorSystem->getModel());
 
     ////////////////////////////////////////////////////////////
 
@@ -73,6 +73,7 @@ MainWindow:: MainWindow(QWidget *parent)
     /// ////////////////////////////
     connect(viewSimulation, &ViewSimulation::createActor, actorSystem, &ActorSystem::addActor);
     connect(actorSystem, &ActorSystem::addActorSignal, viewSimulation, &ViewSimulation::updateSceneObjects);
+    connect(actorSystem, &ActorSystem::addActorSignal, viewObjectList, &ViewObjectList::addItemToList);
     connect(viewSimulation, &ViewSimulation::deletedObject, actorSystem, &ActorSystem::deleteActor);
     connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, this, &MainWindow::connectSelectedActor);
     connect(viewSimulation, &ViewSimulation::setSelectedActorSignal, actionsSystem, &ActionsSystem::setSelectedActor);
@@ -95,6 +96,9 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(viewGraphicsResult, &ViewGraphicsResults::changeTime, timerLoop, &TimerLoop::setTimeNow);
 
 
+    connect(viewObjectList, &ViewObjectList::setSelectedItem, actorSystem, &ActorSystem::setSelectedActorFromView);
+    connect(actorSystem, &ActorSystem::selectedActorSignal, this, &MainWindow::connectSelectedActor);
+    connect(actorSystem, &ActorSystem::selectedActorSignal, actionsSystem, &ActionsSystem::setSelectedActor);
 
     QObject::connect(dialogMain, &InitialDialog::loadSesion, sessionManager, &SessionManager::loadSession);
     QObject::connect(dialogMain, &InitialDialog::loadSesion, this, newSimulation);
@@ -110,6 +114,7 @@ void MainWindow::connectSelectedActor(Actor *actor)
         actionsSystem->setSelectedActor(actor);
         viewActions->setSelectedActor(actor);
         viewGraphicsResult->setSelectedActor(actor);
+        viewObjectList->setSelectedActor(actor);
         viewActions->isSelectedActor(true);
         connect(actor, &Actor::valuesChanged, viewProperties, &ViewProperties::setValuesFromActor);
         viewProperties->setEnabled(true);
@@ -328,6 +333,7 @@ ViewSimulation* MainWindow::getViewSimulation() const
 
 void MainWindow::newSimulation()
 {
+    viewSimulation->setIsBoxType(sessionManager->getTypeSession());
 
     setWindowTitle(sessionManager->getSession()->getName() + tr(" - UMSS"));
 
