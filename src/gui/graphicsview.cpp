@@ -10,6 +10,7 @@ GraphicsView::GraphicsView(QGraphicsScene *scene, QWidget *parent) : QGraphicsVi
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     gridType = 0;
 
+    centerOn(-600,-550);
 
 
 }

@@ -37,6 +37,8 @@ public:
 
     QStringListModel *getModel() const;
 
+    void setIsMovible(bool newIsMovible);
+
 private:
     QList<Actor*> listActors;
     Actor* selectedActor = NULL;
@@ -44,6 +46,7 @@ private:
     bool isBoxType;
     b2World *world ;
     QStringListModel* model;
+    bool isMovible;
 
 signals:
     void addActorSignal(QList<Actor*> *actor);
@@ -53,11 +56,12 @@ public slots:
     void startActors();
     void updateActors(float time);
     void stopActors();
-    void addActor();
+    void addActor(QAction * action);
     void deleteActor(Actor *actor);
     void setSelectedActor(Actor *actor);
     void setSelectedActorFromView(const QModelIndex &index);
     void reset();
+
 
 
 

@@ -95,6 +95,8 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(viewActions, &ViewActions::addedNewAction, actionsSystem, &ActionsSystem::addNewAction);
     connect(viewGraphicsResult, &ViewGraphicsResults::changeTime, timerLoop, &TimerLoop::setTimeNow);
 
+    connect(viewSimulation, &ViewSimulation::isMovibleSignal, actorSystem, &ActorSystem::setIsMovible);
+
 
     connect(viewObjectList, &ViewObjectList::setSelectedItem, actorSystem, &ActorSystem::setSelectedActorFromView);
     connect(actorSystem, &ActorSystem::selectedActorSignal, this, &MainWindow::connectSelectedActor);

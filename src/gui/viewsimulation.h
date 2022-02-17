@@ -29,6 +29,8 @@ public:
     float b = 5;
 
 
+    void setIsBoxType(bool newIsBoxType);
+
 public slots:
     void updateSceneObjects(QList<Actor*> *listactors);
     void moveToggle(bool checked);
@@ -43,7 +45,7 @@ signals:
     void rulerToggle(bool checked);
     void deletedObject(Actor* object);
     void setSelectedActorSignal(Actor* object);
-
+    void isMovibleSignal(bool checked);
     /* reproduccion señales */
 
     void playSignal();

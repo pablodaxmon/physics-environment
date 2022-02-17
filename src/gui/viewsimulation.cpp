@@ -44,6 +44,7 @@ void ViewSimulation::updateSceneObjects(QList<Actor*> *listactors)
 
 void ViewSimulation::moveToggle(bool checked)
 {
+    emit isMovibleSignal(checked);
     for(int i = 0; i< scene->items().size(); i++){
         Actor* actor = dynamic_cast<Actor *>(scene->items().at(i));
         if(actor != nullptr){
@@ -352,8 +353,12 @@ QWidget *ViewSimulation::timeControlToolBar()
 }
 
 void ViewSimulation::setIsBoxType(bool newIsBoxType)
-{
+{   reset();
     isBoxType = newIsBoxType;
+    if(!newIsBoxType){
+        qDebug() << "ViewSimulation::setIsBoxType(bool newIsBoxType)";
+        scene->addRect(-2000,0,4000,50,Qt::NoPen, QBrush(QColor(191,151,129,255), Qt::Dense3Pattern));
+    }
 }
 
 
@@ -372,13 +377,11 @@ void ViewSimulation::showMenuCreateObject()
 {
     QMenu *menu = new QMenu( this );
 
-    QAction* car = new QAction("Auto", this);
     QAction* cuadrado = new QAction("Cuadrado", this);
     QAction* triangulo = new QAction("Triangulo", this);
-    QAction* circulo = new QAction("Circulo", this);
+    QAction* circulo = new QAction("Hexagono", this);
     QAction* staticCube = new QAction("Cubo estatico", this);
     QAction* staticTriangle = new QAction("Triangulo estatico", this);
-    menu->addAction(car);
     menu->addAction(cuadrado);
     menu->addAction(triangulo);
     menu->addAction(circulo);

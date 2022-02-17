@@ -14,7 +14,9 @@ public:
     b2Body *getBody() const;
     void setBody(b2Body *newBody);
 
+    void startData();
     void updateData(float time);
+    void stopData();
     void updatePos();
 protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;

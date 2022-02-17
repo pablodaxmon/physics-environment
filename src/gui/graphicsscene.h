@@ -31,6 +31,7 @@ private:
 
     QGraphicsView* graphicsView;
     QPointF m_origin;
+    QPointF m_originScreen;
     bool clickItem;
     bool moveHand;
 };

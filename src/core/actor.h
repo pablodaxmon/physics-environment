@@ -14,6 +14,7 @@
 #include "src/core/equationrunner.h"
 #include "src/core/equationmaker.h"
 #include "src/gui/graphicsscene.h"
+enum class TypeActor { Cuadrado, Triangulo, Hexagono, CuboEstatico, TrianguloEstatico};
 
 class Actor : public QGraphicsObject
 {
@@ -78,6 +79,9 @@ public:
     const QString &getIdentifier() const;
     void setIdentifier(const QString &newIdentifier);
 
+    TypeActor getTypeActor() const;
+    void setTypeActor(TypeActor newTypeActor);
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -95,6 +99,7 @@ protected:
     int indexInList;
     QMap<Unit, float> values;
     GraphicsScene * graphicsScene;
+    TypeActor typeActor;
 
     float positionX;
     float positionY;
@@ -139,6 +144,11 @@ protected:
     QVector<QPoint> acelerationYData;
 
 
+
+    QColor colorPen;
+    QColor colorBrush;
+    QPolygonF shape;
+    bool isStatic;
 
 };
 

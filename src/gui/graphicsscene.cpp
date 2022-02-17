@@ -1,9 +1,11 @@
 #include "graphicsscene.h"
 #include <QGraphicsView>
 #include <QDebug>
+#include <QScrollBar>
 
 GraphicsScene::GraphicsScene(QObject *parent) : QGraphicsScene(parent)
 {
+
 
 }
 
@@ -12,12 +14,13 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->buttons() && Qt::LeftButton && !clickItem && moveHand)
     {
+
         graphicsView->setTransformationAnchor(QGraphicsView::NoAnchor);
 
         QPointF translation = event->scenePos() - m_origin;
-
-        qDebug() << "GraphicsScene::mouseMoveEvent  " << translation;
-        graphicsView->translate(round(translation.rx()),round(translation.ry()));
+        QPointF translationScreen = event->screenPos() - m_originScreen;
+        m_originScreen = event->screenPos();
+        graphicsView->translate(round(translationScreen.rx()),round(translationScreen.ry()));
 
     }
 
@@ -30,8 +33,8 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if (event->button() == Qt::LeftButton && !clickItem && moveHand)
     {
         graphicsView->setCursor(Qt::ClosedHandCursor);
-        // Store original position.
         m_origin = event->scenePos();
+        m_originScreen = event->screenPos();
     }
 
 

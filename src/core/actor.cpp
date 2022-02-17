@@ -134,33 +134,40 @@ void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     if(flags() & ItemIsMovable){
         static const QPointF trianguloUp[3] = {
             QPointF(50.0, 0),
-            QPointF(55.0, 10.0),
-            QPointF(45.0, 10.0)
+            QPointF(58.0, 8.0),
+            QPointF(42.0, 8.0)
         };
-        static const QPointF trianguloDown[3] = {
+        static const QPointF trianguloRight[3] = {
             QPointF(100.0, 50.0),
-            QPointF(90.0, 55.0),
-            QPointF(90.0, 45.0)
+            QPointF(92.0, 58.0),
+            QPointF(92.0, 42.0)
         };
-        painter->setPen(QPen(QColor(228,0,0,255),1));
-        painter->drawLine(50,50,50,10);
+        static const QPointF trianguloleft[3] = {
+            QPointF(0, 50),
+            QPointF(8, 58),
+            QPointF(8, 42)
+        };
+
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(QColor(255,61,61,255));
         painter->drawPolygon(trianguloUp, 3);
 
-        painter->setPen(QPen(QColor(0,0,220,255),1));
-        painter->drawLine(50,50,90,50);
-        painter->drawPolygon(trianguloDown, 3);
+        painter->setBrush(QColor(61,61,255,255));
+        painter->drawPolygon(trianguloRight, 3);
+        painter->drawPolygon(trianguloleft, 3);
 
     }
-    QBrush brush(Qt::blue);
+
+
+    painter->setPen(colorPen);
 
     if(isSelected()){
-        brush.setColor(Qt::red);
+        painter->setBrush(Qt::white);
     } else {
-        brush.setColor(Qt::blue);
+        painter->setBrush(colorBrush);
     }
 
-    painter->setBrush(brush);
-    painter->drawRect(28,28,42,42);
+    painter->drawPolygon(shape);
 
     painter->setPen(QColor(114,114,114,114));
     painter->setBrush(Qt::NoBrush);
@@ -168,7 +175,7 @@ void Actor::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
 
 
-    painter->drawText(25,85,name);
+    painter->drawText(25,95,name);
 
 
 
@@ -185,6 +192,48 @@ void Actor::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 
     graphicsScene->setClickItem(false);
     update();
+}
+
+TypeActor Actor::getTypeActor() const
+{
+    return typeActor;
+}
+
+void Actor::setTypeActor(TypeActor newTypeActor)
+{
+    typeActor = newTypeActor;
+
+    switch (newTypeActor) {
+    case TypeActor::Cuadrado:
+            shape << QPointF(20, 20) << QPointF(80, 20) << QPointF(80, 80) << QPointF(20, 80);
+            colorBrush = QColor(155,255,222,255);
+            colorPen = QColor(35,192,203,255);
+        break;
+    case TypeActor::Triangulo:
+            shape << QPointF(20, 75) << QPointF(80, 75) << QPointF(50, 20);
+            colorBrush = QColor(204,255,155,255);
+            colorPen = QColor(119,214,38,255);
+        break;
+    case TypeActor::Hexagono:
+            shape << QPointF(35, 30) << QPointF(65, 30) << QPointF(80, 50) << QPointF(65, 70) << QPointF(35, 70) << QPointF(20, 50);
+            colorBrush = QColor(255,192,155,255);
+            colorPen = QColor(239,107,30,255);
+        break;
+    case TypeActor::CuboEstatico:
+            shape << QPointF(15, 80) << QPointF(85, 80) << QPointF(85, 10) << QPointF(15, 10);
+            colorBrush = QColor(114,162,231,255);
+            colorPen = QColor(35,103,203,255);
+            isStatic = true;
+        break;
+    case TypeActor::TrianguloEstatico:
+            shape << QPointF(5, 80) << QPointF(95, 80) << QPointF(50, 10);
+            colorBrush = QColor(208,88,137,255);
+            colorPen = QColor(134,25,70,255);
+            isStatic = true;
+        break;
+    default:
+        break;
+    }
 }
 
 const QString &Actor::getIdentifier() const
