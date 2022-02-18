@@ -22,6 +22,7 @@ SOURCES += \
     src/core/timerloop.cpp \
     src/gui/actionitem.cpp \
     src/gui/createactiondialog.cpp \
+    src/gui/createactiondinamicdialog.cpp \
     src/gui/graphicsscene.cpp \
     src/gui/graphicsview.cpp \
     src/gui/initialdialog.cpp \
@@ -30,7 +31,6 @@ SOURCES += \
     src/gui/splittermain.cpp \
     src/gui/mainwindow.cpp \
     src/gui/viewactions.cpp \
-    src/gui/viewcontrolactions.cpp \
     src/gui/viewgraphicsresults.cpp \
     src/gui/viewobjectlist.cpp \
     src/gui/viewproperties.cpp \
@@ -54,6 +54,7 @@ HEADERS += \
     src/core/timerloop.h \
     src/gui/actionitem.h \
     src/gui/createactiondialog.h \
+    src/gui/createactiondinamicdialog.h \
     src/gui/graphicsscene.h \
     src/gui/graphicsview.h \
     src/gui/initialdialog.h \
@@ -62,7 +63,6 @@ HEADERS += \
     src/gui/splittermain.h \
     src/gui/mainwindow.h \
     src/gui/viewactions.h \
-    src/gui/viewcontrolactions.h \
     src/gui/viewgraphicsresults.h \
     src/gui/viewobjectlist.h \
     src/gui/viewproperties.h \

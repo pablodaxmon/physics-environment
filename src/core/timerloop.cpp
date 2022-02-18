@@ -49,9 +49,7 @@ void TimerLoop::setLoopEnable(bool newLoopEnable)
 
 void TimerLoop::startLoop()
 {
-    if(intervalDuration == 0){
-        intervalDuration = 200;
-    }
+
     timer->start(20);
 
     actorsistem.startActors();
@@ -66,7 +64,7 @@ void TimerLoop::stopLoop()
     timer->stop();
     actorsistem.updateActors(0);
     actorsistem.stopActors();
-    actionsSystem.executeAction(0);
+    actionsSystem.executeActions(0);
     emit timeChange(0);
 }
 
@@ -100,7 +98,7 @@ void TimerLoop::update()
 
     }
     actorsistem.updateActors((lastLapse*30)/1000);
-    actionsSystem.executeAction((lastLapse*30)/1000);
+    actionsSystem.executeActions((lastLapse*30)/1000);
     emit timeChange((lastLapse*30)/1000);
 
 }

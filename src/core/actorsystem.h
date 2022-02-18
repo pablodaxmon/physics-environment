@@ -39,6 +39,8 @@ public:
 
     void setIsMovible(bool newIsMovible);
 
+    void configureWorldBox2d();
+
 private:
     QList<Actor*> listActors;
     Actor* selectedActor = NULL;

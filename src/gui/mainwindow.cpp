@@ -336,6 +336,7 @@ ViewSimulation* MainWindow::getViewSimulation() const
 void MainWindow::newSimulation()
 {
     viewSimulation->setIsBoxType(sessionManager->getTypeSession());
+    viewActions->setIsBoxtype(sessionManager->getTypeSession());
 
     setWindowTitle(sessionManager->getSession()->getName() + tr(" - UMSS"));
 

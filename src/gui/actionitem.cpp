@@ -13,15 +13,15 @@ ActionItem::ActionItem(QWidget *parent) : QWidget(parent)
 
 
 
-    unitChanged = new QComboBox;
-    unitChanged->addItem(tr("Posición X"));
-    unitChanged->addItem(tr("Posición Y"));
-    unitChanged->addItem(tr("Velocidad"));
-    unitChanged->addItem(tr("Velocidad X"));
-    unitChanged->addItem(tr("Velocidad Y"));
-    unitChanged->addItem(tr("Aceleración"));
-    unitChanged->addItem(tr("Aceleración X"));
-    unitChanged->addItem(tr("Aceleración Y"));
+    unitTarget = new QComboBox;
+    unitTarget->addItem(tr("Posición X"));
+    unitTarget->addItem(tr("Posición Y"));
+    unitTarget->addItem(tr("Velocidad"));
+    unitTarget->addItem(tr("Velocidad X"));
+    unitTarget->addItem(tr("Velocidad Y"));
+    unitTarget->addItem(tr("Aceleración"));
+    unitTarget->addItem(tr("Aceleración X"));
+    unitTarget->addItem(tr("Aceleración Y"));
 
     QWidget * headW = new QWidget;
     QHBoxLayout * headL = new QHBoxLayout;
@@ -48,32 +48,32 @@ ActionItem::ActionItem(QWidget *parent) : QWidget(parent)
     gridLayout->setSpacing(3);
 
 
-    conditionUnit = new QComboBox;
-    conditionUnit->addItem(tr("Tiempo"));
-    conditionUnit->addItem(tr("Posición X"));
-    conditionUnit->addItem(tr("Posición Y"));
-    conditionUnit->addItem(tr("Velocidad"));
-    conditionUnit->addItem(tr("Velocidad X"));
-    conditionUnit->addItem(tr("Velocidad Y"));
-    conditionUnit->addItem(tr("Aceleración"));
-    conditionUnit->addItem(tr("Aceleración X"));
-    conditionUnit->addItem(tr("Aceleración Y"));
+    unitCondition = new QComboBox;
+    unitCondition->addItem(tr("Tiempo"));
+    unitCondition->addItem(tr("Posición X"));
+    unitCondition->addItem(tr("Posición Y"));
+    unitCondition->addItem(tr("Velocidad"));
+    unitCondition->addItem(tr("Velocidad X"));
+    unitCondition->addItem(tr("Velocidad Y"));
+    unitCondition->addItem(tr("Aceleración"));
+    unitCondition->addItem(tr("Aceleración X"));
+    unitCondition->addItem(tr("Aceleración Y"));
 
-    valueUniteChanged = new QLineEdit;
-    conditionalValue = new QLineEdit;
+    valueTarget = new QLineEdit;
+    valueCondition = new QLineEdit;
 
     QLabel *textcuando = new QLabel(tr("cuando"));
     QLabel *textsera = new QLabel(tr("será"));
     QLabel* textsea = new QLabel(tr("sea"));
-    gridLayout->addWidget(unitChanged,0,0);
+    gridLayout->addWidget(unitTarget,0,0);
     gridLayout->addWidget(textsera,0,1);
-    gridLayout->addWidget(valueUniteChanged,0,2);
+    gridLayout->addWidget(valueTarget,0,2);
 
     gridLayout->addWidget(textcuando,1,0);
 
-    gridLayout->addWidget(conditionUnit,2,0);
+    gridLayout->addWidget(unitCondition,2,0);
     gridLayout->addWidget(textsea,2,1);
-    gridLayout->addWidget(conditionalValue,2,2);
+    gridLayout->addWidget(valueCondition,2,2);
 
     mainLayout->addLayout(gridLayout);
 
@@ -97,41 +97,41 @@ void ActionItem::paintEvent(QPaintEvent *event)
 
 float ActionItem::getValueCondition() const
 {
-    return conditionalValue->text().toFloat();
+    return valueCondition->text().toFloat();
 }
 
 void ActionItem::setValueCondition(float newValueCondition)
 {
-    conditionalValue->setText(QString::number(newValueCondition));
+    valueCondition->setText(QString::number(newValueCondition));
 }
 
 float ActionItem::getValueTo() const
 {
-    return valueUniteChanged->text().toFloat();
+    return valueTarget->text().toFloat();
 }
 
 void ActionItem::setValueTo(float newValueTo)
 {
-    valueUniteChanged->setText(QString::number(newValueTo));
+    valueTarget->setText(QString::number(newValueTo));
 }
 
 int ActionItem::getUnitCond() const
 {
-    return conditionUnit->currentIndex();
+    return unitCondition->currentIndex();
 }
 
 void ActionItem::setUnitCond(int newUnitCond)
 {
-    conditionUnit->setCurrentIndex(newUnitCond);
+    unitCondition->setCurrentIndex(newUnitCond);
 }
 int ActionItem::getUnitTo() const
 {
-    return unitChanged->currentIndex();
+    return unitTarget->currentIndex();
 }
 
 void ActionItem::setUnitTo(int newUnitTo)
 {
-    unitChanged->setCurrentIndex(newUnitTo);
+    unitTarget->setCurrentIndex(newUnitTo);
 }
 const QString &ActionItem::getName() const
 {

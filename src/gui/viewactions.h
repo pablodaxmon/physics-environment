@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include "src/core/actionssystem.h"
 #include "createactiondialog.h"
+#include "createactiondinamicdialog.h"
 class ViewActions : public QWidget
 {
     Q_OBJECT
@@ -14,6 +15,8 @@ public:
     void setSelectedActor(Actor *newSelectedActor);
 
     QVBoxLayout *getContainerList() const;
+
+    void setIsBoxtype(bool newIsBoxtype);
 
 signals:
     void addedNewAction(ActionItem* action);
@@ -25,8 +28,10 @@ public slots:
 private:
     QPushButton * btnNewAction;
     CreateActionDialog* actiondialog;
+    CreateActionDinamicDialog* actionDinamicdialog;
     QVBoxLayout * containerList;
     Actor* selectedActor;
+    bool isBoxtype;
 };
 
 #endif // VIEWACTIONS_H

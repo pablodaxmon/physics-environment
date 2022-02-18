@@ -14,6 +14,7 @@
 #include "src/core/equationrunner.h"
 #include "src/core/equationmaker.h"
 #include "src/gui/graphicsscene.h"
+#include "src/box2d/box2d.h"
 enum class TypeActor { Cuadrado, Triangulo, Hexagono, CuboEstatico, TrianguloEstatico};
 
 class Actor : public QGraphicsObject
@@ -28,7 +29,7 @@ public slots:
 public:
     explicit Actor(QGraphicsItem *parent = nullptr);
 
-    virtual void startData();
+    virtual void startData(b2World* world);
     virtual void updateData(float time);
     virtual void stopData();
 

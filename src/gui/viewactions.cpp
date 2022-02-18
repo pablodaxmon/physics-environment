@@ -72,9 +72,15 @@ void ViewActions::isSelectedActor(bool isselected)
 
 void ViewActions::createNewAction()
 {
-    actiondialog = new CreateActionDialog(this);
-    actiondialog->show();
-    connect(actiondialog, &CreateActionDialog::createdAction, this, &ViewActions::AddNewAction);
+    if(isBoxtype){
+
+        actiondialog = new CreateActionDialog(this);
+        actiondialog->show();
+        connect(actiondialog, &CreateActionDialog::createdAction, this, &ViewActions::AddNewAction);
+    } else {
+        actionDinamicdialog = new CreateActionDinamicDialog(this);
+        actionDinamicdialog->show();
+    }
 
 }
 
@@ -95,6 +101,11 @@ void ViewActions::AddNewAction(int unidadCondition, int unidadTo, float valueCon
 
 
 
+}
+
+void ViewActions::setIsBoxtype(bool newIsBoxtype)
+{
+    isBoxtype = newIsBoxtype;
 }
 
 QVBoxLayout *ViewActions::getContainerList() const

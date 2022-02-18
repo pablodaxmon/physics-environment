@@ -1,8 +1,13 @@
 #include "actordinamic.h"
+#define SCALE_V 4.0f
 
 ActorDinamic::ActorDinamic(QGraphicsItem *parent) : Actor(parent)
 {
 
+    bodyDef = new b2BodyDef;
+    bodyDef->type = b2_dynamicBody;
+    bodyDef->awake = true;
+    bodyDef->position.Set(0,-200.0f/SCALE_V);
 }
 
 b2Body *ActorDinamic::getBody() const
@@ -10,15 +15,94 @@ b2Body *ActorDinamic::getBody() const
     return body;
 }
 
-void ActorDinamic::setBody(b2Body *newBody)
-{
-    body = newBody;
-}
 
-void ActorDinamic::startData()
+void ActorDinamic::startData(b2World* world)
 {
-    body->SetTransform(b2Vec2(positionX,positionY),0);
-    Actor::startData();
+    if(typeActor == TypeActor::TrianguloEstatico || typeActor == TypeActor::CuboEstatico){
+
+    }
+
+    body = world->CreateBody(bodyDef);
+
+    switch (typeActor) {
+    case TypeActor::Cuadrado:
+                {
+                    b2Vec2 vertices[4];
+                    vertices[0].Set(20.0f/SCALE_V, 20.0f/SCALE_V);
+                    vertices[1].Set(20.0f/SCALE_V, 80.0f/SCALE_V);
+                    vertices[2].Set(80.0f/SCALE_V, 80.0f/SCALE_V);
+                    vertices[3].Set(20.0f/SCALE_V, 80.0f/SCALE_V);
+
+                    int32 count = 4;
+                    b2PolygonShape polygon;
+                    polygon.Set(vertices, count);
+                    body->CreateFixture(&polygon, 1.0f);
+                    break;
+                }
+    case TypeActor::Triangulo:
+                {
+                    b2Vec2 vertices[3];
+                    vertices[0].Set(20/SCALE_V, 75/SCALE_V);
+                    vertices[1].Set(80/SCALE_V, 75/SCALE_V);
+                    vertices[2].Set(50/SCALE_V, 50/SCALE_V);
+
+                    int32 count = 3;
+                    b2PolygonShape polygon;
+                    polygon.Set(vertices, count);
+                    body->CreateFixture(&polygon, 1.0f);
+                    break;
+                }
+    case TypeActor::Hexagono:
+                {
+                    b2Vec2 vertices[6];
+                    vertices[0].Set(35/SCALE_V, 30/SCALE_V);
+                    vertices[1].Set(65/SCALE_V, 30/SCALE_V);
+                    vertices[2].Set(80/SCALE_V, 50/SCALE_V);
+                    vertices[3].Set(65/SCALE_V, 70/SCALE_V);
+                    vertices[4].Set(35/SCALE_V, 70/SCALE_V);
+                    vertices[4].Set(20/SCALE_V, 50/SCALE_V);
+
+                    int32 count = 6;
+                    b2PolygonShape polygon;
+                    polygon.Set(vertices, count);
+                    body->CreateFixture(&polygon, 1.0f);
+                    break;
+                }
+    case TypeActor::CuboEstatico:
+                {
+                    b2Vec2 vertices[4];
+                    vertices[0].Set(15/SCALE_V, 80/SCALE_V);
+                    vertices[1].Set(85/SCALE_V, 80/SCALE_V);
+                    vertices[2].Set(85/SCALE_V, 10/SCALE_V);
+                    vertices[3].Set(15/SCALE_V, 10/SCALE_V);
+
+                    int32 count = 4;
+                    b2PolygonShape polygon;
+                    polygon.Set(vertices, count);
+                    body->CreateFixture(&polygon, 1.0f);
+                    break;
+                }
+    case TypeActor::TrianguloEstatico:
+                {
+                    b2Vec2 vertices[3];
+                    vertices[0].Set(5/SCALE_V, 80/SCALE_V);
+                    vertices[1].Set(95/SCALE_V, 80/SCALE_V);
+                    vertices[2].Set(50/SCALE_V, 10/SCALE_V);
+
+                    int32 count = 3;
+                    b2PolygonShape polygon;
+                    polygon.Set(vertices, count);
+                    body->CreateFixture(&polygon, 1.0f);
+                    break;
+                }
+    default:
+        break;
+    }
+
+
+    body->SetTransform(b2Vec2(positionX/SCALE_V,positionY/SCALE_V),0);
+
+    Actor::startData(world);
 }
 
 void ActorDinamic::updateData(float time)
@@ -27,7 +111,7 @@ void ActorDinamic::updateData(float time)
     last_positionY = positionY;
     positionX = body->GetPosition().x;
     positionY = body->GetPosition().y;
-    setPos(body->GetPosition().x, body->GetPosition().y);
+    setPos(body->GetPosition().x*SCALE_V, body->GetPosition().y*SCALE_V);
 
     last_velocityX = display_velocityX;
     last_velocityY = display_velocityY;
@@ -35,7 +119,6 @@ void ActorDinamic::updateData(float time)
     display_velocityX = body->GetLinearVelocity().x;
 
     display_velocityY = body->GetLinearVelocity().y;
-     qDebug() << " actorsystem : pos x " << body->GetPosition().x << " actorsystem : pos y " << body->GetPosition().y ;
 
     display_acelerationX = (fabsf(display_velocityX-last_velocityX))/(time-lastTime);
     display_acelerationY = (fabsf(display_velocityY-last_velocityY))/(time-lastTime);
@@ -62,7 +145,7 @@ void ActorDinamic::stopData()
 {
     positionX = init_positionX;
     positionY = init_positionY;
-    body->SetTransform(b2Vec2(positionX,positionY),0);
+    bodyDef->position.Set(positionX/SCALE_V,positionY/SCALE_V);
 
     setPos(positionX, positionY);
     Actor::stopData();
@@ -80,7 +163,7 @@ void ActorDinamic::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     if(flags() & ItemIsMovable){
         positionX = pos().rx();
         positionY = pos().ry();
-        body->SetTransform(b2Vec2(pos().rx(),pos().ry()),0);
+        bodyDef->position.Set(positionX/SCALE_V,positionY/SCALE_V);
         emit valuesChanged();
     }
     QGraphicsItem::mouseMoveEvent(event);

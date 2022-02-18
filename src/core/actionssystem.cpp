@@ -53,7 +53,7 @@ void ActionsSystem::addNewActionFromJson(const QJsonObject &json, Actor* actor)
     containerItems->insertWidget(0,action);
 }
 
-void ActionsSystem::executeAction(float time)
+void ActionsSystem::executeActions(float time)
 {
     float m_time = round(time);
     float variableCondition;

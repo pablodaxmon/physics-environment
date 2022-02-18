@@ -3,22 +3,8 @@
 #include<time.h>
 ActorSystem::ActorSystem(QObject *parent) : QObject(parent)
 {
-    b2Vec2 gravity(0.0f,9.8f);
-    world = new b2World(gravity);
     model = new QStringListModel;
-    b2BodyDef defGround;
-    defGround.type = b2_staticBody;
 
-    b2Vec2 v1(-2000.0f, 0.0f);
-    b2Vec2 v2(2000.0f, 0.0f);
-
-    b2EdgeShape edge;
-    edge.SetTwoSided(v1,v2);
-
-    b2Body* ground = world->CreateBody(&defGround);
-    ground->CreateFixture(&edge, 1.0f);
-
-    qDebug() << " actorsystem : pos x " << ground->GetPosition().x << " actorsystem : pos y " << ground->GetPosition().y ;
 
 
 
@@ -62,20 +48,37 @@ void ActorSystem::readJson(const QJsonObject &json) const
 
 }
 
+void ActorSystem::configureWorldBox2d()
+{
+    b2Vec2 gravity(0.0f,9.8f);
+    world = new b2World(gravity);
+
+    b2BodyDef defGround;
+    defGround.type = b2_staticBody;
+
+    b2Vec2 v1(-2000.0f, 0.0f);
+    b2Vec2 v2(2000.0f, 0.0f);
+
+    b2EdgeShape edge;
+    edge.SetTwoSided(v1,v2);
+
+    b2Body* ground = world->CreateBody(&defGround);
+    ground->CreateFixture(&edge, 1.0f);
+}
+
 void ActorSystem::startActors()
 {
-    qDebug() << "Actorsystem: start";
+    configureWorldBox2d();
     if(!listActors.isEmpty()){
         QListIterator<Actor*> i(listActors);
         while(i.hasNext()){
-            i.next()->startData();
+            i.next()->startData(world);
         }
     }
 }
 
 
 
-//Llama a cada actor para cada frame.
 void ActorSystem::updateActors(float time)
 {
     if(!listActors.isEmpty()){
@@ -84,26 +87,18 @@ void ActorSystem::updateActors(float time)
         while(i.hasNext()){
             i.next()->updateData(time);
         }
-
-
     }
-    if(selectedActor != NULL){
-
-    }
-
 }
 
 void ActorSystem::stopActors()
 {
-    world->ClearForces();
+    delete world;
     if(!listActors.isEmpty()){
         world->Step(1.0f/60.0f,6,2);
         QListIterator<Actor*> i(listActors);
         while(i.hasNext()){
             i.next()->stopData();
         }
-
-
     }
 }
 
@@ -150,29 +145,10 @@ void ActorSystem::addActor(QAction * action)
         }
         actore->setTypeActor(type);
         listActors.append(actore);
-        actore->setPositionY(-200);
         actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
         actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
         actore->setIndexInList(listActors.lastIndexOf(actore));
-        b2BodyDef bodyDef;
-        bodyDef.type = b2_dynamicBody;
-        bodyDef.awake = true;
-        bodyDef.position.Set(0,-200);
 
-        b2Body* bodyDyn = world->CreateBody(&bodyDef);
-
-        b2Vec2 vertices[4];
-        vertices[0].Set(20, 20);
-        vertices[1].Set(20, 80);
-        vertices[2].Set(80, 80);
-        vertices[3].Set(20, 80);
-
-        int32 count = 4;
-        b2PolygonShape polygon;
-        polygon.Set(vertices, count);
-        bodyDyn->CreateFixture(&polygon, 1.0f);
-
-        actore->setBody(bodyDyn);
 
         if(model->insertRow(model->rowCount())) {
             QModelIndex index = model->index(model->rowCount() - 1, 0);

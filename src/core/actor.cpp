@@ -40,7 +40,7 @@ Actor::Actor(QGraphicsItem *parent) : QGraphicsObject(parent)
     setAcceptHoverEvents(true);
 }
 
-void Actor::startData()
+void Actor::startData(b2World *world)
 {
     init_positionX = positionX;
     init_positionY = positionY;

@@ -24,7 +24,7 @@ public slots:
     void setSelectedActor(Actor *newSelectedActor);
     void addNewAction(ActionItem *item);
     void addNewActionFromJson(const QJsonObject &json, Actor *actor);
-    void executeAction(float time);
+    void executeActions(float time);
     void reset();
 signals:
 

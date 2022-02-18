@@ -53,12 +53,12 @@ private:
     Actor * actorChanged;
     Actor * actorCondition;
 
-    QComboBox * unitChanged;
-    QLineEdit * valueUniteChanged;
+    QComboBox * unitTarget;
+    QLineEdit * valueTarget;
 
 
-    QComboBox * conditionUnit;
-    QLineEdit * conditionalValue;
+    QComboBox * unitCondition;
+    QLineEdit * valueCondition;
 
 
     QString name;

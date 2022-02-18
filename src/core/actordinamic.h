@@ -12,9 +12,8 @@ public:
     explicit ActorDinamic(QGraphicsItem *parent = nullptr);
 
     b2Body *getBody() const;
-    void setBody(b2Body *newBody);
 
-    void startData();
+    void startData(b2World *world);
     void updateData(float time);
     void stopData();
     void updatePos();
@@ -25,6 +24,7 @@ private:
 
     b2Body * body;
 
+    b2BodyDef* bodyDef;
 };
 
 #endif // ACTORDINAMIC_H
