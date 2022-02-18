@@ -164,7 +164,7 @@ QGroupBox *InitialDialog::createViewBox()
 void InitialDialog::createNewSesionSlot()
 {
 
-    emit createNewSesion(ViewSession::Up, nameEdit->text(), descriptionEdit->text(), option1->isChecked(), isGravity->isChecked());
+    emit createNewSesion(ViewSession::Up, nameEdit->text(), descriptionEdit->text(), option2->isChecked(), isGravity->isChecked());
 
     close();
 

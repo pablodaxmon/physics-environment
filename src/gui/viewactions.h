@@ -24,11 +24,12 @@ signals:
 public slots:
     void isSelectedActor(bool isselected);
     void createNewAction();
+    void debugSlots();
     void AddNewAction(int unidadCondition,float time, float unidadTo, float valueCondition, float valueTo, bool isDinamic);
 private:
     QPushButton * btnNewAction;
-    CreateActionDialog* actiondialog;
-    CreateActionDinamicDialog* actionDinamicdialog;
+    CreateActionDialog* actiondialog = nullptr;
+    CreateActionDinamicDialog* actionDinamicdialog = nullptr;
     QVBoxLayout * containerList;
     Actor* selectedActor;
     bool isBoxtype;

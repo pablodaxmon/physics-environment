@@ -17,6 +17,9 @@ public:
     void updateData(float time);
     void stopData();
     void updatePos();
+
+    void applyForce(float x, float y);
+    void applyTorque(float v);
 protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 

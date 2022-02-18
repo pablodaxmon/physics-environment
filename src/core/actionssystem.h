@@ -5,6 +5,7 @@
 #include <QObject>
 #include "src/gui/actionitem.h"
 #include "actor.h"
+#include "actordinamic.h"
 #include "QJsonArray"
 #include "QJsonObject"
 

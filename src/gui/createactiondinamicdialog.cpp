@@ -84,7 +84,6 @@ CreateActionDinamicDialog::CreateActionDinamicDialog(QWidget *parent) : QDialog(
 
     connect(variableTo, &QComboBox::currentIndexChanged, this, &CreateActionDinamicDialog::updateGui);
     connect(crearAction, &QPushButton::clicked, this, &CreateActionDinamicDialog::createdActionSlot);
-    connect(crearAction, &QPushButton::clicked, this, &CreateActionDinamicDialog::cancelAction);
     valueToX->setVisible(true);
     valueToY->setVisible(true);
     txt3->setVisible(true);

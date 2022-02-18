@@ -94,7 +94,6 @@ void ActorSystem::stopActors()
 {
     delete world;
     if(!listActors.isEmpty()){
-        world->Step(1.0f/60.0f,6,2);
         QListIterator<Actor*> i(listActors);
         while(i.hasNext()){
             i.next()->stopData();
@@ -119,7 +118,7 @@ void ActorSystem::addActor(QAction * action)
     }
     srand(time(0));
 
-    if(isBoxType){
+    if(!isBoxType){
 
         Actor* actore = new Actor();
         actore->setTypeActor(type);
@@ -207,7 +206,21 @@ void ActorSystem::setIsMovible(bool newIsMovible)
 void ActorSystem::deleteActor(Actor *actor)
 {
     listActors.removeOne(actor);
+
+    QModelIndex ind;
+    for(int i = 0;i<model->rowCount();i++){
+
+        ind = model->index(i,0);
+        if(ind.data().toString() == actor->getName()){
+
+            model->removeRow(i);
+        }
+    }
+
     delete actor;
+
+
+
     emit addActorSignal(&listActors);
 }
 
@@ -232,7 +245,6 @@ void ActorSystem::reset()
 
     qDeleteAll(listActors);
     listActors.clear();
-    qDebug() << "Actorsistem: count actors: " << listActors.length();
     emit addActorSignal(&listActors);
 
 }

@@ -51,12 +51,16 @@ ViewActions::ViewActions(QWidget *parent) : QWidget(parent)
     mainBox->setSpacing(0);
 
 
-    actiondialog = new CreateActionDialog(this);
-    actionDinamicdialog = new CreateActionDinamicDialog(this);
 
     setLayout(mainBox);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     connect(btnNewAction, &QPushButton::clicked, this, &ViewActions::createNewAction);
+
+
+    actiondialog = new CreateActionDialog(this);
+    connect(actiondialog, &CreateActionDialog::createdAction, this, &ViewActions::AddNewAction);
+    actionDinamicdialog = new CreateActionDinamicDialog(this);
+    connect(actionDinamicdialog, &CreateActionDinamicDialog::createdAction, this, &ViewActions::AddNewAction);
 }
 
 void ViewActions::isSelectedActor(bool isselected)
@@ -74,19 +78,23 @@ void ViewActions::isSelectedActor(bool isselected)
 
 void ViewActions::createNewAction()
 {
-    if(isBoxtype){
+    if(!isBoxtype){
 
         actiondialog->show();
-        connect(actiondialog, &CreateActionDialog::createdAction, this, &ViewActions::AddNewAction);
     } else {
-        connect(actionDinamicdialog, &CreateActionDinamicDialog::createdAction, this, &ViewActions::AddNewAction);
+
         actionDinamicdialog->show();
     }
 
 }
 
+void ViewActions::debugSlots()
+{
+}
+
 void ViewActions::AddNewAction(int unidadCondition,float time, float unidadTo, float valueCondition, float valueTo, bool isDinamic)
 {
+
 
     if(isDinamic){
         ActionItem * action = new ActionItem(isDinamic);
@@ -123,6 +131,7 @@ void ViewActions::AddNewAction(int unidadCondition,float time, float unidadTo, f
 
 
     }
+
 
 
 }

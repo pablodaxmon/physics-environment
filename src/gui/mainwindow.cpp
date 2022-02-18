@@ -122,7 +122,6 @@ void MainWindow::connectSelectedActor(Actor *actor)
         viewProperties->setEnabled(true);
         connect(viewProperties, &ViewProperties::valuesChanged, actor, &Actor::setValues);
     } else {
-        qDebug() << "MainWindow: ningun actor seleccionado";
         actorSystem->setSelectedActor(nullptr);
         viewProperties->setSelectedActor(nullptr);
         actionsSystem->setSelectedActor(nullptr);

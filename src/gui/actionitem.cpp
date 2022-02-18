@@ -118,6 +118,21 @@ void ActionItem::setValueTorque(float value)
     valueTorqueTarget->setText(QString::number(value));
 }
 
+float ActionItem::getValueX() const
+{
+    return valueXTarget->text().toFloat();
+}
+
+float ActionItem::getValueY() const
+{
+    return valueYTarget->text().toFloat();
+}
+
+float ActionItem::getValueTorque() const
+{
+    return valueTorqueTarget->text().toFloat();
+}
+
 
 
 

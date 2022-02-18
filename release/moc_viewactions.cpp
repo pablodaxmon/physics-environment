@@ -23,8 +23,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ViewActions_t {
-    const uint offsetsAndSize[32];
-    char stringdata0[181];
+    const uint offsetsAndSize[34];
+    char stringdata0[192];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_ViewActions_t, stringdata0) + ofs), len 
@@ -39,20 +39,22 @@ QT_MOC_LITERAL(47, 14), // "actionsChanged"
 QT_MOC_LITERAL(62, 15), // "isSelectedActor"
 QT_MOC_LITERAL(78, 10), // "isselected"
 QT_MOC_LITERAL(89, 15), // "createNewAction"
-QT_MOC_LITERAL(105, 12), // "AddNewAction"
-QT_MOC_LITERAL(118, 15), // "unidadCondition"
-QT_MOC_LITERAL(134, 4), // "time"
-QT_MOC_LITERAL(139, 8), // "unidadTo"
-QT_MOC_LITERAL(148, 14), // "valueCondition"
-QT_MOC_LITERAL(163, 7), // "valueTo"
-QT_MOC_LITERAL(171, 9) // "isDinamic"
+QT_MOC_LITERAL(105, 10), // "debugSlots"
+QT_MOC_LITERAL(116, 12), // "AddNewAction"
+QT_MOC_LITERAL(129, 15), // "unidadCondition"
+QT_MOC_LITERAL(145, 4), // "time"
+QT_MOC_LITERAL(150, 8), // "unidadTo"
+QT_MOC_LITERAL(159, 14), // "valueCondition"
+QT_MOC_LITERAL(174, 7), // "valueTo"
+QT_MOC_LITERAL(182, 9) // "isDinamic"
 
     },
     "ViewActions\0addedNewAction\0\0ActionItem*\0"
     "action\0actionsChanged\0isSelectedActor\0"
-    "isselected\0createNewAction\0AddNewAction\0"
-    "unidadCondition\0time\0unidadTo\0"
-    "valueCondition\0valueTo\0isDinamic"
+    "isselected\0createNewAction\0debugSlots\0"
+    "AddNewAction\0unidadCondition\0time\0"
+    "unidadTo\0valueCondition\0valueTo\0"
+    "isDinamic"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,7 +64,7 @@ static const uint qt_meta_data_ViewActions[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -70,13 +72,14 @@ static const uint qt_meta_data_ViewActions[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   44,    2, 0x06,    1 /* Public */,
-       5,    1,   47,    2, 0x06,    3 /* Public */,
+       1,    1,   50,    2, 0x06,    1 /* Public */,
+       5,    1,   53,    2, 0x06,    3 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       6,    1,   50,    2, 0x0a,    5 /* Public */,
-       8,    0,   53,    2, 0x0a,    7 /* Public */,
-       9,    6,   54,    2, 0x0a,    8 /* Public */,
+       6,    1,   56,    2, 0x0a,    5 /* Public */,
+       8,    0,   59,    2, 0x0a,    7 /* Public */,
+       9,    0,   60,    2, 0x0a,    8 /* Public */,
+      10,    6,   61,    2, 0x0a,    9 /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -85,7 +88,8 @@ static const uint qt_meta_data_ViewActions[] = {
  // slots: parameters
     QMetaType::Void, QMetaType::Bool,    7,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Bool,   10,   11,   12,   13,   14,   15,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Bool,   11,   12,   13,   14,   15,   16,
 
        0        // eod
 };
@@ -100,7 +104,8 @@ void ViewActions::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 1: _t->actionsChanged((*reinterpret_cast< ActionItem*(*)>(_a[1]))); break;
         case 2: _t->isSelectedActor((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 3: _t->createNewAction(); break;
-        case 4: _t->AddNewAction((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< bool(*)>(_a[6]))); break;
+        case 4: _t->debugSlots(); break;
+        case 5: _t->AddNewAction((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< bool(*)>(_a[6]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -148,7 +153,7 @@ const QMetaObject ViewActions::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_ViewActions_t
 , QtPrivate::TypeAndForceComplete<ViewActions, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<ActionItem *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<ActionItem *, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>
 
 
 >,
@@ -175,13 +180,13 @@ int ViewActions::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }

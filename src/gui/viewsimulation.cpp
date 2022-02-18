@@ -355,8 +355,7 @@ QWidget *ViewSimulation::timeControlToolBar()
 void ViewSimulation::setIsBoxType(bool newIsBoxType)
 {   reset();
     isBoxType = newIsBoxType;
-    if(!newIsBoxType){
-        qDebug() << "ViewSimulation::setIsBoxType(bool newIsBoxType)";
+    if(newIsBoxType){
         scene->addRect(-2000,0,4000,50,Qt::NoPen, QBrush(QColor(191,151,129,255), Qt::Dense3Pattern));
     }
 }

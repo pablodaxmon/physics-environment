@@ -28,6 +28,10 @@ public:
     void setValueY(float value);
     void setValueTorque(float value);
 
+    float getValueX() const;
+    float getValueY() const;
+    float getValueTorque() const;
+
     void paintEvent(QPaintEvent *event) override;
 
     float getValueCondition() const;

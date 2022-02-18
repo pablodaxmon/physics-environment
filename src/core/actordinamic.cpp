@@ -1,5 +1,5 @@
 #include "actordinamic.h"
-#define SCALE_V 4.0f
+#define SCALE_V 6.0f
 
 ActorDinamic::ActorDinamic(QGraphicsItem *parent) : Actor(parent)
 {
@@ -7,7 +7,11 @@ ActorDinamic::ActorDinamic(QGraphicsItem *parent) : Actor(parent)
     bodyDef = new b2BodyDef;
     bodyDef->type = b2_dynamicBody;
     bodyDef->awake = true;
-    bodyDef->position.Set(0,-200.0f/SCALE_V);
+    positionX = 0;
+    positionY = -200;
+    bodyDef->position.Set(positionX/SCALE_V,positionY/SCALE_V);
+
+    setPos(positionX, positionY);
 }
 
 b2Body *ActorDinamic::getBody() const
@@ -31,7 +35,7 @@ void ActorDinamic::startData(b2World* world)
                     vertices[0].Set(20.0f/SCALE_V, 20.0f/SCALE_V);
                     vertices[1].Set(20.0f/SCALE_V, 80.0f/SCALE_V);
                     vertices[2].Set(80.0f/SCALE_V, 80.0f/SCALE_V);
-                    vertices[3].Set(20.0f/SCALE_V, 80.0f/SCALE_V);
+                    vertices[3].Set(80.0f/SCALE_V, 20.0f/SCALE_V);
 
                     int32 count = 4;
                     b2PolygonShape polygon;
@@ -107,6 +111,7 @@ void ActorDinamic::startData(b2World* world)
 
 void ActorDinamic::updateData(float time)
 {
+    setRotation(body->GetAngle()*(180/M_PI));
     last_positionX = positionX;
     last_positionY = positionY;
     positionX = body->GetPosition().x;
@@ -143,6 +148,7 @@ void ActorDinamic::updateData(float time)
 
 void ActorDinamic::stopData()
 {
+    setRotation(0);
     positionX = init_positionX;
     positionY = init_positionY;
     bodyDef->position.Set(positionX/SCALE_V,positionY/SCALE_V);
@@ -154,6 +160,18 @@ void ActorDinamic::stopData()
 
 void ActorDinamic::updatePos()
 {
+
+}
+
+void ActorDinamic::applyForce(float x, float y)
+{
+    body->ApplyForce(b2Vec2(x,y), body->GetWorldCenter(),true);
+
+}
+
+void ActorDinamic::applyTorque(float v)
+{
+    body->ApplyTorque(v,true);
 }
 
 
