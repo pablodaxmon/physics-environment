@@ -88,10 +88,10 @@ void CreateActionDialog::createdActionSlot()
 {
 
     emit createdAction(
-                variableComdition->currentIndex(),
+                variableComdition->currentIndex(),0,
                 variableTo->currentIndex(),
                 valueCondition->text().toFloat(),
-                valueTo->text().toFloat());
+                valueTo->text().toFloat(), false);
     close();
 
 }

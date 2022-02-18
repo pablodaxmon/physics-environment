@@ -1,0 +1,30 @@
+{
+    "actions": [
+        {
+            "actorTo": "0-actor-22329",
+            "unitCond": 0,
+            "unitTo": 0,
+            "valueCond": 0,
+            "valueTo": 0
+        }
+    ],
+    "actors": [
+        {
+            "ace": 0,
+            "aceX": 0,
+            "aceY": 0,
+            "identifier": "0-actor-22329",
+            "mass": 0,
+            "name": "Actor0",
+            "posX": 44,
+            "posY": -380,
+            "vel": 0,
+            "velX": 0,
+            "velY": 0
+        }
+    ],
+    "descriptionSession": "",
+    "isBox2d": false,
+    "isGravity": false,
+    "nameSession": "untitle"
+}

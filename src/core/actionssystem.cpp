@@ -39,14 +39,14 @@ void ActionsSystem::addNewAction(ActionItem* item)
 void ActionsSystem::addNewActionFromJson(const QJsonObject &json, Actor* actor)
 {
 
-    ActionItem * action = new ActionItem;
+    ActionItem * action = new ActionItem(json["isDynAction"].toBool());
     action->setValueCondition(json["valueCond"].toDouble());
     action->setValueTo(json["valueTo"].toDouble());
     action->setUnitCond(json["unitCond"].toDouble());
     action->setUnitTo(json["unitTo"].toDouble());
 
 
-    action->setName(actor->getName());
+    action->setIdentifier(actor->getName());
     action->setActor(actor);
 
     listActions.append(action);

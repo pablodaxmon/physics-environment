@@ -13,7 +13,7 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_QML_DEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
+DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -O2 -Wall -Wextra -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -O2 -std=gnu++1z -Wall -Wextra -Wextra -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I. -IC:/Users/Pablo/Documents/project/physics-environment/box2d/. -I. -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -Irelease -I/include -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ 
@@ -63,6 +63,7 @@ SOURCES       = src\core\actionssystem.cpp \
 		src\core\timerloop.cpp \
 		src\gui\actionitem.cpp \
 		src\gui\createactiondialog.cpp \
+		src\gui\createactiondinamicdialog.cpp \
 		src\gui\graphicsscene.cpp \
 		src\gui\graphicsview.cpp \
 		src\gui\initialdialog.cpp \
@@ -71,7 +72,6 @@ SOURCES       = src\core\actionssystem.cpp \
 		src\gui\splittermain.cpp \
 		src\gui\mainwindow.cpp \
 		src\gui\viewactions.cpp \
-		src\gui\viewcontrolactions.cpp \
 		src\gui\viewgraphicsresults.cpp \
 		src\gui\viewobjectlist.cpp \
 		src\gui\viewproperties.cpp \
@@ -87,6 +87,7 @@ SOURCES       = src\core\actionssystem.cpp \
 		release\moc_timerloop.cpp \
 		release\moc_actionitem.cpp \
 		release\moc_createactiondialog.cpp \
+		release\moc_createactiondinamicdialog.cpp \
 		release\moc_graphicsscene.cpp \
 		release\moc_graphicsview.cpp \
 		release\moc_initialdialog.cpp \
@@ -95,7 +96,6 @@ SOURCES       = src\core\actionssystem.cpp \
 		release\moc_splittermain.cpp \
 		release\moc_mainwindow.cpp \
 		release\moc_viewactions.cpp \
-		release\moc_viewcontrolactions.cpp \
 		release\moc_viewgraphicsresults.cpp \
 		release\moc_viewobjectlist.cpp \
 		release\moc_viewproperties.cpp \
@@ -113,6 +113,7 @@ OBJECTS       = release/actionssystem.o \
 		release/timerloop.o \
 		release/actionitem.o \
 		release/createactiondialog.o \
+		release/createactiondinamicdialog.o \
 		release/graphicsscene.o \
 		release/graphicsview.o \
 		release/initialdialog.o \
@@ -121,7 +122,6 @@ OBJECTS       = release/actionssystem.o \
 		release/splittermain.o \
 		release/mainwindow.o \
 		release/viewactions.o \
-		release/viewcontrolactions.o \
 		release/viewgraphicsresults.o \
 		release/viewobjectlist.o \
 		release/viewproperties.o \
@@ -138,6 +138,7 @@ OBJECTS       = release/actionssystem.o \
 		release/moc_timerloop.o \
 		release/moc_actionitem.o \
 		release/moc_createactiondialog.o \
+		release/moc_createactiondinamicdialog.o \
 		release/moc_graphicsscene.o \
 		release/moc_graphicsview.o \
 		release/moc_initialdialog.o \
@@ -146,7 +147,6 @@ OBJECTS       = release/actionssystem.o \
 		release/moc_splittermain.o \
 		release/moc_mainwindow.o \
 		release/moc_viewactions.o \
-		release/moc_viewcontrolactions.o \
 		release/moc_viewgraphicsresults.o \
 		release/moc_viewobjectlist.o \
 		release/moc_viewproperties.o \
@@ -167,6 +167,7 @@ DIST          = style.qss core/Session.h \
 		src\core\timerloop.h \
 		src\gui\actionitem.h \
 		src\gui\createactiondialog.h \
+		src\gui\createactiondinamicdialog.h \
 		src\gui\graphicsscene.h \
 		src\gui\graphicsview.h \
 		src\gui\initialdialog.h \
@@ -175,7 +176,6 @@ DIST          = style.qss core/Session.h \
 		src\gui\splittermain.h \
 		src\gui\mainwindow.h \
 		src\gui\viewactions.h \
-		src\gui\viewcontrolactions.h \
 		src\gui\viewgraphicsresults.h \
 		src\gui\viewobjectlist.h \
 		src\gui\viewproperties.h \
@@ -193,6 +193,7 @@ DIST          = style.qss core/Session.h \
 		src\core\timerloop.cpp \
 		src\gui\actionitem.cpp \
 		src\gui\createactiondialog.cpp \
+		src\gui\createactiondinamicdialog.cpp \
 		src\gui\graphicsscene.cpp \
 		src\gui\graphicsview.cpp \
 		src\gui\initialdialog.cpp \
@@ -201,7 +202,6 @@ DIST          = style.qss core/Session.h \
 		src\gui\splittermain.cpp \
 		src\gui\mainwindow.cpp \
 		src\gui\viewactions.cpp \
-		src\gui\viewcontrolactions.cpp \
 		src\gui\viewgraphicsresults.cpp \
 		src\gui\viewobjectlist.cpp \
 		src\gui\viewproperties.cpp \
@@ -222,15 +222,15 @@ release/physics-environment.exe: C:/Users/Pablo/Documents/project/physics-enviro
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) @object_script.physics-environment.Release  $(LIBS)
 
 qmake: FORCE
-	@$(QMAKE) -o Makefile.Release physics-environment.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
+	@$(QMAKE) -o Makefile.Release physics-environment.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
 
 qmake_all: FORCE
 
 dist:
-	$(ZIP) physics-environment.zip $(SOURCES) $(DIST) physics-environment.pro C:\Qt\6.2.0\mingw81_64\mkspecs\features\spec_pre.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\device_config.prf C:\Qt\6.2.0\mingw81_64\mkspecs\common\sanitize.conf C:\Qt\6.2.0\mingw81_64\mkspecs\common\gcc-base.conf C:\Qt\6.2.0\mingw81_64\mkspecs\common\g++-base.conf C:\Qt\6.2.0\mingw81_64\mkspecs\features\win32\windows_vulkan_sdk.prf C:\Qt\6.2.0\mingw81_64\mkspecs\common\windows-vulkan.conf C:\Qt\6.2.0\mingw81_64\mkspecs\common\g++-win32.conf C:\Qt\6.2.0\mingw81_64\mkspecs\common\windows-desktop.conf C:\Qt\6.2.0\mingw81_64\mkspecs\qconfig.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_ext_freetype.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_ext_libpng.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_core.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_entrypoint_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_help.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsanimation.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsanimation_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsqmlmodels.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labssettings.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labssettings_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labssharedimage.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labssharedimage_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_linguist.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_linguist_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_network.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_openglwidgets.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_openglwidgets_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlcore.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlcore_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmldom_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmllocalstorage.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlmodels.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlmodels_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlworkerscript.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quicklayouts.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quicklayouts_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickshapes_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quicktemplates2.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_svgwidgets.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_svgwidgets_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_tools_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\features\qt_functions.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\qt_config.prf C:\Qt\6.2.0\mingw81_64\mkspecs\win32-g++\qmake.conf C:\Qt\6.2.0\mingw81_64\mkspecs\features\spec_post.prf .qmake.stash C:\Qt\6.2.0\mingw81_64\mkspecs\features\exclusive_builds.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\toolchain.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\default_pre.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\win32\default_pre.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\resolve_config.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\default_post.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\build_pass.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\lrelease.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\qml_debug.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\entrypoint.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\precompile_header.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\warn_on.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\qt.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\resources_functions.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\resources.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\moc.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\win32\opengl.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\uic.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\qmake_use.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\file_copies.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\win32\windows.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\testcase_targets.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\exceptions.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\yacc.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\lex.prf physics-environment.pro resources.qrc release\qmake_qmake_qm_files.qrc C:\Qt\6.2.0\mingw81_64\lib\Qt6Widgets.prl C:\Qt\6.2.0\mingw81_64\lib\Qt6Gui.prl C:\Qt\6.2.0\mingw81_64\lib\Qt6Core.prl C:\Qt\6.2.0\mingw81_64\lib\Qt6EntryPoint.prl physics-environment_en_US.ts physics-environment_en_US.ts physics-environment_en_US.ts   resources.qrc release\qmake_qmake_qm_files.qrc C:\Qt\6.2.0\mingw81_64\mkspecs\features\data\dummy.cpp core/Session.h src\core\Session.h src\core\actionssystem.h src\core\actor.h src\core\actordinamic.h src\core\actorsystem.h src\core\equation.h src\core\equationmaker.h src\core\equationrunner.h src\core\operationmath.h src\core\physics.h src\core\sessionmanager.h src\core\timerloop.h src\gui\actionitem.h src\gui\createactiondialog.h src\gui\graphicsscene.h src\gui\graphicsview.h src\gui\initialdialog.h src\gui\listactionsmodel.h src\gui\maintoolbar.h src\gui\splittermain.h src\gui\mainwindow.h src\gui\viewactions.h src\gui\viewcontrolactions.h src\gui\viewgraphicsresults.h src\gui\viewobjectlist.h src\gui\viewproperties.h src\gui\viewsimulation.h src\gui\pixmapbuilder.h  src\core\actionssystem.cpp src\core\actor.cpp src\core\actordinamic.cpp src\core\actorsystem.cpp src\core\equation.cpp src\core\equationmaker.cpp src\core\equationrunner.cpp src\core\operationmath.cpp src\core\physics.cpp src\core\sessionmanager.cpp src\core\timerloop.cpp src\gui\actionitem.cpp src\gui\createactiondialog.cpp src\gui\graphicsscene.cpp src\gui\graphicsview.cpp src\gui\initialdialog.cpp src\gui\listactionsmodel.cpp src\gui\maintoolbar.cpp src\gui\splittermain.cpp src\gui\mainwindow.cpp src\gui\viewactions.cpp src\gui\viewcontrolactions.cpp src\gui\viewgraphicsresults.cpp src\gui\viewobjectlist.cpp src\gui\viewproperties.cpp src\gui\viewsimulation.cpp src\gui\pixmapbuilder.cpp src\main.cpp     
+	$(ZIP) physics-environment.zip $(SOURCES) $(DIST) physics-environment.pro C:\Qt\6.2.0\mingw81_64\mkspecs\features\spec_pre.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\device_config.prf C:\Qt\6.2.0\mingw81_64\mkspecs\common\sanitize.conf C:\Qt\6.2.0\mingw81_64\mkspecs\common\gcc-base.conf C:\Qt\6.2.0\mingw81_64\mkspecs\common\g++-base.conf C:\Qt\6.2.0\mingw81_64\mkspecs\features\win32\windows_vulkan_sdk.prf C:\Qt\6.2.0\mingw81_64\mkspecs\common\windows-vulkan.conf C:\Qt\6.2.0\mingw81_64\mkspecs\common\g++-win32.conf C:\Qt\6.2.0\mingw81_64\mkspecs\common\windows-desktop.conf C:\Qt\6.2.0\mingw81_64\mkspecs\qconfig.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_ext_freetype.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_ext_libpng.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_core.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_entrypoint_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_help.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsanimation.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsanimation_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsqmlmodels.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labssettings.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labssettings_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labssharedimage.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labssharedimage_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_linguist.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_linguist_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_network.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_openglwidgets.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_openglwidgets_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlcore.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlcore_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmldom_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmllocalstorage.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlmodels.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlmodels_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlworkerscript.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quicklayouts.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quicklayouts_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickshapes_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quicktemplates2.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_svgwidgets.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_svgwidgets_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_tools_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\6.2.0\mingw81_64\mkspecs\features\qt_functions.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\qt_config.prf C:\Qt\6.2.0\mingw81_64\mkspecs\win32-g++\qmake.conf C:\Qt\6.2.0\mingw81_64\mkspecs\features\spec_post.prf .qmake.stash C:\Qt\6.2.0\mingw81_64\mkspecs\features\exclusive_builds.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\toolchain.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\default_pre.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\win32\default_pre.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\resolve_config.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\default_post.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\build_pass.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\lrelease.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\qtquickcompiler.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\entrypoint.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\precompile_header.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\warn_on.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\qt.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\resources_functions.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\resources.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\moc.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\win32\opengl.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\uic.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\qmake_use.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\file_copies.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\win32\windows.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\testcase_targets.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\exceptions.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\yacc.prf C:\Qt\6.2.0\mingw81_64\mkspecs\features\lex.prf physics-environment.pro resources.qrc release\qmake_qmake_qm_files.qrc C:\Qt\6.2.0\mingw81_64\lib\Qt6Widgets.prl C:\Qt\6.2.0\mingw81_64\lib\Qt6Gui.prl C:\Qt\6.2.0\mingw81_64\lib\Qt6Core.prl C:\Qt\6.2.0\mingw81_64\lib\Qt6EntryPoint.prl physics-environment_en_US.ts physics-environment_en_US.ts physics-environment_en_US.ts   resources.qrc release\qmake_qmake_qm_files.qrc C:\Qt\6.2.0\mingw81_64\mkspecs\features\data\dummy.cpp core/Session.h src\core\Session.h src\core\actionssystem.h src\core\actor.h src\core\actordinamic.h src\core\actorsystem.h src\core\equation.h src\core\equationmaker.h src\core\equationrunner.h src\core\operationmath.h src\core\physics.h src\core\sessionmanager.h src\core\timerloop.h src\gui\actionitem.h src\gui\createactiondialog.h src\gui\createactiondinamicdialog.h src\gui\graphicsscene.h src\gui\graphicsview.h src\gui\initialdialog.h src\gui\listactionsmodel.h src\gui\maintoolbar.h src\gui\splittermain.h src\gui\mainwindow.h src\gui\viewactions.h src\gui\viewgraphicsresults.h src\gui\viewobjectlist.h src\gui\viewproperties.h src\gui\viewsimulation.h src\gui\pixmapbuilder.h  src\core\actionssystem.cpp src\core\actor.cpp src\core\actordinamic.cpp src\core\actorsystem.cpp src\core\equation.cpp src\core\equationmaker.cpp src\core\equationrunner.cpp src\core\operationmath.cpp src\core\physics.cpp src\core\sessionmanager.cpp src\core\timerloop.cpp src\gui\actionitem.cpp src\gui\createactiondialog.cpp src\gui\createactiondinamicdialog.cpp src\gui\graphicsscene.cpp src\gui\graphicsview.cpp src\gui\initialdialog.cpp src\gui\listactionsmodel.cpp src\gui\maintoolbar.cpp src\gui\splittermain.cpp src\gui\mainwindow.cpp src\gui\viewactions.cpp src\gui\viewgraphicsresults.cpp src\gui\viewobjectlist.cpp src\gui\viewproperties.cpp src\gui\viewsimulation.cpp src\gui\pixmapbuilder.cpp src\main.cpp     
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\actionssystem.o release\actor.o release\actordinamic.o release\actorsystem.o release\equation.o release\equationmaker.o release\equationrunner.o release\operationmath.o release\physics.o release\sessionmanager.o release\timerloop.o release\actionitem.o release\createactiondialog.o release\graphicsscene.o release\graphicsview.o release\initialdialog.o release\listactionsmodel.o release\maintoolbar.o release\splittermain.o release\mainwindow.o release\viewactions.o release\viewcontrolactions.o release\viewgraphicsresults.o release\viewobjectlist.o release\viewproperties.o release\viewsimulation.o release\pixmapbuilder.o release\main.o release\qrc_resources.o release\qrc_qmake_qmake_qm_files.o release\moc_actionssystem.o release\moc_actor.o release\moc_actordinamic.o release\moc_actorsystem.o release\moc_sessionmanager.o release\moc_timerloop.o release\moc_actionitem.o release\moc_createactiondialog.o release\moc_graphicsscene.o release\moc_graphicsview.o release\moc_initialdialog.o release\moc_listactionsmodel.o release\moc_maintoolbar.o release\moc_splittermain.o release\moc_mainwindow.o release\moc_viewactions.o release\moc_viewcontrolactions.o release\moc_viewgraphicsresults.o release\moc_viewobjectlist.o release\moc_viewproperties.o release\moc_viewsimulation.o
+	-$(DEL_FILE) release\actionssystem.o release\actor.o release\actordinamic.o release\actorsystem.o release\equation.o release\equationmaker.o release\equationrunner.o release\operationmath.o release\physics.o release\sessionmanager.o release\timerloop.o release\actionitem.o release\createactiondialog.o release\createactiondinamicdialog.o release\graphicsscene.o release\graphicsview.o release\initialdialog.o release\listactionsmodel.o release\maintoolbar.o release\splittermain.o release\mainwindow.o release\viewactions.o release\viewgraphicsresults.o release\viewobjectlist.o release\viewproperties.o release\viewsimulation.o release\pixmapbuilder.o release\main.o release\qrc_resources.o release\qrc_qmake_qmake_qm_files.o release\moc_actionssystem.o release\moc_actor.o release\moc_actordinamic.o release\moc_actorsystem.o release\moc_sessionmanager.o release\moc_timerloop.o release\moc_actionitem.o release\moc_createactiondialog.o release\moc_createactiondinamicdialog.o release\moc_graphicsscene.o release\moc_graphicsview.o release\moc_initialdialog.o release\moc_listactionsmodel.o release\moc_maintoolbar.o release\moc_splittermain.o release\moc_mainwindow.o release\moc_viewactions.o release\moc_viewgraphicsresults.o release\moc_viewobjectlist.o release\moc_viewproperties.o release\moc_viewsimulation.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -337,9 +337,9 @@ compiler_moc_predefs_clean:
 release/moc_predefs.h: C:/Qt/6.2.0/mingw81_64/mkspecs/features/data/dummy.cpp
 	g++ -fno-keep-inline-dllexport -O2 -std=gnu++1z -Wall -Wextra -Wextra -dM -E -o release\moc_predefs.h C:\Qt\6.2.0\mingw81_64\mkspecs\features\data\dummy.cpp
 
-compiler_moc_header_make_all: release/moc_actionssystem.cpp release/moc_actor.cpp release/moc_actordinamic.cpp release/moc_actorsystem.cpp release/moc_sessionmanager.cpp release/moc_timerloop.cpp release/moc_actionitem.cpp release/moc_createactiondialog.cpp release/moc_graphicsscene.cpp release/moc_graphicsview.cpp release/moc_initialdialog.cpp release/moc_listactionsmodel.cpp release/moc_maintoolbar.cpp release/moc_splittermain.cpp release/moc_mainwindow.cpp release/moc_viewactions.cpp release/moc_viewcontrolactions.cpp release/moc_viewgraphicsresults.cpp release/moc_viewobjectlist.cpp release/moc_viewproperties.cpp release/moc_viewsimulation.cpp
+compiler_moc_header_make_all: release/moc_actionssystem.cpp release/moc_actor.cpp release/moc_actordinamic.cpp release/moc_actorsystem.cpp release/moc_sessionmanager.cpp release/moc_timerloop.cpp release/moc_actionitem.cpp release/moc_createactiondialog.cpp release/moc_createactiondinamicdialog.cpp release/moc_graphicsscene.cpp release/moc_graphicsview.cpp release/moc_initialdialog.cpp release/moc_listactionsmodel.cpp release/moc_maintoolbar.cpp release/moc_splittermain.cpp release/moc_mainwindow.cpp release/moc_viewactions.cpp release/moc_viewgraphicsresults.cpp release/moc_viewobjectlist.cpp release/moc_viewproperties.cpp release/moc_viewsimulation.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release\moc_actionssystem.cpp release\moc_actor.cpp release\moc_actordinamic.cpp release\moc_actorsystem.cpp release\moc_sessionmanager.cpp release\moc_timerloop.cpp release\moc_actionitem.cpp release\moc_createactiondialog.cpp release\moc_graphicsscene.cpp release\moc_graphicsview.cpp release\moc_initialdialog.cpp release\moc_listactionsmodel.cpp release\moc_maintoolbar.cpp release\moc_splittermain.cpp release\moc_mainwindow.cpp release\moc_viewactions.cpp release\moc_viewcontrolactions.cpp release\moc_viewgraphicsresults.cpp release\moc_viewobjectlist.cpp release\moc_viewproperties.cpp release\moc_viewsimulation.cpp
+	-$(DEL_FILE) release\moc_actionssystem.cpp release\moc_actor.cpp release\moc_actordinamic.cpp release\moc_actorsystem.cpp release\moc_sessionmanager.cpp release\moc_timerloop.cpp release\moc_actionitem.cpp release\moc_createactiondialog.cpp release\moc_createactiondinamicdialog.cpp release\moc_graphicsscene.cpp release\moc_graphicsview.cpp release\moc_initialdialog.cpp release\moc_listactionsmodel.cpp release\moc_maintoolbar.cpp release\moc_splittermain.cpp release\moc_mainwindow.cpp release\moc_viewactions.cpp release\moc_viewgraphicsresults.cpp release\moc_viewobjectlist.cpp release\moc_viewproperties.cpp release\moc_viewsimulation.cpp
 release/moc_actionssystem.cpp: src/core/actionssystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QList \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlist.h \
@@ -494,6 +494,43 @@ release/moc_actionssystem.cpp: src/core/actionssystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -673,6 +710,43 @@ release/moc_actor.cpp: src/core/actor.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\core\actor.h -o release\moc_actor.cpp
@@ -808,14 +882,43 @@ release/moc_actordinamic.cpp: src/core/actordinamic.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
+		src/box2d/box2d.h \
 		src/box2d/b2_settings.h \
 		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
 		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
 		src/box2d/b2_shape.h \
 		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\core\actordinamic.h -o release\moc_actordinamic.cpp
@@ -951,15 +1054,44 @@ release/moc_actorsystem.cpp: src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
-		src/core/actordinamic.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
+		src/box2d/box2d.h \
 		src/box2d/b2_settings.h \
 		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
 		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
 		src/box2d/b2_shape.h \
 		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
+		src/core/actordinamic.h \
 		src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
@@ -1025,15 +1157,10 @@ release/moc_actorsystem.cpp: src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QDragMoveEvent \
 		src/gui/viewobjectlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
-		src/gui/viewproperties.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
@@ -1046,6 +1173,15 @@ release/moc_actorsystem.cpp: src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabwidget.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/gui/viewproperties.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
@@ -1054,35 +1190,6 @@ release/moc_actorsystem.cpp: src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
-		src/box2d/box2d.h \
-		src/box2d/b2_draw.h \
-		src/box2d/b2_timer.h \
-		src/box2d/b2_chain_shape.h \
-		src/box2d/b2_circle_shape.h \
-		src/box2d/b2_edge_shape.h \
-		src/box2d/b2_polygon_shape.h \
-		src/box2d/b2_broad_phase.h \
-		src/box2d/b2_dynamic_tree.h \
-		src/box2d/b2_growable_stack.h \
-		src/box2d/b2_contact.h \
-		src/box2d/b2_fixture.h \
-		src/box2d/b2_time_step.h \
-		src/box2d/b2_world.h \
-		src/box2d/b2_block_allocator.h \
-		src/box2d/b2_contact_manager.h \
-		src/box2d/b2_stack_allocator.h \
-		src/box2d/b2_world_callbacks.h \
-		src/box2d/b2_distance_joint.h \
-		src/box2d/b2_joint.h \
-		src/box2d/b2_friction_joint.h \
-		src/box2d/b2_gear_joint.h \
-		src/box2d/b2_motor_joint.h \
-		src/box2d/b2_mouse_joint.h \
-		src/box2d/b2_prismatic_joint.h \
-		src/box2d/b2_pulley_joint.h \
-		src/box2d/b2_revolute_joint.h \
-		src/box2d/b2_weld_joint.h \
-		src/box2d/b2_wheel_joint.h \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\core\actorsystem.h -o release\moc_actorsystem.cpp
@@ -1242,6 +1349,43 @@ release/moc_sessionmanager.cpp: src/core/sessionmanager.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -1289,14 +1433,6 @@ release/moc_sessionmanager.cpp: src/core/sessionmanager.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
 		src/core/actorsystem.h \
 		src/core/actordinamic.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
-		src/box2d/b2_settings.h \
-		src/box2d/b2_types.h \
-		src/box2d/b2_common.h \
-		src/box2d/b2_shape.h \
-		src/box2d/b2_collision.h \
 		src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolBar \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbar.h \
@@ -1318,44 +1454,19 @@ release/moc_sessionmanager.cpp: src/core/sessionmanager.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QDragMoveEvent \
 		src/gui/viewobjectlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
-		src/gui/viewproperties.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
-		src/box2d/box2d.h \
-		src/box2d/b2_draw.h \
-		src/box2d/b2_timer.h \
-		src/box2d/b2_chain_shape.h \
-		src/box2d/b2_circle_shape.h \
-		src/box2d/b2_edge_shape.h \
-		src/box2d/b2_polygon_shape.h \
-		src/box2d/b2_broad_phase.h \
-		src/box2d/b2_dynamic_tree.h \
-		src/box2d/b2_growable_stack.h \
-		src/box2d/b2_contact.h \
-		src/box2d/b2_fixture.h \
-		src/box2d/b2_time_step.h \
-		src/box2d/b2_world.h \
-		src/box2d/b2_block_allocator.h \
-		src/box2d/b2_contact_manager.h \
-		src/box2d/b2_stack_allocator.h \
-		src/box2d/b2_world_callbacks.h \
-		src/box2d/b2_distance_joint.h \
-		src/box2d/b2_joint.h \
-		src/box2d/b2_friction_joint.h \
-		src/box2d/b2_gear_joint.h \
-		src/box2d/b2_motor_joint.h \
-		src/box2d/b2_mouse_joint.h \
-		src/box2d/b2_prismatic_joint.h \
-		src/box2d/b2_pulley_joint.h \
-		src/box2d/b2_revolute_joint.h \
-		src/box2d/b2_weld_joint.h \
-		src/box2d/b2_wheel_joint.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/gui/viewproperties.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QFile \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfile.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfiledevice.h \
@@ -1502,15 +1613,44 @@ release/moc_timerloop.cpp: src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
-		src/core/actordinamic.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
+		src/box2d/box2d.h \
 		src/box2d/b2_settings.h \
 		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
 		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
 		src/box2d/b2_shape.h \
 		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
+		src/core/actordinamic.h \
 		src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
@@ -1573,15 +1713,10 @@ release/moc_timerloop.cpp: src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QDragMoveEvent \
 		src/gui/viewobjectlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
-		src/gui/viewproperties.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
@@ -1594,6 +1729,15 @@ release/moc_timerloop.cpp: src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabwidget.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/gui/viewproperties.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
@@ -1602,35 +1746,6 @@ release/moc_timerloop.cpp: src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
-		src/box2d/box2d.h \
-		src/box2d/b2_draw.h \
-		src/box2d/b2_timer.h \
-		src/box2d/b2_chain_shape.h \
-		src/box2d/b2_circle_shape.h \
-		src/box2d/b2_edge_shape.h \
-		src/box2d/b2_polygon_shape.h \
-		src/box2d/b2_broad_phase.h \
-		src/box2d/b2_dynamic_tree.h \
-		src/box2d/b2_growable_stack.h \
-		src/box2d/b2_contact.h \
-		src/box2d/b2_fixture.h \
-		src/box2d/b2_time_step.h \
-		src/box2d/b2_world.h \
-		src/box2d/b2_block_allocator.h \
-		src/box2d/b2_contact_manager.h \
-		src/box2d/b2_stack_allocator.h \
-		src/box2d/b2_world_callbacks.h \
-		src/box2d/b2_distance_joint.h \
-		src/box2d/b2_joint.h \
-		src/box2d/b2_friction_joint.h \
-		src/box2d/b2_gear_joint.h \
-		src/box2d/b2_motor_joint.h \
-		src/box2d/b2_mouse_joint.h \
-		src/box2d/b2_prismatic_joint.h \
-		src/box2d/b2_pulley_joint.h \
-		src/box2d/b2_revolute_joint.h \
-		src/box2d/b2_weld_joint.h \
-		src/box2d/b2_wheel_joint.h \
 		src/core/actionssystem.h \
 		src/gui/actionitem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
@@ -1793,6 +1908,43 @@ release/moc_actionitem.cpp: src/gui/actionitem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -2021,12 +2173,282 @@ release/moc_createactiondialog.cpp: src/gui/createactiondialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\gui\createactiondialog.h -o release\moc_createactiondialog.cpp
+
+release/moc_createactiondinamicdialog.cpp: src/gui/createactiondinamicdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnamespace.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobal.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtcore-config.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsystemdetection.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qprocessordetection.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcompilerdetection.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtypeinfo.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerfwd.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsysinfo.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlogging.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qflags.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasicatomic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic_bootstrap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qgenericatomic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic_cxx11.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobalstatic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnumeric.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qversiontagging.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtmetamacros.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstring.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qchar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearray.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrefcount.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydata.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpair.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydatapointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydataops.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainertools_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearrayalgorithms.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearrayview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringliteral.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringalgorithms.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qanystringview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qutf8stringview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringtokenizer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringbuilder.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlist.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhashfunctions.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterator.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearraylist.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlist.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qalgorithms.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringmatcher.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreevent.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopedpointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetatype.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcompare.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvarlengtharray.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopeguard.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatastream.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevicebase.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterable.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetacontainer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerinfo.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtaggedpointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qproperty.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpropertyprivate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtguiglobal.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtgui-config.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgets-config.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qwindowdefs.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qwindowdefs_win.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmargins.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpaintdevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrect.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsize.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpoint.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcolor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qrgb.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qrgba64.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbrush.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qimage.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpixelformat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtransform.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpolygon.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qregion.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qline.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpixmap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfont.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontmetrics.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontinfo.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbitmap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qkeysequence.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qevent.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qurl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvariant.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhash.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdebug.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtextstream.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringconverter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qset.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qeventpoint.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvector2d.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvectornd.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QList \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QRect \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSize \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QComboBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcombobox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qicon.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgridlayout.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QPushButton \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qpushbutton.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
+		src/gui/actionitem.h \
+		src/core/physics.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
+		src/core/actor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPainter \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QDebug \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QVector2D \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QPointF \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsitem.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainterpath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QMap \
+		src/core/equation.h \
+		src/core/operationmath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QString \
+		src/core/equationrunner.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
+		src/core/equationmaker.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
+		release/moc_predefs.h \
+		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
+	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\gui\createactiondinamicdialog.h -o release\moc_createactiondinamicdialog.cpp
 
 release/moc_graphicsscene.cpp: src/gui/graphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
@@ -2849,6 +3271,43 @@ release/moc_splittermain.cpp: src/gui/splittermain.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\gui\splittermain.h -o release\moc_splittermain.cpp
@@ -3041,97 +3500,24 @@ release/moc_mainwindow.cpp: src/gui/mainwindow.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
-		src/gui/viewsimulation.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolBar \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolButton \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
-		src/gui/viewobjectlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
-		src/gui/viewactions.h \
-		src/core/actionssystem.h \
-		src/gui/actionitem.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QComboBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcombobox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborvalue.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborcommon.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
-		src/gui/createactiondialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
-		src/gui/viewproperties.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
-		src/gui/maintoolbar.h \
-		src/gui/initialdialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QCheckBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcheckbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QRadioButton \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qradiobutton.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGroupBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgroupbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyledItemDelegate \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleditemdelegate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialogButtonBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialogbuttonbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListWidgetItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistwidget.h \
-		src/core/Session.h \
-		src/core/actorsystem.h \
-		src/core/actordinamic.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
+		src/box2d/box2d.h \
 		src/box2d/b2_settings.h \
 		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
 		src/box2d/b2_common.h \
-		src/box2d/b2_shape.h \
-		src/box2d/b2_collision.h \
-		src/box2d/box2d.h \
 		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
 		src/box2d/b2_timer.h \
 		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
 		src/box2d/b2_circle_shape.h \
 		src/box2d/b2_edge_shape.h \
 		src/box2d/b2_polygon_shape.h \
 		src/box2d/b2_broad_phase.h \
 		src/box2d/b2_dynamic_tree.h \
 		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
 		src/box2d/b2_contact.h \
 		src/box2d/b2_fixture.h \
 		src/box2d/b2_time_step.h \
@@ -3151,6 +3537,82 @@ release/moc_mainwindow.cpp: src/gui/mainwindow.h \
 		src/box2d/b2_revolute_joint.h \
 		src/box2d/b2_weld_joint.h \
 		src/box2d/b2_wheel_joint.h \
+		src/gui/viewsimulation.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolBar \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolButton \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
+		src/gui/graphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
+		src/gui/viewobjectlist.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/gui/viewactions.h \
+		src/core/actionssystem.h \
+		src/gui/actionitem.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QComboBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcombobox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborvalue.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborcommon.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
+		src/gui/createactiondialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
+		src/gui/createactiondinamicdialog.h \
+		src/gui/viewproperties.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		src/gui/maintoolbar.h \
+		src/gui/initialdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QCheckBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcheckbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QRadioButton \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qradiobutton.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGroupBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgroupbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyledItemDelegate \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleditemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialogButtonBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialogbuttonbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListWidgetItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistwidget.h \
+		src/core/Session.h \
+		src/core/actorsystem.h \
+		src/core/actordinamic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
 		src/core/timerloop.h \
 		src/core/sessionmanager.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QFile \
@@ -3322,6 +3784,43 @@ release/moc_viewactions.cpp: src/gui/viewactions.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -3367,142 +3866,10 @@ release/moc_viewactions.cpp: src/gui/viewactions.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
+		src/gui/createactiondinamicdialog.h \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\gui\viewactions.h -o release\moc_viewactions.cpp
-
-release/moc_viewcontrolactions.cpp: src/gui/viewcontrolactions.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtguiglobal.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobal.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtcore-config.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsystemdetection.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qprocessordetection.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcompilerdetection.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtypeinfo.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerfwd.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsysinfo.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlogging.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qflags.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasicatomic.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic_bootstrap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qgenericatomic.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic_cxx11.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobalstatic.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnumeric.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qversiontagging.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtgui-config.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgets-config.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qwindowdefs.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnamespace.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtmetamacros.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qwindowdefs_win.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstring.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qchar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearray.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrefcount.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydata.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpair.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydatapointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydataops.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainertools_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearrayalgorithms.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearrayview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringliteral.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringalgorithms.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qanystringview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qutf8stringview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringtokenizer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringbuilder.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhashfunctions.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterator.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearraylist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qalgorithms.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringmatcher.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreevent.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopedpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetatype.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcompare.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvarlengtharray.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopeguard.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatastream.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevicebase.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterable.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetacontainer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerinfo.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtaggedpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmath.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qproperty.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpropertyprivate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmargins.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpaintdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrect.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsize.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpoint.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcolor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qrgb.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qrgba64.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbrush.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qimage.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpixelformat.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtransform.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpolygon.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qregion.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qline.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpixmap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfont.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontmetrics.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontinfo.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbitmap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qkeysequence.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qevent.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qurl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvariant.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhash.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdebug.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtextstream.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringconverter.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qset.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontiguouscache.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qeventpoint.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvector2d.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvectornd.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QList \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QRect \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSize \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
-		release/moc_predefs.h \
-		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
-	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\gui\viewcontrolactions.h -o release\moc_viewcontrolactions.cpp
 
 release/moc_viewgraphicsresults.cpp: src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
@@ -3667,6 +4034,43 @@ release/moc_viewgraphicsresults.cpp: src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\gui\viewgraphicsresults.h -o release\moc_viewgraphicsresults.cpp
@@ -3800,11 +4204,89 @@ release/moc_viewobjectlist.cpp: src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qicon.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/core/actor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPainter \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QDebug \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QVector2D \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QPointF \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsitem.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainterpath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QMap \
+		src/core/physics.h \
+		src/core/equation.h \
+		src/core/operationmath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QString \
+		src/core/equationrunner.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
+		src/core/equationmaker.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\gui\viewobjectlist.h -o release\moc_viewobjectlist.cpp
@@ -3985,6 +4467,43 @@ release/moc_viewproperties.cpp: src/gui/viewproperties.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		release/moc_predefs.h \
 		C:/Qt/6.2.0/mingw81_64/bin/moc.exe
 	C:\Qt\6.2.0\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Pablo/Documents/project/physics-environment/release/moc_predefs.h -IC:/Qt/6.2.0/mingw81_64/mkspecs/win32-g++ -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Users/Pablo/Documents/project/physics-environment/box2d -IC:/Users/Pablo/Documents/project/physics-environment -IC:/Qt/6.2.0/mingw81_64/include -IC:/Qt/6.2.0/mingw81_64/include/QtWidgets -IC:/Qt/6.2.0/mingw81_64/include/QtGui -IC:/Qt/6.2.0/mingw81_64/include/QtCore -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include src\gui\viewproperties.h -o release\moc_viewproperties.cpp
@@ -4173,6 +4692,43 @@ release/moc_viewsimulation.cpp: src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPaintEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTime \
@@ -4359,6 +4915,43 @@ release/actionssystem.o: src/core/actionssystem.cpp src/core/actionssystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -4535,7 +5128,44 @@ release/actor.o: src/core/actor.cpp src/core/actor.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\actor.o src\core\actor.cpp
 
 release/actordinamic.o: src/core/actordinamic.cpp src/core/actordinamic.h \
@@ -4669,14 +5299,43 @@ release/actordinamic.o: src/core/actordinamic.cpp src/core/actordinamic.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
+		src/box2d/box2d.h \
 		src/box2d/b2_settings.h \
 		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
 		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
 		src/box2d/b2_shape.h \
-		src/box2d/b2_collision.h
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\actordinamic.o src\core\actordinamic.cpp
 
 release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
@@ -4810,15 +5469,44 @@ release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
-		src/core/actordinamic.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
+		src/box2d/box2d.h \
 		src/box2d/b2_settings.h \
 		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
 		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
 		src/box2d/b2_shape.h \
 		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
+		src/core/actordinamic.h \
 		src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
@@ -4884,15 +5572,10 @@ release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QDragMoveEvent \
 		src/gui/viewobjectlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
-		src/gui/viewproperties.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
@@ -4905,6 +5588,15 @@ release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabwidget.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/gui/viewproperties.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
@@ -4912,36 +5604,7 @@ release/actorsystem.o: src/core/actorsystem.cpp src/core/actorsystem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborcommon.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
-		src/box2d/box2d.h \
-		src/box2d/b2_draw.h \
-		src/box2d/b2_timer.h \
-		src/box2d/b2_chain_shape.h \
-		src/box2d/b2_circle_shape.h \
-		src/box2d/b2_edge_shape.h \
-		src/box2d/b2_polygon_shape.h \
-		src/box2d/b2_broad_phase.h \
-		src/box2d/b2_dynamic_tree.h \
-		src/box2d/b2_growable_stack.h \
-		src/box2d/b2_contact.h \
-		src/box2d/b2_fixture.h \
-		src/box2d/b2_time_step.h \
-		src/box2d/b2_world.h \
-		src/box2d/b2_block_allocator.h \
-		src/box2d/b2_contact_manager.h \
-		src/box2d/b2_stack_allocator.h \
-		src/box2d/b2_world_callbacks.h \
-		src/box2d/b2_distance_joint.h \
-		src/box2d/b2_joint.h \
-		src/box2d/b2_friction_joint.h \
-		src/box2d/b2_gear_joint.h \
-		src/box2d/b2_motor_joint.h \
-		src/box2d/b2_mouse_joint.h \
-		src/box2d/b2_prismatic_joint.h \
-		src/box2d/b2_pulley_joint.h \
-		src/box2d/b2_revolute_joint.h \
-		src/box2d/b2_weld_joint.h \
-		src/box2d/b2_wheel_joint.h
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\actorsystem.o src\core\actorsystem.cpp
 
 release/equation.o: src/core/equation.cpp src/core/equation.h \
@@ -5363,6 +6026,43 @@ release/sessionmanager.o: src/core/sessionmanager.cpp src/core/sessionmanager.h 
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -5410,14 +6110,6 @@ release/sessionmanager.o: src/core/sessionmanager.cpp src/core/sessionmanager.h 
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
 		src/core/actorsystem.h \
 		src/core/actordinamic.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
-		src/box2d/b2_settings.h \
-		src/box2d/b2_types.h \
-		src/box2d/b2_common.h \
-		src/box2d/b2_shape.h \
-		src/box2d/b2_collision.h \
 		src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolBar \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbar.h \
@@ -5439,44 +6131,19 @@ release/sessionmanager.o: src/core/sessionmanager.cpp src/core/sessionmanager.h 
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasictimer.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QDragMoveEvent \
 		src/gui/viewobjectlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
-		src/gui/viewproperties.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
-		src/box2d/box2d.h \
-		src/box2d/b2_draw.h \
-		src/box2d/b2_timer.h \
-		src/box2d/b2_chain_shape.h \
-		src/box2d/b2_circle_shape.h \
-		src/box2d/b2_edge_shape.h \
-		src/box2d/b2_polygon_shape.h \
-		src/box2d/b2_broad_phase.h \
-		src/box2d/b2_dynamic_tree.h \
-		src/box2d/b2_growable_stack.h \
-		src/box2d/b2_contact.h \
-		src/box2d/b2_fixture.h \
-		src/box2d/b2_time_step.h \
-		src/box2d/b2_world.h \
-		src/box2d/b2_block_allocator.h \
-		src/box2d/b2_contact_manager.h \
-		src/box2d/b2_stack_allocator.h \
-		src/box2d/b2_world_callbacks.h \
-		src/box2d/b2_distance_joint.h \
-		src/box2d/b2_joint.h \
-		src/box2d/b2_friction_joint.h \
-		src/box2d/b2_gear_joint.h \
-		src/box2d/b2_motor_joint.h \
-		src/box2d/b2_mouse_joint.h \
-		src/box2d/b2_prismatic_joint.h \
-		src/box2d/b2_pulley_joint.h \
-		src/box2d/b2_revolute_joint.h \
-		src/box2d/b2_weld_joint.h \
-		src/box2d/b2_wheel_joint.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/gui/viewproperties.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QFile \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfile.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfiledevice.h \
@@ -5623,15 +6290,44 @@ release/timerloop.o: src/core/timerloop.cpp src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
-		src/core/actordinamic.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
+		src/box2d/box2d.h \
 		src/box2d/b2_settings.h \
 		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
 		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
 		src/box2d/b2_shape.h \
 		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
+		src/core/actordinamic.h \
 		src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
@@ -5694,15 +6390,10 @@ release/timerloop.o: src/core/timerloop.cpp src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QDragMoveEvent \
 		src/gui/viewobjectlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
-		src/gui/viewproperties.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
@@ -5715,6 +6406,15 @@ release/timerloop.o: src/core/timerloop.cpp src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabwidget.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/gui/viewproperties.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
@@ -5723,35 +6423,6 @@ release/timerloop.o: src/core/timerloop.cpp src/core/timerloop.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
-		src/box2d/box2d.h \
-		src/box2d/b2_draw.h \
-		src/box2d/b2_timer.h \
-		src/box2d/b2_chain_shape.h \
-		src/box2d/b2_circle_shape.h \
-		src/box2d/b2_edge_shape.h \
-		src/box2d/b2_polygon_shape.h \
-		src/box2d/b2_broad_phase.h \
-		src/box2d/b2_dynamic_tree.h \
-		src/box2d/b2_growable_stack.h \
-		src/box2d/b2_contact.h \
-		src/box2d/b2_fixture.h \
-		src/box2d/b2_time_step.h \
-		src/box2d/b2_world.h \
-		src/box2d/b2_block_allocator.h \
-		src/box2d/b2_contact_manager.h \
-		src/box2d/b2_stack_allocator.h \
-		src/box2d/b2_world_callbacks.h \
-		src/box2d/b2_distance_joint.h \
-		src/box2d/b2_joint.h \
-		src/box2d/b2_friction_joint.h \
-		src/box2d/b2_gear_joint.h \
-		src/box2d/b2_motor_joint.h \
-		src/box2d/b2_mouse_joint.h \
-		src/box2d/b2_prismatic_joint.h \
-		src/box2d/b2_pulley_joint.h \
-		src/box2d/b2_revolute_joint.h \
-		src/box2d/b2_weld_joint.h \
-		src/box2d/b2_wheel_joint.h \
 		src/core/actionssystem.h \
 		src/gui/actionitem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
@@ -5912,6 +6583,43 @@ release/actionitem.o: src/gui/actionitem.cpp src/gui/actionitem.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -6140,10 +6848,278 @@ release/createactiondialog.o: src/gui/createactiondialog.cpp src/gui/createactio
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\createactiondialog.o src\gui\createactiondialog.cpp
+
+release/createactiondinamicdialog.o: src/gui/createactiondinamicdialog.cpp src/gui/createactiondinamicdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnamespace.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobal.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtcore-config.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsystemdetection.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qprocessordetection.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcompilerdetection.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtypeinfo.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerfwd.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsysinfo.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlogging.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qflags.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasicatomic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic_bootstrap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qgenericatomic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic_cxx11.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobalstatic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnumeric.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qversiontagging.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtmetamacros.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstring.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qchar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearray.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrefcount.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydata.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpair.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydatapointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydataops.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainertools_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearrayalgorithms.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearrayview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringliteral.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringalgorithms.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qanystringview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qutf8stringview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringtokenizer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringbuilder.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlist.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhashfunctions.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterator.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearraylist.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlist.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qalgorithms.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringmatcher.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreevent.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopedpointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetatype.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcompare.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvarlengtharray.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopeguard.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatastream.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevicebase.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterable.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetacontainer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerinfo.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtaggedpointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qproperty.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpropertyprivate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtguiglobal.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtgui-config.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgets-config.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qwindowdefs.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qwindowdefs_win.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmargins.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpaintdevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrect.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsize.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpoint.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcolor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qrgb.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qrgba64.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbrush.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qimage.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpixelformat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtransform.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpolygon.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qregion.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qline.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpixmap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfont.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontmetrics.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontinfo.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbitmap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qkeysequence.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qevent.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpointer.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qurl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvariant.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmap.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata_impl.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhash.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdebug.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtextstream.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringconverter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qset.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qeventpoint.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvector2d.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvectornd.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QList \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QRect \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSize \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QComboBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcombobox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qicon.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgridlayout.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QPushButton \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qpushbutton.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
+		src/gui/actionitem.h \
+		src/core/physics.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
+		src/core/actor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPainter \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QDebug \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QVector2D \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QPointF \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsitem.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainterpath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QMap \
+		src/core/equation.h \
+		src/core/operationmath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QString \
+		src/core/equationrunner.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
+		src/core/equationmaker.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\createactiondinamicdialog.o src\gui\createactiondinamicdialog.cpp
 
 release/graphicsscene.o: src/gui/graphicsscene.cpp src/gui/graphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
@@ -6284,7 +7260,11 @@ release/graphicsscene.o: src/gui/graphicsscene.cpp src/gui/graphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QDebug \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QScrollBar \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\graphicsscene.o src\gui\graphicsscene.cpp
 
 release/graphicsview.o: src/gui/graphicsview.cpp src/gui/graphicsview.h \
@@ -7071,6 +8051,43 @@ release/splittermain.o: src/gui/splittermain.cpp src/gui/splittermain.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QPushButton \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qpushbutton.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
@@ -7282,97 +8299,24 @@ release/mainwindow.o: src/gui/mainwindow.cpp src/gui/mainwindow.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
-		src/gui/viewsimulation.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolBar \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolButton \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
-		src/gui/viewobjectlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
-		src/gui/viewactions.h \
-		src/core/actionssystem.h \
-		src/gui/actionitem.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QComboBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcombobox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborvalue.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborcommon.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
-		src/gui/createactiondialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
-		src/gui/viewproperties.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
-		src/gui/maintoolbar.h \
-		src/gui/initialdialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QCheckBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcheckbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QRadioButton \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qradiobutton.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGroupBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgroupbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyledItemDelegate \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleditemdelegate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialogButtonBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialogbuttonbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListWidgetItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistwidget.h \
-		src/core/Session.h \
-		src/core/actorsystem.h \
-		src/core/actordinamic.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
+		src/box2d/box2d.h \
 		src/box2d/b2_settings.h \
 		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
 		src/box2d/b2_common.h \
-		src/box2d/b2_shape.h \
-		src/box2d/b2_collision.h \
-		src/box2d/box2d.h \
 		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
 		src/box2d/b2_timer.h \
 		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
 		src/box2d/b2_circle_shape.h \
 		src/box2d/b2_edge_shape.h \
 		src/box2d/b2_polygon_shape.h \
 		src/box2d/b2_broad_phase.h \
 		src/box2d/b2_dynamic_tree.h \
 		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
 		src/box2d/b2_contact.h \
 		src/box2d/b2_fixture.h \
 		src/box2d/b2_time_step.h \
@@ -7392,6 +8336,82 @@ release/mainwindow.o: src/gui/mainwindow.cpp src/gui/mainwindow.h \
 		src/box2d/b2_revolute_joint.h \
 		src/box2d/b2_weld_joint.h \
 		src/box2d/b2_wheel_joint.h \
+		src/gui/viewsimulation.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolBar \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolButton \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
+		src/gui/graphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
+		src/gui/viewobjectlist.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/gui/viewactions.h \
+		src/core/actionssystem.h \
+		src/gui/actionitem.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QComboBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcombobox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborvalue.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborcommon.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
+		src/gui/createactiondialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
+		src/gui/createactiondinamicdialog.h \
+		src/gui/viewproperties.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		src/gui/maintoolbar.h \
+		src/gui/initialdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QCheckBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcheckbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QRadioButton \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qradiobutton.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGroupBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgroupbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyledItemDelegate \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleditemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialogButtonBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialogbuttonbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListWidgetItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistwidget.h \
+		src/core/Session.h \
+		src/core/actorsystem.h \
+		src/core/actordinamic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
 		src/core/timerloop.h \
 		src/core/sessionmanager.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QFile \
@@ -7561,6 +8581,43 @@ release/viewactions.o: src/gui/viewactions.cpp src/gui/viewactions.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -7606,6 +8663,7 @@ release/viewactions.o: src/gui/viewactions.cpp src/gui/viewactions.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
+		src/gui/createactiondinamicdialog.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QScrollArea \
@@ -7621,137 +8679,6 @@ release/viewactions.o: src/gui/viewactions.cpp src/gui/viewactions.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QScrollBar \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\viewactions.o src\gui\viewactions.cpp
-
-release/viewcontrolactions.o: src/gui/viewcontrolactions.cpp src/gui/viewcontrolactions.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qwidget.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgetsglobal.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtguiglobal.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobal.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig-bootstrapped.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qconfig.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtcore-config.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsystemdetection.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qprocessordetection.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcompilerdetection.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtypeinfo.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerfwd.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsysinfo.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlogging.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qflags.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbasicatomic.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic_bootstrap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qgenericatomic.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qatomic_cxx11.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qglobalstatic.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnumeric.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qversiontagging.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtgui-config.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtwidgets-config.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qwindowdefs.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnamespace.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtmetamacros.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobjectdefs_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qwindowdefs_win.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstring.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qchar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearray.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrefcount.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydata.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpair.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydatapointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qarraydataops.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainertools_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearrayalgorithms.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearrayview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringliteral.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringalgorithms.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qanystringview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qutf8stringview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringtokenizer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringbuilder.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhashfunctions.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterator.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qbytearraylist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qalgorithms.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringmatcher.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcoreevent.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopedpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetatype.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcompare.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvarlengtharray.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qscopeguard.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatastream.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevicebase.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiterable.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmetacontainer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontainerinfo.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtaggedpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmath.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qobject_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qproperty.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpropertyprivate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmargins.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpaintdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qrect.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsize.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpoint.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpalette.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcolor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qrgb.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qrgba64.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbrush.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qimage.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpixelformat.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtransform.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpolygon.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qregion.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qline.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpixmap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qsharedpointer_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfont.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontmetrics.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfontinfo.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qsizepolicy.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qbitmap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qkeysequence.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qevent.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qiodevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qpointer.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qurl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qvariant.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qmap.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qshareddata_impl.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qhash.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdebug.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qtextstream.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringconverter.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qset.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcontiguouscache.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qeventpoint.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvector2d.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvectornd.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpointingdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qinputdevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qscreen.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QList \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QObject \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QRect \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSize \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QSizeF \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\viewcontrolactions.o src\gui\viewcontrolactions.cpp
 
 release/viewgraphicsresults.o: src/gui/viewgraphicsresults.cpp src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QWidget \
@@ -7916,6 +8843,43 @@ release/viewgraphicsresults.o: src/gui/viewgraphicsresults.cpp src/gui/viewgraph
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
@@ -8061,11 +9025,89 @@ release/viewobjectlist.o: src/gui/viewobjectlist.cpp src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QTransform \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qloggingcategory.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qicon.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/core/actor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPainter \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainter.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpen.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QDebug \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QVector2D \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QPointF \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsitem.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpainterpath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QMap \
+		src/core/physics.h \
+		src/core/equation.h \
+		src/core/operationmath.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QString \
+		src/core/equationrunner.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QListIterator \
+		src/core/equationmaker.h \
+		src/gui/graphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlayout.h \
@@ -8073,36 +9115,8 @@ release/viewobjectlist.o: src/gui/viewobjectlist.cpp src/gui/viewobjectlist.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgridlayout.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLabel \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlabel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qframe.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qpicture.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextdocument.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QFileSystemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qfilesystemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdir.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfile.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfiledevice.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qfileinfo.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdatetime.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcalendar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qlocale.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qdiriterator.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTreeView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtreeview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabwidget.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QVariant
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\viewobjectlist.o src\gui\viewobjectlist.cpp
 
@@ -8282,6 +9296,43 @@ release/viewproperties.o: src/gui/viewproperties.cpp src/gui/viewproperties.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTabWidget \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
@@ -8494,6 +9545,43 @@ release/viewsimulation.o: src/gui/viewsimulation.cpp src/gui/viewsimulation.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
+		src/box2d/box2d.h \
+		src/box2d/b2_settings.h \
+		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
+		src/box2d/b2_common.h \
+		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
+		src/box2d/b2_timer.h \
+		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
+		src/box2d/b2_circle_shape.h \
+		src/box2d/b2_edge_shape.h \
+		src/box2d/b2_polygon_shape.h \
+		src/box2d/b2_broad_phase.h \
+		src/box2d/b2_dynamic_tree.h \
+		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
+		src/box2d/b2_contact.h \
+		src/box2d/b2_fixture.h \
+		src/box2d/b2_time_step.h \
+		src/box2d/b2_world.h \
+		src/box2d/b2_block_allocator.h \
+		src/box2d/b2_contact_manager.h \
+		src/box2d/b2_stack_allocator.h \
+		src/box2d/b2_world_callbacks.h \
+		src/box2d/b2_distance_joint.h \
+		src/box2d/b2_joint.h \
+		src/box2d/b2_friction_joint.h \
+		src/box2d/b2_gear_joint.h \
+		src/box2d/b2_motor_joint.h \
+		src/box2d/b2_mouse_joint.h \
+		src/box2d/b2_prismatic_joint.h \
+		src/box2d/b2_pulley_joint.h \
+		src/box2d/b2_revolute_joint.h \
+		src/box2d/b2_weld_joint.h \
+		src/box2d/b2_wheel_joint.h \
 		src/gui/viewgraphicsresults.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtGui/QPaintEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QTime \
@@ -8814,97 +9902,24 @@ release/main.o: src/main.cpp src/gui/mainwindow.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicssceneevent.h \
-		src/gui/viewsimulation.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolBar \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolButton \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
-		src/gui/graphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
-		src/gui/viewobjectlist.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
-		src/gui/viewactions.h \
-		src/core/actionssystem.h \
-		src/gui/actionitem.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QComboBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcombobox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborvalue.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborcommon.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
-		src/gui/createactiondialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
-		src/gui/viewproperties.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
-		src/gui/maintoolbar.h \
-		src/gui/initialdialog.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QCheckBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcheckbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QRadioButton \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qradiobutton.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGroupBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgroupbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyledItemDelegate \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleditemdelegate.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialogButtonBox \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialogbuttonbox.h \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListWidgetItem \
-		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistwidget.h \
-		src/core/Session.h \
-		src/core/actorsystem.h \
-		src/core/actordinamic.h \
-		src/box2d/b2_body.h \
-		src/box2d/b2_api.h \
-		src/box2d/b2_math.h \
+		src/box2d/box2d.h \
 		src/box2d/b2_settings.h \
 		src/box2d/b2_types.h \
+		src/box2d/b2_api.h \
 		src/box2d/b2_common.h \
-		src/box2d/b2_shape.h \
-		src/box2d/b2_collision.h \
-		src/box2d/box2d.h \
 		src/box2d/b2_draw.h \
+		src/box2d/b2_math.h \
 		src/box2d/b2_timer.h \
 		src/box2d/b2_chain_shape.h \
+		src/box2d/b2_shape.h \
+		src/box2d/b2_collision.h \
 		src/box2d/b2_circle_shape.h \
 		src/box2d/b2_edge_shape.h \
 		src/box2d/b2_polygon_shape.h \
 		src/box2d/b2_broad_phase.h \
 		src/box2d/b2_dynamic_tree.h \
 		src/box2d/b2_growable_stack.h \
+		src/box2d/b2_body.h \
 		src/box2d/b2_contact.h \
 		src/box2d/b2_fixture.h \
 		src/box2d/b2_time_step.h \
@@ -8924,6 +9939,82 @@ release/main.o: src/main.cpp src/gui/mainwindow.h \
 		src/box2d/b2_revolute_joint.h \
 		src/box2d/b2_weld_joint.h \
 		src/box2d/b2_wheel_joint.h \
+		src/gui/viewsimulation.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QLineEdit \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlineedit.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextcursor.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qtextformat.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolBar \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QToolButton \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtoolbutton.h \
+		src/gui/graphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGraphicsView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QHBoxLayout \
+		src/gui/viewobjectlist.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qvalidator.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qregularexpression.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyle.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QStringListModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qstringlistmodel.h \
+		src/gui/viewactions.h \
+		src/core/actionssystem.h \
+		src/gui/actionitem.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyleOption \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QComboBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcombobox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonArray \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonarray.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonvalue.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborvalue.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qcborcommon.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/quuid.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QJsonObject \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/qjsonobject.h \
+		src/gui/createactiondialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialog \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGridLayout \
+		src/gui/createactiondinamicdialog.h \
+		src/gui/viewproperties.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/qstandarditemmodel.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtGui/QStandardItemModel \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QTableView \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qtableview.h \
+		src/gui/maintoolbar.h \
+		src/gui/initialdialog.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QCheckBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qcheckbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QRadioButton \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qradiobutton.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QGroupBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qgroupbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QStyledItemDelegate \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qstyleditemdelegate.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QDialogButtonBox \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qdialogbuttonbox.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/QListWidgetItem \
+		C:/Qt/6.2.0/mingw81_64/include/QtWidgets/qlistwidget.h \
+		src/core/Session.h \
+		src/core/actorsystem.h \
+		src/core/actordinamic.h \
+		C:/Qt/6.2.0/mingw81_64/include/QtCore/QModelIndex \
 		src/core/timerloop.h \
 		src/core/sessionmanager.h \
 		C:/Qt/6.2.0/mingw81_64/include/QtCore/QFile \
@@ -8989,6 +10080,9 @@ release/moc_actionitem.o: release/moc_actionitem.cpp
 release/moc_createactiondialog.o: release/moc_createactiondialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_createactiondialog.o release\moc_createactiondialog.cpp
 
+release/moc_createactiondinamicdialog.o: release/moc_createactiondinamicdialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_createactiondinamicdialog.o release\moc_createactiondinamicdialog.cpp
+
 release/moc_graphicsscene.o: release/moc_graphicsscene.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_graphicsscene.o release\moc_graphicsscene.cpp
 
@@ -9012,9 +10106,6 @@ release/moc_mainwindow.o: release/moc_mainwindow.cpp
 
 release/moc_viewactions.o: release/moc_viewactions.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_viewactions.o release\moc_viewactions.cpp
-
-release/moc_viewcontrolactions.o: release/moc_viewcontrolactions.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_viewcontrolactions.o release\moc_viewcontrolactions.cpp
 
 release/moc_viewgraphicsresults.o: release/moc_viewgraphicsresults.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_viewgraphicsresults.o release\moc_viewgraphicsresults.cpp

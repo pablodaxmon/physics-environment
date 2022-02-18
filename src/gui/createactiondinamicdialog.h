@@ -17,7 +17,7 @@ public:
     explicit CreateActionDinamicDialog(QWidget *parent = nullptr);
 
 signals:
-    void createdAction(int unidadCondition, int unidadTo, float valueCondition, float valueTo);
+    void createdAction(int unidadCondition,float time, float unidadTo, float valueCondition, float valueTo, bool isDinamic);
 private:
 
     QLineEdit* valueCondition;

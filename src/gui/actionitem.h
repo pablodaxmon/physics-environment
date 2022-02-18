@@ -18,12 +18,15 @@ class ActionItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ActionItem(QWidget *parent = nullptr);
+    explicit ActionItem(bool isDynamic,QWidget *parent = nullptr);
 
 
 
 
 
+    void setValueX(float value);
+    void setValueY(float value);
+    void setValueTorque(float value);
 
     void paintEvent(QPaintEvent *event) override;
 
@@ -40,10 +43,13 @@ public:
     void setUnitTo(int newUnitTo);
 
     const QString &getName() const;
-    void setName(const QString &newName);
+    void setIdentifier(const QString &newName);
 
     Actor *getActor() const;
     void setActor(Actor *newActor);
+
+    bool getIsDinamic() const;
+    void setIsDinamic(bool newIsDinamic);
 
 signals:
 
@@ -52,13 +58,20 @@ private:
     QLabel * title;
     Actor * actorChanged;
     Actor * actorCondition;
+    bool isDinamic;
 
     QComboBox * unitTarget;
     QLineEdit * valueTarget;
 
 
+    QLineEdit * valueXTarget;
+    QLineEdit * valueYTarget;
+    QLineEdit * valueTorqueTarget;
+
+
     QComboBox * unitCondition;
     QLineEdit * valueCondition;
+
 
 
     QString name;

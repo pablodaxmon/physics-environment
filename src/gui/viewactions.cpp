@@ -51,6 +51,8 @@ ViewActions::ViewActions(QWidget *parent) : QWidget(parent)
     mainBox->setSpacing(0);
 
 
+    actiondialog = new CreateActionDialog(this);
+    actionDinamicdialog = new CreateActionDinamicDialog(this);
 
     setLayout(mainBox);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -74,31 +76,53 @@ void ViewActions::createNewAction()
 {
     if(isBoxtype){
 
-        actiondialog = new CreateActionDialog(this);
         actiondialog->show();
         connect(actiondialog, &CreateActionDialog::createdAction, this, &ViewActions::AddNewAction);
     } else {
-        actionDinamicdialog = new CreateActionDinamicDialog(this);
+        connect(actionDinamicdialog, &CreateActionDinamicDialog::createdAction, this, &ViewActions::AddNewAction);
         actionDinamicdialog->show();
     }
 
 }
 
-void ViewActions::AddNewAction(int unidadCondition, int unidadTo, float valueCondition, float valueTo)
+void ViewActions::AddNewAction(int unidadCondition,float time, float unidadTo, float valueCondition, float valueTo, bool isDinamic)
 {
 
-    ActionItem * action = new ActionItem;
-    action->setValueCondition(valueCondition);
-    action->setValueTo(valueTo);
-    action->setUnitCond(unidadCondition);
-    action->setUnitTo(unidadTo);
-    action->setName(selectedActor->getName());
-    action->setActor(selectedActor);
+    if(isDinamic){
+        ActionItem * action = new ActionItem(isDinamic);
+        action->setUnitCond(0);
+        action->setValueCondition(time);
 
-    emit addedNewAction(action);
+        action->setUnitTo(unidadCondition);
+        action->setValueX(unidadTo);
+        action->setValueY(valueCondition);
+        action->setValueTorque(valueTo);
 
-    containerList->insertWidget(0,action);
+        action->setIdentifier(selectedActor->getIdentifier());
+        action->setActor(selectedActor);
 
+        emit addedNewAction(action);
+
+        containerList->insertWidget(0,action);
+
+
+    } else {
+
+        ActionItem * action = new ActionItem(isDinamic);
+        action->setValueCondition(valueCondition);
+        action->setValueTo(valueTo);
+        action->setUnitCond(unidadCondition);
+        action->setUnitTo(unidadTo);
+        action->setIdentifier(selectedActor->getIdentifier());
+        action->setActor(selectedActor);
+
+        emit addedNewAction(action);
+
+        containerList->insertWidget(0,action);
+
+
+
+    }
 
 
 }

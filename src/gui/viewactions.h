@@ -24,7 +24,7 @@ signals:
 public slots:
     void isSelectedActor(bool isselected);
     void createNewAction();
-    void AddNewAction(int unidadCondition, int unidadTo, float valueCondition, float valueTo);
+    void AddNewAction(int unidadCondition,float time, float unidadTo, float valueCondition, float valueTo, bool isDinamic);
 private:
     QPushButton * btnNewAction;
     CreateActionDialog* actiondialog;

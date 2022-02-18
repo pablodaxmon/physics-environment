@@ -11,6 +11,7 @@ debug/sessionmanager.o
 debug/timerloop.o
 debug/actionitem.o
 debug/createactiondialog.o
+debug/createactiondinamicdialog.o
 debug/graphicsscene.o
 debug/graphicsview.o
 debug/initialdialog.o
@@ -19,7 +20,6 @@ debug/maintoolbar.o
 debug/splittermain.o
 debug/mainwindow.o
 debug/viewactions.o
-debug/viewcontrolactions.o
 debug/viewgraphicsresults.o
 debug/viewobjectlist.o
 debug/viewproperties.o
@@ -36,6 +36,7 @@ debug/moc_sessionmanager.o
 debug/moc_timerloop.o
 debug/moc_actionitem.o
 debug/moc_createactiondialog.o
+debug/moc_createactiondinamicdialog.o
 debug/moc_graphicsscene.o
 debug/moc_graphicsview.o
 debug/moc_initialdialog.o
@@ -44,7 +45,6 @@ debug/moc_maintoolbar.o
 debug/moc_splittermain.o
 debug/moc_mainwindow.o
 debug/moc_viewactions.o
-debug/moc_viewcontrolactions.o
 debug/moc_viewgraphicsresults.o
 debug/moc_viewobjectlist.o
 debug/moc_viewproperties.o
