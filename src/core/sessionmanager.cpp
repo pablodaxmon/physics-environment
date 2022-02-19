@@ -37,7 +37,6 @@ void SessionManager::saveSession()
     QFile dataFile("datastorage.json");
 
     if (!dataFile.open(QIODevice::ReadWrite)) {
-        qWarning("Couldn't open save file.");
         return;
     }
 
@@ -48,7 +47,6 @@ void SessionManager::saveSession()
 
     QFile dataOverWriter("datastorage.json");
     if (!dataOverWriter.open(QIODevice::ReadWrite)) {
-        qWarning("Couldn't open save file.");
         return;
     }
 
@@ -79,11 +77,10 @@ void SessionManager::createSession( ViewSession _view, QString _name, QString _d
 
 void SessionManager::loadSession(QString url)
 {
-    actionsSystem->reset();
-    actorsSystem->reset();
+    emit resetAll();
+
     QFile data(url);
     if (!data.open(QIODevice::ReadOnly)) {
-        qWarning("Couldn't open save file.");
         return;
     }
     QByteArray dataArray = data.readAll();
@@ -103,7 +100,27 @@ void SessionManager::loadSession(QString url)
     for( int i = 0;i<arrayActors.size();i++){
         QJsonObject actorObj = arrayActors[i].toObject();
 
-        Actor* actor = actorsSystem->addActorNS();
+        TypeActor tyAc;
+        switch (actorObj["typeActor"].toInt()) {
+        case 0:
+            tyAc = TypeActor::Cuadrado;
+            break;
+        case 1:
+            tyAc = TypeActor::Triangulo;
+            break;
+        case 2:
+            tyAc = TypeActor::Hexagono;
+            break;
+        case 3:
+            tyAc = TypeActor::CuboEstatico;
+            break;
+        case 4:
+            tyAc = TypeActor::TrianguloEstatico;
+            break;
+        default:
+            break;
+        }
+        Actor* actor = actorsSystem->addActorNS(tyAc);
         actor->setName(actorObj["name"].toString());
 
         actor->setIdentifier(actorObj["identifier"].toString());

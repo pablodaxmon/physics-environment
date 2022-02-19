@@ -11,11 +11,24 @@ void ActionsSystem::writeJson(QJsonObject &json)
         QJsonObject actionObject;
         ActionItem * action = listActions.at(i);
 
-        actionObject["actorTo"] = action->getActor()->getIdentifier();
-        actionObject["valueTo"] = action->getValueTo();
-        actionObject["valueCond"] = action->getValueCondition();
-        actionObject["unitTo"] = action->getUnitTo();
-        actionObject["unitCond"] = action->getUnitCond();
+        actionObject["isDynAction"] = action->getIsDinamic();
+        if(action->getIsDinamic()){
+
+            actionObject["actorTo"] = action->getActor()->getIdentifier();
+            actionObject["time"] = action->getValueCondition();
+            actionObject["unitTo"] = action->getUnitTo();
+            actionObject["valueX"] = action->getValueX();
+            actionObject["valueY"] = action->getValueY();
+            actionObject["valueTorque"] = action->getValueTorque();
+        } else {
+
+            actionObject["actorTo"] = action->getActor()->getIdentifier();
+            actionObject["valueTo"] = action->getValueTo();
+            actionObject["valueCond"] = action->getValueCondition();
+            actionObject["unitTo"] = action->getUnitTo();
+            actionObject["unitCond"] = action->getUnitCond();
+
+        }
 
         actionsArray.append(actionObject);
     }
@@ -40,18 +53,39 @@ void ActionsSystem::addNewAction(ActionItem* item)
 void ActionsSystem::addNewActionFromJson(const QJsonObject &json, Actor* actor)
 {
 
-    ActionItem * action = new ActionItem(json["isDynAction"].toBool());
-    action->setValueCondition(json["valueCond"].toDouble());
-    action->setValueTo(json["valueTo"].toDouble());
-    action->setUnitCond(json["unitCond"].toDouble());
-    action->setUnitTo(json["unitTo"].toDouble());
+    if(json["isDynAction"].toBool()){
+
+        ActionItem * action = new ActionItem(json["isDynAction"].toBool());
+        action->setUnitCond(0);
+        action->setValueCondition(json["time"].toDouble());
+
+        action->setUnitTo(json["unitTo"].toDouble());
+
+        action->setValueX(json["valueX"].toDouble());
+        action->setValueY(json["valueY"].toDouble());
+        action->setValueTorque(json["valueTorque"].toDouble());
 
 
-    action->setIdentifier(actor->getName());
-    action->setActor(actor);
+        action->setIdentifier(actor->getName());
+        action->setActor(actor);
 
-    listActions.append(action);
-    containerItems->insertWidget(0,action);
+        listActions.append(action);
+        containerItems->insertWidget(0,action);
+    } else {
+
+        ActionItem * action = new ActionItem(json["isDynAction"].toBool());
+        action->setValueCondition(json["valueCond"].toDouble());
+        action->setValueTo(json["valueTo"].toDouble());
+        action->setUnitCond(json["unitCond"].toDouble());
+        action->setUnitTo(json["unitTo"].toDouble());
+
+
+        action->setIdentifier(actor->getName());
+        action->setActor(actor);
+
+        listActions.append(action);
+        containerItems->insertWidget(0,action);
+    }
 }
 
 void ActionsSystem::executeActions(float time)

@@ -1,23 +1,17 @@
 {
     "actions": [
-        {
-            "actorTo": "0-actor-22329",
-            "unitCond": 0,
-            "unitTo": 0,
-            "valueCond": 0,
-            "valueTo": 0
-        }
     ],
     "actors": [
         {
             "ace": 0,
             "aceX": 0,
             "aceY": 0,
-            "identifier": "0-actor-22329",
+            "identifier": "0-actor-12523",
             "mass": 0,
             "name": "Actor0",
-            "posX": 44,
-            "posY": -380,
+            "posX": 0,
+            "posY": 0,
+            "typeActor": 3,
             "vel": 0,
             "velX": 0,
             "velY": 0

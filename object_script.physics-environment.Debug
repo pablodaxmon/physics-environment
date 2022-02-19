@@ -13,8 +13,11 @@ debug/actionitem.o
 debug/createactiondialog.o
 debug/createactiondinamicdialog.o
 debug/graphicsscene.o
+debug/graphicssceneresults.o
 debug/graphicsview.o
+debug/graphicsviewresults.o
 debug/initialdialog.o
+debug/itembartime.o
 debug/listactionsmodel.o
 debug/maintoolbar.o
 debug/splittermain.o
@@ -38,8 +41,11 @@ debug/moc_actionitem.o
 debug/moc_createactiondialog.o
 debug/moc_createactiondinamicdialog.o
 debug/moc_graphicsscene.o
+debug/moc_graphicssceneresults.o
 debug/moc_graphicsview.o
+debug/moc_graphicsviewresults.o
 debug/moc_initialdialog.o
+debug/moc_itembartime.o
 debug/moc_listactionsmodel.o
 debug/moc_maintoolbar.o
 debug/moc_splittermain.o

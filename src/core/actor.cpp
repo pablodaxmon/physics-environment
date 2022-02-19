@@ -14,6 +14,13 @@ void Actor::getValueFromID(int id)
 
 Actor::Actor(QGraphicsItem *parent) : QGraphicsObject(parent)
 {
+    /*positionYData = new QPainterPath(QPointF(0,0));
+    velocityData = new QPainterPath(QPointF(0,0));
+    velocityXData = new QPainterPath(QPointF(0,0));
+    velocityYData = new QPainterPath(QPointF(0,0));
+    acelerationData = new QPainterPath(QPointF(0,0));
+    acelerationXData = new QPainterPath(QPointF(0,0));
+    acelerationYData = new QPainterPath(QPointF(0,0));*/
 // valores por defecto
     lastTime = 0;
     positionX = 0;
@@ -49,20 +56,20 @@ void Actor::startData(b2World *world)
     init_acelerationX = acelerationX;
     init_acelerationY = acelerationY;
 
-    positionXData.clear();
-    positionYData.clear();
-    velocityData.clear();
-    velocityXData.clear();
-    velocityYData.clear();
-    acelerationData.clear();
-    acelerationXData.clear();
-    acelerationYData.clear();
 }
 
 void Actor::updateData(float time)
 {
+    positionXData.append(positionX);
+    positionYData.append(positionY);
+    velocityXData.append(display_velocityX);
+    velocityYData.append(display_velocityY);
+    acelerationXData.append(display_acelerationX);
+    acelerationYData.append(display_acelerationY);
+
     last_positionX = positionX;
     last_positionY = positionY;
+
     positionX = init_positionX + velocityX*time + (acelerationX*time*time/2);
     positionY = init_positionY + velocityY*time + (acelerationY*time*time/2);
 
@@ -83,14 +90,6 @@ void Actor::updateData(float time)
 
     update();
     emit valuesChanged();
-    positionXData.append(QPoint(positionX,time*50));
-    positionYData.append(QPoint(positionY,time*50));
-    velocityData.append(QPoint(velocity,time*50));
-    velocityXData.append(QPoint(velocityX,time*50));
-    velocityYData.append(QPoint(velocityY,time*50));
-    acelerationData.append(QPoint(aceleration,time*50));
-    acelerationXData.append(QPoint(acelerationX,time*50));
-    acelerationYData.append(QPoint(acelerationY,time*50));
 
     lastTime = time;
 
@@ -98,6 +97,14 @@ void Actor::updateData(float time)
 
 void Actor::stopData()
 {
+
+    positionXData.clear();
+    positionYData.clear();
+    velocityXData.clear();
+    velocityYData.clear();
+    acelerationXData.clear();
+    acelerationYData.clear();
+
     display_velocity = 0;
     display_velocityX = 0;
     display_velocityY = 0;
@@ -193,6 +200,47 @@ void Actor::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     graphicsScene->setClickItem(false);
     update();
 }
+
+const QColor &Actor::getColorPen() const
+{
+    return colorPen;
+}
+
+const QVector<float> &Actor::getAcelerationYData() const
+{
+    return acelerationYData;
+}
+
+const QVector<float> &Actor::getAcelerationXData() const
+{
+    return acelerationXData;
+}
+
+const QVector<float> &Actor::getVelocityYData() const
+{
+    return velocityYData;
+}
+
+const QVector<float> &Actor::getVelocityXData() const
+{
+    return velocityXData;
+}
+
+const QVector<float> &Actor::getPositionYData() const
+{
+    return positionYData;
+}
+
+const QVector<float> &Actor::getPositionXData() const
+{
+    return positionXData;
+}
+
+
+
+
+
+
 
 TypeActor Actor::getTypeActor() const
 {

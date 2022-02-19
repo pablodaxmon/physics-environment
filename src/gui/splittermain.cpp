@@ -19,13 +19,10 @@ SplitterMain::SplitterMain(QWidget *parent,ViewGraphicsResults *graphisResults, 
     QSplitter *mainSpliter = new QSplitter(Qt::Horizontal,this);
 
 
-    QWidget * midwidget = new QWidget;
-    QVBoxLayout *midSplitter = new QVBoxLayout(this);
-    midSplitter->setSpacing(0);
-    midSplitter->setContentsMargins(0,0,0,0);
+    QSplitter *midSplitter = new QSplitter(Qt::Vertical, this);
+    midSplitter->setHandleWidth(1);
     midSplitter->addWidget(vSimulation);
     midSplitter->addWidget(graphisResults);
-    midwidget->setLayout(midSplitter);
 
     QSplitter *sideSplitter = new QSplitter(Qt::Vertical, this);
     sideSplitter->addWidget(vProperties);
@@ -38,7 +35,7 @@ SplitterMain::SplitterMain(QWidget *parent,ViewGraphicsResults *graphisResults, 
     middleSplitter->setStretchFactor(1,20);*/
 
     mainSpliter->addWidget(vListObjects);
-    mainSpliter->addWidget(midwidget);
+    mainSpliter->addWidget(midSplitter);
     mainSpliter->addWidget(sideSplitter);
 
 

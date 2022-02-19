@@ -27,9 +27,9 @@ public:
     Actor *getSelectedActor() const;
     void writeJson(QJsonObject &json);
     void readJson(const QJsonObject &json) const;
-    Actor* addActorNS();
+    Actor* addActorNS(TypeActor type);
 
-    const QList<Actor *> &getListActors() const;
+    QList<Actor *> &getListActors();
 
     void setIsBoxType(bool newIsBoxType);
 
@@ -49,6 +49,7 @@ private:
     b2World *world ;
     QStringListModel* model;
     bool isMovible;
+    int count;
 
 signals:
     void addActorSignal(QList<Actor*> *actor);

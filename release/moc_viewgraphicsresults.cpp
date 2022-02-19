@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ViewGraphicsResults_t {
-    const uint offsetsAndSize[16];
-    char stringdata0[89];
+    const uint offsetsAndSize[22];
+    char stringdata0[126];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_ViewGraphicsResults_t, stringdata0) + ofs), len 
@@ -33,13 +33,17 @@ QT_MOC_LITERAL(0, 19), // "ViewGraphicsResults"
 QT_MOC_LITERAL(20, 10), // "changeTime"
 QT_MOC_LITERAL(31, 0), // ""
 QT_MOC_LITERAL(32, 4), // "time"
-QT_MOC_LITERAL(37, 10), // "setTimeNow"
-QT_MOC_LITERAL(48, 16), // "setSelectedActor"
-QT_MOC_LITERAL(65, 6), // "Actor*"
-QT_MOC_LITERAL(72, 16) // "newActorSelected"
+QT_MOC_LITERAL(37, 18), // "graphicTypechanged"
+QT_MOC_LITERAL(56, 5), // "typeG"
+QT_MOC_LITERAL(62, 11), // "setInitTime"
+QT_MOC_LITERAL(74, 10), // "setTimeNow"
+QT_MOC_LITERAL(85, 16), // "setSelectedActor"
+QT_MOC_LITERAL(102, 6), // "Actor*"
+QT_MOC_LITERAL(109, 16) // "newActorSelected"
 
     },
     "ViewGraphicsResults\0changeTime\0\0time\0"
+    "graphicTypechanged\0typeG\0setInitTime\0"
     "setTimeNow\0setSelectedActor\0Actor*\0"
     "newActorSelected"
 };
@@ -51,7 +55,7 @@ static const uint qt_meta_data_ViewGraphicsResults[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -59,18 +63,22 @@ static const uint qt_meta_data_ViewGraphicsResults[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   32,    2, 0x06,    1 /* Public */,
+       1,    1,   44,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       4,    1,   35,    2, 0x0a,    3 /* Public */,
-       5,    1,   38,    2, 0x0a,    5 /* Public */,
+       4,    1,   47,    2, 0x0a,    3 /* Public */,
+       6,    0,   50,    2, 0x0a,    5 /* Public */,
+       7,    1,   51,    2, 0x0a,    6 /* Public */,
+       8,    1,   54,    2, 0x0a,    8 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Float,    3,
 
  // slots: parameters
+    QMetaType::Void, QMetaType::Int,    5,
+    QMetaType::Void,
     QMetaType::Void, QMetaType::Float,    3,
-    QMetaType::Void, 0x80000000 | 6,    7,
+    QMetaType::Void, 0x80000000 | 9,   10,
 
        0        // eod
 };
@@ -82,14 +90,16 @@ void ViewGraphicsResults::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         (void)_t;
         switch (_id) {
         case 0: _t->changeTime((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 1: _t->setTimeNow((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 2: _t->setSelectedActor((*reinterpret_cast< Actor*(*)>(_a[1]))); break;
+        case 1: _t->graphicTypechanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 2: _t->setInitTime(); break;
+        case 3: _t->setTimeNow((*reinterpret_cast< float(*)>(_a[1]))); break;
+        case 4: _t->setSelectedActor((*reinterpret_cast< Actor*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
-        case 2:
+        case 4:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 0:
@@ -117,7 +127,7 @@ const QMetaObject ViewGraphicsResults::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_ViewGraphicsResults_t
 , QtPrivate::TypeAndForceComplete<ViewGraphicsResults, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>
 
 
 >,
@@ -144,13 +154,13 @@ int ViewGraphicsResults::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 5;
     }
     return _id;
 }

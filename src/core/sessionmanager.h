@@ -35,6 +35,9 @@ private:
     ActorSystem* actorsSystem;
     Session* session;
 
+signals:
+    void resetAll();
+
 };
 
 #endif // SESSIONMANAGER_H

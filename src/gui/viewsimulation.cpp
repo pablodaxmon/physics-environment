@@ -229,18 +229,17 @@ QWidget *ViewSimulation::timeControlToolBar()
     QHBoxLayout * mainContainer = new QHBoxLayout;
     mainContainer->setContentsMargins(0,0,0,0);
 
-    QComboBox * tiempoUnidad = new QComboBox;
+    QComboBox * variableMostrada = new QComboBox;
 
-    tiempoUnidad->addItem(tr("Milisegundos"));
-    tiempoUnidad->addItem(tr("Segundos"));
-    tiempoUnidad->addItem(tr("Horas"));
+    variableMostrada->addItem(tr("PosicionY"));
+    variableMostrada->addItem(tr("PosicionX"));
+    variableMostrada->addItem(tr("VelocidadX"));
+    variableMostrada->addItem(tr("VelocidadY"));
+    variableMostrada->addItem(tr("AceleracionX"));
+    variableMostrada->addItem(tr("AceleracionY"));
 
 
-    QComboBox * marcador = new QComboBox;
 
-    marcador->addItem(tr("Milisegundos"));
-    marcador->addItem(tr("Segundos"));
-    marcador->addItem(tr("Horas"));
 
     QPushButton * backButton = new QPushButton;
     QPushButton * reverseButton = new QPushButton;
@@ -304,8 +303,7 @@ QWidget *ViewSimulation::timeControlToolBar()
     initLoop->setEnabled(false);
 
 
-    mainContainer->addWidget(tiempoUnidad);
-    mainContainer->addWidget(marcador);
+    mainContainer->addWidget(variableMostrada);
     mainContainer->addStretch(1);
     mainContainer->addWidget(backButton);
     mainContainer->addWidget(reverseButton);
@@ -347,13 +345,14 @@ QWidget *ViewSimulation::timeControlToolBar()
     connect(backButton, &QPushButton::clicked, this, &ViewSimulation::toStartSignal);
     connect(timeNow, &QLineEdit::textEdited, this, &ViewSimulation::timeNowChanged);
 
+    connect(variableMostrada, &QComboBox::currentIndexChanged, this , &ViewSimulation::graphiTypeChanged);
 
 
     return res;
 }
 
 void ViewSimulation::setIsBoxType(bool newIsBoxType)
-{   reset();
+{
     isBoxType = newIsBoxType;
     if(newIsBoxType){
         scene->addRect(-2000,0,4000,50,Qt::NoPen, QBrush(QColor(191,151,129,255), Qt::Dense3Pattern));

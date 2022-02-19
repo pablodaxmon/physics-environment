@@ -40,6 +40,7 @@ public slots:
     void setTimeNow(float time);
     void reset();
 signals:
+    void graphiTypeChanged(int type);
     void eqTextChanged();
     void createActor(QAction * action);
     void rulerToggle(bool checked);

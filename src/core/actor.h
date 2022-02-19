@@ -83,6 +83,25 @@ public:
     TypeActor getTypeActor() const;
     void setTypeActor(TypeActor newTypeActor);
 
+
+
+
+
+    const QVector<float> &getPositionXData() const;
+
+    const QVector<float> &getPositionYData() const;
+
+    const QVector<float> &getVelocityXData() const;
+
+    const QVector<float> &getVelocityYData() const;
+
+    const QVector<float> &getAcelerationXData() const;
+
+    const QVector<float> &getAcelerationYData() const;
+
+
+    const QColor &getColorPen() const;
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -112,6 +131,14 @@ protected:
     float acelerationY;
     float mass;
 
+    float last_velocity;
+    float last_velocityX;
+    float last_velocityY;
+    float last_aceleration;
+    float last_acelerationX;
+    float last_acelerationY;
+
+
 //superprivate
     float lastTime;
     float init_positionX;
@@ -120,8 +147,6 @@ protected:
     float last_positionY;
     float init_velocityX;
     float init_velocityY;
-    float last_velocityX;
-    float last_velocityY;
     float init_acelerationX;
     float init_acelerationY;
 
@@ -134,15 +159,13 @@ protected:
     float display_acelerationY;
     float display_mass;
 
+    QVector<float> positionXData;
+    QVector<float> positionYData;
+    QVector<float> velocityXData;
+    QVector<float> velocityYData;
+    QVector<float> acelerationXData;
+    QVector<float> acelerationYData;
 
-    QVector<QPoint> positionXData;
-    QVector<QPoint> positionYData;
-    QVector<QPoint> velocityData;
-    QVector<QPoint> velocityXData;
-    QVector<QPoint> velocityYData;
-    QVector<QPoint> acelerationData;
-    QVector<QPoint> acelerationXData;
-    QVector<QPoint> acelerationYData;
 
 
 

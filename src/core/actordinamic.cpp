@@ -24,6 +24,7 @@ void ActorDinamic::startData(b2World* world)
 {
     if(typeActor == TypeActor::TrianguloEstatico || typeActor == TypeActor::CuboEstatico){
 
+        bodyDef->type = b2_staticBody;
     }
 
     body = world->CreateBody(bodyDef);
@@ -48,7 +49,7 @@ void ActorDinamic::startData(b2World* world)
                     b2Vec2 vertices[3];
                     vertices[0].Set(20/SCALE_V, 75/SCALE_V);
                     vertices[1].Set(80/SCALE_V, 75/SCALE_V);
-                    vertices[2].Set(50/SCALE_V, 50/SCALE_V);
+                    vertices[2].Set(50/SCALE_V, 20/SCALE_V);
 
                     int32 count = 3;
                     b2PolygonShape polygon;
@@ -111,6 +112,13 @@ void ActorDinamic::startData(b2World* world)
 
 void ActorDinamic::updateData(float time)
 {
+    positionXData.append(positionX);
+    positionYData.append(positionY);
+    velocityXData.append(display_velocityX);
+    velocityYData.append(display_velocityY);
+    acelerationXData.append(display_acelerationX);
+    acelerationYData.append(display_acelerationY);
+
     setRotation(body->GetAngle()*(180/M_PI));
     last_positionX = positionX;
     last_positionY = positionY;
@@ -134,14 +142,14 @@ void ActorDinamic::updateData(float time)
     update();
 
     emit valuesChanged();
-    positionXData.append(QPoint(positionX,time*50));
-    positionYData.append(QPoint(positionY,time*50));
-    velocityData.append(QPoint(velocity,time*50));
-    velocityXData.append(QPoint(velocityX,time*50));
-    velocityYData.append(QPoint(velocityY,time*50));
-    acelerationData.append(QPoint(aceleration,time*50));
-    acelerationXData.append(QPoint(acelerationX,time*50));
-    acelerationYData.append(QPoint(acelerationY,time*50));
+    /*positionXData->lineTo(positionX,time*50);
+    positionYData->lineTo(positionY,time*50);
+    velocityData->lineTo(velocity,time*50);
+    velocityXData->lineTo(velocityX,time*50);
+    velocityYData->lineTo(velocityY,time*50);
+    acelerationData->lineTo(aceleration,time*5);
+    acelerationXData->lineTo(acelerationX,time*50);
+    acelerationYData->lineTo(acelerationY,time*50);*/
 
     lastTime = time;
 }
@@ -165,7 +173,7 @@ void ActorDinamic::updatePos()
 
 void ActorDinamic::applyForce(float x, float y)
 {
-    body->ApplyForce(b2Vec2(x,y), body->GetWorldCenter(),true);
+    body->ApplyLinearImpulseToCenter(b2Vec2(x,y),true);
 
 }
 

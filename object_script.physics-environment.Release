@@ -13,8 +13,11 @@ release/actionitem.o
 release/createactiondialog.o
 release/createactiondinamicdialog.o
 release/graphicsscene.o
+release/graphicssceneresults.o
 release/graphicsview.o
+release/graphicsviewresults.o
 release/initialdialog.o
+release/itembartime.o
 release/listactionsmodel.o
 release/maintoolbar.o
 release/splittermain.o
@@ -38,8 +41,11 @@ release/moc_actionitem.o
 release/moc_createactiondialog.o
 release/moc_createactiondinamicdialog.o
 release/moc_graphicsscene.o
+release/moc_graphicssceneresults.o
 release/moc_graphicsview.o
+release/moc_graphicsviewresults.o
 release/moc_initialdialog.o
+release/moc_itembartime.o
 release/moc_listactionsmodel.o
 release/moc_maintoolbar.o
 release/moc_splittermain.o

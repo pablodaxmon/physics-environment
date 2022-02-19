@@ -93,12 +93,15 @@ void TimerLoop::update()
 
     if(loopEnable){
         if((lastLapse*30)/1000 > intervalDuration){
-            lastLapse = initTimeLoop;
+            //lastLapse = initTimeLoop;
         }
 
     }
+
+    qDebug() << "timeloop: " << lastLapse;
     actorsistem.updateActors((lastLapse*30)/1000);
     actionsSystem.executeActions((lastLapse*30)/1000);
+
     emit timeChange((lastLapse*30)/1000);
 
 }

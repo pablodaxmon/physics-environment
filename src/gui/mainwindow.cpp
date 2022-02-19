@@ -48,6 +48,7 @@ MainWindow:: MainWindow(QWidget *parent)
     actionsSystem->setContainerItems(viewActions->getContainerList());///
     splitMain = new SplitterMain(mainContainer,viewGraphicsResult,viewObjectList, viewActions, viewProperties, viewSimulation);
     viewObjectList->setModel(actorSystem->getModel());
+    viewGraphicsResult->setListActors(&actorSystem->getListActors());
 
     ////////////////////////////////////////////////////////////
 
@@ -91,6 +92,7 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(viewSimulation, &ViewSimulation::loopDuration, timerLoop, &TimerLoop::setDurationLoop);
     connect(viewSimulation, &ViewSimulation::intervalDuration, timerLoop, &TimerLoop::setIntervalDuration);
     connect(timerLoop, &TimerLoop::timeChange, viewSimulation, &ViewSimulation::setTimeNow);
+    connect(timerLoop, &TimerLoop::signalStart, viewGraphicsResult, &ViewGraphicsResults::setInitTime);
     connect(timerLoop, &TimerLoop::timeChange, viewGraphicsResult, &ViewGraphicsResults::setTimeNow);
     connect(viewActions, &ViewActions::addedNewAction, actionsSystem, &ActionsSystem::addNewAction);
     connect(viewGraphicsResult, &ViewGraphicsResults::changeTime, timerLoop, &TimerLoop::setTimeNow);
@@ -102,8 +104,13 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(actorSystem, &ActorSystem::selectedActorSignal, this, &MainWindow::connectSelectedActor);
     connect(actorSystem, &ActorSystem::selectedActorSignal, actionsSystem, &ActionsSystem::setSelectedActor);
 
-    QObject::connect(dialogMain, &InitialDialog::loadSesion, sessionManager, &SessionManager::loadSession);
-    QObject::connect(dialogMain, &InitialDialog::loadSesion, this, newSimulation);
+    connect(viewSimulation, &ViewSimulation::graphiTypeChanged, viewGraphicsResult, &ViewGraphicsResults::graphicTypechanged);
+
+
+    connect(sessionManager, &SessionManager::resetAll, this, &MainWindow::resetAlls);
+    connect(dialogMain, &InitialDialog::loadSesion, this, &MainWindow::createLoadSimulation);
+    /*QObject::connect(dialogMain, &InitialDialog::loadSesion, sessionManager, &SessionManager::loadSession);
+    QObject::connect(dialogMain, &InitialDialog::loadSesion, this, newSimulation);*/
     QObject::connect(dialogMain, &InitialDialog::createNewSesion, sessionManager, &SessionManager::createSession);
     QObject::connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);
 }
@@ -133,6 +140,14 @@ void MainWindow::connectSelectedActor(Actor *actor)
     }
 }
 
+void MainWindow::resetAlls()
+{
+    actorSystem->reset();
+    actionsSystem->reset();
+    viewSimulation->reset();
+
+}
+
 
 
 
@@ -160,6 +175,30 @@ void MainWindow::showInitialdialog()
     viewSimulation->setVisible(false);  ///
     splitMain->setVisible(false);       ///
     dialogMain->show();
+}
+
+void MainWindow::createLoadSimulation(QString url)
+{
+    sessionManager->loadSession(url);
+    viewSimulation->setIsBoxType(sessionManager->getTypeSession());
+    viewActions->setIsBoxtype(sessionManager->getTypeSession());
+
+    setWindowTitle(sessionManager->getSession()->getName() + tr(" - UMSS"));
+
+
+    dialogMain->close();
+    //verticalMainLayout->addWidget(mainToolbar);
+
+
+    /// Establesemos la visibilidad de los componentes del GUI en 'true'
+    viewActions->setVisible(true);     ///
+    viewObjectList->setVisible(true);  ///
+    viewProperties->setVisible(true);  ///
+    viewSimulation->setVisible(true);  ///
+    splitMain->setVisible(true);       ///
+
+    verticalMainLayout->addWidget(splitMain);
+    verticalMainLayout->setSpacing(0);
 }
 
 

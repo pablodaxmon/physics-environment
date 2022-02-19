@@ -14,6 +14,7 @@ class PixmapBuilder
 public:
     explicit PixmapBuilder(QObject *parent = nullptr);
     static QPixmap drawPattern(int type, int step, const QColor &color);
+    static QPixmap drawPatternResults(const QColor &color1, const QColor &color2);
 protected:
     static void drawSquare(QPainter *painter, int width, const QColor &color);
     static void drawCross(QPainter *painter, int width, const QColor &color);

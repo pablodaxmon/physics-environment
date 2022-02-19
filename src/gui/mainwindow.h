@@ -58,8 +58,10 @@ protected:
 
 public slots:
 
+    void createLoadSimulation(QString url);
     void newSimulation();
     void connectSelectedActor(Actor * actor);
+    void resetAlls();
 
 signals:
     void setItemSelected(const QModelIndex &index);

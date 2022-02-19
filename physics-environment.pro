@@ -24,8 +24,11 @@ SOURCES += \
     src/gui/createactiondialog.cpp \
     src/gui/createactiondinamicdialog.cpp \
     src/gui/graphicsscene.cpp \
+    src/gui/graphicssceneresults.cpp \
     src/gui/graphicsview.cpp \
+    src/gui/graphicsviewresults.cpp \
     src/gui/initialdialog.cpp \
+    src/gui/itembartime.cpp \
     src/gui/listactionsmodel.cpp \
     src/gui/maintoolbar.cpp \
     src/gui/splittermain.cpp \
@@ -56,8 +59,11 @@ HEADERS += \
     src/gui/createactiondialog.h \
     src/gui/createactiondinamicdialog.h \
     src/gui/graphicsscene.h \
+    src/gui/graphicssceneresults.h \
     src/gui/graphicsview.h \
+    src/gui/graphicsviewresults.h \
     src/gui/initialdialog.h \
+    src/gui/itembartime.h \
     src/gui/listactionsmodel.h \
     src/gui/maintoolbar.h \
     src/gui/splittermain.h \

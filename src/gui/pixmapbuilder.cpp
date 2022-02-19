@@ -24,6 +24,24 @@ QPixmap PixmapBuilder::drawPattern(int type, int step, const QColor &color)
     return pixmap;
 }
 
+QPixmap PixmapBuilder::drawPatternResults(const QColor &color1, const QColor &color2)
+{
+    QPixmap pixmap(50, 20);
+    QPainter painter;
+    pixmap.fill(Qt::transparent);
+    painter.begin(&pixmap);
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(color1);
+    painter.drawRect(0,0,49,20);
+    painter.setBrush(color2);
+    painter.drawRect(24,0,25,20);
+    painter.setPen(QColor(203,215,215,255));
+    painter.drawLine(0,0,0,19);
+
+
+    return pixmap;
+}
+
 void PixmapBuilder::drawSquare(QPainter *painter, int width, const QColor &color)
 {
     painter->setPen(color);

@@ -61,7 +61,7 @@ QWidget *InitialDialog::createListSessions()
     QWidget *widgetContainer = new QWidget(this);
     QVBoxLayout *widgetLayout = new QVBoxLayout;
     QListWidget* list = new QListWidget(widgetContainer);
-    widgetContainer->setFixedHeight(400);
+    widgetContainer->setFixedHeight(300);
     widgetLayout->setContentsMargins(0,0,0,0);
 
 

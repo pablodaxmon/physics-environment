@@ -36,6 +36,24 @@ void ActorSystem::writeJson(QJsonObject &json)
         actorObject["aceY"] = actor->getAcelerationY();
         actorObject["mass"] = actor->getMass();
 
+        int typeAct;
+        if(actor->getTypeActor() == TypeActor::Cuadrado){
+            typeAct = 0;
+        } else         if(actor->getTypeActor() == TypeActor::Triangulo){
+
+            typeAct = 1;
+        } else         if(actor->getTypeActor() == TypeActor::Hexagono){
+
+            typeAct = 2;
+        } else         if(actor->getTypeActor() == TypeActor::CuboEstatico){
+
+            typeAct = 3;
+        } else         if(actor->getTypeActor() == TypeActor::TrianguloEstatico){
+
+            typeAct = 4;
+        }
+        actorObject["typeActor"] = typeAct;
+
         actorsArray.append(actorObject);
     }
 
@@ -81,6 +99,11 @@ void ActorSystem::startActors()
 
 void ActorSystem::updateActors(float time)
 {
+    count++;
+    if(count>10){
+        world->ClearForces();
+    }
+
     if(!listActors.isEmpty()){
         world->Step(0.03f,6,2);
         QListIterator<Actor*> i(listActors);
@@ -103,19 +126,21 @@ void ActorSystem::stopActors()
 
 void ActorSystem::addActor(QAction * action)
 {
-
     TypeActor type;
-    if(action->text() == "Cuadrado"){
-        type = TypeActor::Cuadrado;
-    } else     if(action->text() == "Triangulo"){
-        type = TypeActor::Triangulo;
-    } else     if(action->text() == "Hexagono"){
-        type = TypeActor::Hexagono;
-    } else     if(action->text() == "Cubo estatico"){
-        type = TypeActor::CuboEstatico;
-    } else     if(action->text() == "Triangulo estatico"){
-        type = TypeActor::TrianguloEstatico;
-    }
+        if(action->text() == "Cuadrado"){
+            type = TypeActor::Cuadrado;
+        } else     if(action->text() == "Triangulo"){
+            type = TypeActor::Triangulo;
+        } else     if(action->text() == "Hexagono"){
+            type = TypeActor::Hexagono;
+        } else     if(action->text() == "Cubo estatico"){
+            type = TypeActor::CuboEstatico;
+        } else     if(action->text() == "Triangulo estatico"){
+            type = TypeActor::TrianguloEstatico;
+        }
+    addActorNS(type);
+
+    /*
     srand(time(0));
 
     if(!isBoxType){
@@ -135,6 +160,8 @@ void ActorSystem::addActor(QAction * action)
             model->setData(index, actore->getName());
             model->setData(index, actore->getIdentifier(), Qt::AccessibleDescriptionRole);
         }
+        emit addActorSignal(&listActors);
+        return;
 
     } else {
 
@@ -154,30 +181,67 @@ void ActorSystem::addActor(QAction * action)
             model->setData(index, actore->getName());
             model->setData(index, actore->getIdentifier(), Qt::AccessibleDescriptionRole);
         }
+        emit addActorSignal(&listActors);
+        return;
+
+    }*/
+
+
+}
+
+//no slot fuunctions
+Actor* ActorSystem::addActorNS(TypeActor type)
+{
+
+    srand(time(0));
+
+    if(!isBoxType){
+
+        Actor* actore = new Actor();
+        actore->setTypeActor(type);
+        listActors.append(actore);
+        actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
+        actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
+        actore->setIndexInList(listActors.lastIndexOf(actore));
+
+        if(isMovible){
+            actore->setFlag(QGraphicsItem::ItemIsMovable, true);
+        }
+        if(model->insertRow(model->rowCount())) {
+            QModelIndex index = model->index(model->rowCount() - 1, 0);
+            model->setData(index, actore->getName());
+            model->setData(index, actore->getIdentifier(), Qt::AccessibleDescriptionRole);
+        }
+        emit addActorSignal(&listActors);
+        return actore;
+
+    } else {
+
+        ActorDinamic* actore = new ActorDinamic();
+        if(isMovible){
+            actore->setFlag(QGraphicsItem::ItemIsMovable, true);
+        }
+        actore->setTypeActor(type);
+        listActors.append(actore);
+        actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
+        actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
+        actore->setIndexInList(listActors.lastIndexOf(actore));
+
+
+        if(model->insertRow(model->rowCount())) {
+            QModelIndex index = model->index(model->rowCount() - 1, 0);
+            model->setData(index, actore->getName());
+            model->setData(index, actore->getIdentifier(), Qt::AccessibleDescriptionRole);
+        }
+        emit addActorSignal(&listActors);
+        return actore;
 
     }
 
 
-    emit addActorSignal(&listActors);
 }
 
-//no slot fuunctions
-Actor* ActorSystem::addActorNS()
-{
-    srand(time(0));
-
-    Actor* actore = new Actor();
-    listActors.append(actore);
-    actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
-    actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
-    actore->setIndexInList(listActors.lastIndexOf(actore));
-
-    emit addActorSignal(&listActors);
-
-    return actore;
-}
-
-const QList<Actor *> &ActorSystem::getListActors() const
+QList<Actor *> &ActorSystem::getListActors()
 {
     return listActors;
 }
