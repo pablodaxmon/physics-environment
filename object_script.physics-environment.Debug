@@ -20,6 +20,7 @@ debug/initialdialog.o
 debug/itembartime.o
 debug/listactionsmodel.o
 debug/maintoolbar.o
+debug/settingsdialog.o
 debug/splittermain.o
 debug/mainwindow.o
 debug/viewactions.o
@@ -48,6 +49,7 @@ debug/moc_initialdialog.o
 debug/moc_itembartime.o
 debug/moc_listactionsmodel.o
 debug/moc_maintoolbar.o
+debug/moc_settingsdialog.o
 debug/moc_splittermain.o
 debug/moc_mainwindow.o
 debug/moc_viewactions.o

@@ -9,6 +9,7 @@
 #include <QMenuBar>
 #include <QPushButton>
 #include <QSizePolicy>
+#include <QMessageBox>
 
 //gui
 #include "splittermain.h"
@@ -18,6 +19,7 @@
 #include "viewproperties.h"
 #include "maintoolbar.h"
 #include "initialdialog.h"
+#include "settingsdialog.h"
 
 //core
 #include "src/core/actorsystem.h"
@@ -62,6 +64,9 @@ public slots:
     void newSimulation();
     void connectSelectedActor(Actor * actor);
     void resetAlls();
+    void showInfo();
+    void showVersionInfo();
+    void showHelp();
 
 signals:
     void setItemSelected(const QModelIndex &index);
@@ -141,6 +146,7 @@ private:
 
 
     InitialDialog *dialogMain;
+    SettingsDialog* settingsDialog;
     /// ___________________
     /// session
     /// ___________________

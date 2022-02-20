@@ -6,7 +6,11 @@ ActorSystem::ActorSystem(QObject *parent) : QObject(parent)
     model = new QStringListModel;
 
 
-
+    gravityV = 9.8f;
+    b2Vec2 gravity(0.0f,gravityV);
+    world = new b2World(gravity);
+    frameRate = 0.012f;
+    stopEvery = 10;
 
 
 
@@ -68,7 +72,7 @@ void ActorSystem::readJson(const QJsonObject &json) const
 
 void ActorSystem::configureWorldBox2d()
 {
-    b2Vec2 gravity(0.0f,9.8f);
+    b2Vec2 gravity(0.0f,gravityV);
     world = new b2World(gravity);
 
     b2BodyDef defGround;
@@ -82,6 +86,31 @@ void ActorSystem::configureWorldBox2d()
 
     b2Body* ground = world->CreateBody(&defGround);
     ground->CreateFixture(&edge, 1.0f);
+}
+
+void ActorSystem::setScene(GraphicsScene *newScene)
+{
+    scene = newScene;
+}
+
+void ActorSystem::setFrameRate(float newFrameRate)
+{
+    frameRate = 1/newFrameRate;
+    for(int i = 0;i<listActors.size();i++){
+        Actor* actor = listActors.at(i);
+        actor->setFramerate(frameRate);
+    }
+}
+
+void ActorSystem::setGravityV(float newGravityV)
+{
+    gravityV = newGravityV;
+}
+
+void ActorSystem::setStopEvery(int newStopEvery)
+{
+    qDebug() << "ActorSystem::setStopEvery" << newStopEvery;
+    stopEvery = newStopEvery;
 }
 
 void ActorSystem::startActors()
@@ -100,16 +129,20 @@ void ActorSystem::startActors()
 void ActorSystem::updateActors(float time)
 {
     count++;
-    if(count>10){
+    if(count>stopEvery){
         world->ClearForces();
     }
 
     if(!listActors.isEmpty()){
-        world->Step(0.03f,6,2);
-        QListIterator<Actor*> i(listActors);
-        while(i.hasNext()){
-            i.next()->updateData(time);
-        }
+
+        world->Step(frameRate,6,2);
+
+        scene->advance();
+
+        /*for(int i = 0;i<listActors.size();i++){
+            Actor* actor = listActors.at(i);
+            actor->updateData(time);
+        }*/
     }
 }
 
@@ -140,51 +173,8 @@ void ActorSystem::addActor(QAction * action)
         }
     addActorNS(type);
 
-    /*
-    srand(time(0));
-
-    if(!isBoxType){
-
-        Actor* actore = new Actor();
-        actore->setTypeActor(type);
-        listActors.append(actore);
-        actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
-        actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
-        actore->setIndexInList(listActors.lastIndexOf(actore));
-
-        if(isMovible){
-            actore->setFlag(QGraphicsItem::ItemIsMovable, true);
-        }
-        if(model->insertRow(model->rowCount())) {
-            QModelIndex index = model->index(model->rowCount() - 1, 0);
-            model->setData(index, actore->getName());
-            model->setData(index, actore->getIdentifier(), Qt::AccessibleDescriptionRole);
-        }
-        emit addActorSignal(&listActors);
-        return;
-
-    } else {
-
-        ActorDinamic* actore = new ActorDinamic();
-        if(isMovible){
-            actore->setFlag(QGraphicsItem::ItemIsMovable, true);
-        }
-        actore->setTypeActor(type);
-        listActors.append(actore);
-        actore->setIdentifier(QString::number(listActors.lastIndexOf(actore)) + tr("-actor-") + QString::number(rand()));
-        actore->setName(tr("Actor") + QString::number(listActors.lastIndexOf(actore)));
-        actore->setIndexInList(listActors.lastIndexOf(actore));
 
 
-        if(model->insertRow(model->rowCount())) {
-            QModelIndex index = model->index(model->rowCount() - 1, 0);
-            model->setData(index, actore->getName());
-            model->setData(index, actore->getIdentifier(), Qt::AccessibleDescriptionRole);
-        }
-        emit addActorSignal(&listActors);
-        return;
-
-    }*/
 
 
 }

@@ -4,9 +4,6 @@
 #include "src/core/timerloop.h"
 #include "src/core/actor.h"
 #include "src/core/actorsystem.h"
-#include "src/core/equation.h"
-#include "src/core/equationrunner.h"
-#include "src/core/equationmaker.h"
 #include <QMap>
 #include <map>
 #include <QString>
@@ -23,6 +20,7 @@ MainWindow:: MainWindow(QWidget *parent)
     mainContainer->setLayout(verticalMainLayout);
 
     dialogMain = new InitialDialog(this);
+    settingsDialog = new SettingsDialog(this);
     dialogMain->show();
 
 
@@ -49,6 +47,7 @@ MainWindow:: MainWindow(QWidget *parent)
     splitMain = new SplitterMain(mainContainer,viewGraphicsResult,viewObjectList, viewActions, viewProperties, viewSimulation);
     viewObjectList->setModel(actorSystem->getModel());
     viewGraphicsResult->setListActors(&actorSystem->getListActors());
+    actorSystem->setScene(viewSimulation->getScene());
 
     ////////////////////////////////////////////////////////////
 
@@ -107,13 +106,26 @@ MainWindow:: MainWindow(QWidget *parent)
     connect(viewSimulation, &ViewSimulation::graphiTypeChanged, viewGraphicsResult, &ViewGraphicsResults::graphicTypechanged);
 
 
+    connect(viewSimulation, &ViewSimulation::showSettings, settingsDialog, &QDialog::open); //////////////////////////////////////////////////
+
     connect(sessionManager, &SessionManager::resetAll, this, &MainWindow::resetAlls);
     connect(dialogMain, &InitialDialog::loadSesion, this, &MainWindow::createLoadSimulation);
-    /*QObject::connect(dialogMain, &InitialDialog::loadSesion, sessionManager, &SessionManager::loadSession);
-    QObject::connect(dialogMain, &InitialDialog::loadSesion, this, newSimulation);*/
-    QObject::connect(dialogMain, &InitialDialog::createNewSesion, sessionManager, &SessionManager::createSession);
-    QObject::connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);
+    connect(dialogMain, &InitialDialog::createNewSesion, sessionManager, &SessionManager::createSession);
+    connect(dialogMain, &InitialDialog::createNewSesion, this, newSimulation);
+
+
+    connect(settingsDialog, &SettingsDialog::frameRateChanged, timerLoop, &TimerLoop::setFrameDuration);
+    connect(settingsDialog, &SettingsDialog::frameRateChanged, actorSystem, &ActorSystem::setFrameRate);
+    connect(settingsDialog, &SettingsDialog::plotframeRateChanged, viewGraphicsResult, &ViewGraphicsResults::setFrameDuration);
+    connect(settingsDialog, &SettingsDialog::gravityChanged, actorSystem, &ActorSystem::setGravityV);
+    connect(settingsDialog, &SettingsDialog::antialiasingChanged, viewSimulation, &ViewSimulation::setAntialiasing);
+    connect(settingsDialog, &SettingsDialog::stopForcesChanged, actorSystem, &ActorSystem::setStopEvery);
+
+
 }
+
+
+
 
 void MainWindow::connectSelectedActor(Actor *actor)
 {
@@ -146,6 +158,42 @@ void MainWindow::resetAlls()
     actionsSystem->reset();
     viewSimulation->reset();
 
+}
+
+void MainWindow::showInfo()
+{
+    QMessageBox msgBox;
+    msgBox.setStyleSheet("QLabel{min-width: 300px; min-height: 100px;}");
+    msgBox.setWindowTitle("Información acerca de la aplicación");
+    msgBox.setText("Physics-environment es un software para simular entornos de fisica basica aplicando la fórmula de aceleración cinemática o las leyes de newton"
+                   " ");
+
+    msgBox.exec();
+}
+
+void MainWindow::showVersionInfo()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Información version y reportar bugs");
+    msgBox.setText("Version estable. 20-2-2022: reportar bugs a : pablounico.daxmon@gmail.com");
+    msgBox.exec();
+}
+
+void MainWindow::showHelp()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Ayuda manual");
+    msgBox.setText("Click en 'show details' para ver manual");
+
+    msgBox.setStyleSheet("QLabel{min-width: 300px;}");
+    msgBox.setDetailedText("CREAR SESIÓN: Al iniciar el programa puede cargar una sesión guardada (si existe) o crear una nueva sesión,"
+                           "las dos opciones que existen se refieren a las formulas que se usaran para realizar la simulación pued elejir entre"
+                           "solo usar la fórmula de aceleración o usar el motor Box2D para las leyes de newton.   CREAR OBJETO: puede crear un objeto en la vista de"
+                           "simulación area izquierda superir, click en el icono de objeto y cree el objeto que elija. CREAR ACCION: en el area de acciones click en "
+                           "'añadir accion' si su simulacion es cinematica tendra opciones para programar un accion, si es dinamica tendrá opciones para programar"
+                           "una fuerza en el objeto seleccionado. START SIMULACIÖN: click en el icono play y visualize su simulación. En la parte inferior verá un "
+                           "grafico mostrando la relación entre la variable seleccionada y el tiempo.");
+    msgBox.exec();
 }
 
 
@@ -293,21 +341,21 @@ void MainWindow::createActions(){
     connect(actCalculateValues, &QAction::triggered, this, &MainWindow::calculateValues);
 
 
-    actAboutProgrammers = new QAction(QIcon(":/icons/resources/icons16/book.png"),tr("&About programmers"), this);
+    actAboutProgrammers = new QAction(QIcon(":/icons/resources/icons16/book.png"),tr("&Info"), this);
     actAboutProgrammers->setStatusTip("Show info about the programmers");
-    connect(actAboutProgrammers, &QAction::triggered, this, &MainWindow::aboutProgrammers);
+    connect(actAboutProgrammers, &QAction::triggered, this, &MainWindow::showInfo);
 
 
     actHelp = new QAction(QIcon(":/icons/resources/icons16/book_open.png"),tr("&Help"), this);
     actHelp->setStatusTip("Create a new simulation");
-    connect(actHelp, &QAction::triggered, this, &MainWindow::help);
+    connect(actHelp, &QAction::triggered, this, &MainWindow::showHelp);
 
 
 
 
     actVersionInfo = new QAction(QIcon(":/icons/resources/icons16/information.png"),tr("&Version info"), this);
     actVersionInfo->setStatusTip("Create a new simulation");
-    connect(actVersionInfo, &QAction::triggered, this, &MainWindow::versionInfo);
+    connect(actVersionInfo, &QAction::triggered, this, &MainWindow::showVersionInfo);
 
 }
 

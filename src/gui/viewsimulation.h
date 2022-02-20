@@ -31,6 +31,8 @@ public:
 
     void setIsBoxType(bool newIsBoxType);
 
+    GraphicsScene *getScene() const;
+
 public slots:
     void updateSceneObjects(QList<Actor*> *listactors);
     void moveToggle(bool checked);
@@ -38,6 +40,7 @@ public slots:
     void deleteObject();
     void setSelectedActorSlots();
     void setTimeNow(float time);
+    void setAntialiasing(bool cheked);
     void reset();
 signals:
     void graphiTypeChanged(int type);
@@ -59,6 +62,7 @@ signals:
     void loopInit(const QString &text);
     void loopDuration(const QString &text);
     void intervalDuration(const QString &text);
+    void showSettings();
 
     void timeNowChanged(const QString &text);
 

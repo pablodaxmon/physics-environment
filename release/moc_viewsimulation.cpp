@@ -24,8 +24,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ViewSimulation_t {
-    const uint offsetsAndSize[78];
-    char stringdata0[479];
+    const uint offsetsAndSize[84];
+    char stringdata0[515];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_ViewSimulation_t, stringdata0) + ofs), len 
@@ -57,19 +57,22 @@ QT_MOC_LITERAL(253, 8), // "loopInit"
 QT_MOC_LITERAL(262, 4), // "text"
 QT_MOC_LITERAL(267, 12), // "loopDuration"
 QT_MOC_LITERAL(280, 16), // "intervalDuration"
-QT_MOC_LITERAL(297, 14), // "timeNowChanged"
-QT_MOC_LITERAL(312, 18), // "updateSceneObjects"
-QT_MOC_LITERAL(331, 14), // "QList<Actor*>*"
-QT_MOC_LITERAL(346, 10), // "listactors"
-QT_MOC_LITERAL(357, 10), // "moveToggle"
-QT_MOC_LITERAL(368, 15), // "setItemSelected"
-QT_MOC_LITERAL(384, 12), // "deleteObject"
-QT_MOC_LITERAL(397, 21), // "setSelectedActorSlots"
-QT_MOC_LITERAL(419, 10), // "setTimeNow"
-QT_MOC_LITERAL(430, 4), // "time"
-QT_MOC_LITERAL(435, 5), // "reset"
-QT_MOC_LITERAL(441, 16), // "showMenuSettings"
-QT_MOC_LITERAL(458, 20) // "showMenuCreateObject"
+QT_MOC_LITERAL(297, 12), // "showSettings"
+QT_MOC_LITERAL(310, 14), // "timeNowChanged"
+QT_MOC_LITERAL(325, 18), // "updateSceneObjects"
+QT_MOC_LITERAL(344, 14), // "QList<Actor*>*"
+QT_MOC_LITERAL(359, 10), // "listactors"
+QT_MOC_LITERAL(370, 10), // "moveToggle"
+QT_MOC_LITERAL(381, 15), // "setItemSelected"
+QT_MOC_LITERAL(397, 12), // "deleteObject"
+QT_MOC_LITERAL(410, 21), // "setSelectedActorSlots"
+QT_MOC_LITERAL(432, 10), // "setTimeNow"
+QT_MOC_LITERAL(443, 4), // "time"
+QT_MOC_LITERAL(448, 15), // "setAntialiasing"
+QT_MOC_LITERAL(464, 6), // "cheked"
+QT_MOC_LITERAL(471, 5), // "reset"
+QT_MOC_LITERAL(477, 16), // "showMenuSettings"
+QT_MOC_LITERAL(494, 20) // "showMenuCreateObject"
 
     },
     "ViewSimulation\0graphiTypeChanged\0\0"
@@ -80,10 +83,11 @@ QT_MOC_LITERAL(458, 20) // "showMenuCreateObject"
     "stopSignal\0reverseSignal\0toStartSignal\0"
     "toEndSignal\0loopEnable\0loopInit\0text\0"
     "loopDuration\0intervalDuration\0"
-    "timeNowChanged\0updateSceneObjects\0"
-    "QList<Actor*>*\0listactors\0moveToggle\0"
-    "setItemSelected\0deleteObject\0"
-    "setSelectedActorSlots\0setTimeNow\0time\0"
+    "showSettings\0timeNowChanged\0"
+    "updateSceneObjects\0QList<Actor*>*\0"
+    "listactors\0moveToggle\0setItemSelected\0"
+    "deleteObject\0setSelectedActorSlots\0"
+    "setTimeNow\0time\0setAntialiasing\0cheked\0"
     "reset\0showMenuSettings\0showMenuCreateObject"
 };
 #undef QT_MOC_LITERAL
@@ -94,43 +98,45 @@ static const uint qt_meta_data_ViewSimulation[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-      27,   14, // methods
+      29,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      18,       // signalCount
+      19,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,  176,    2, 0x06,    1 /* Public */,
-       4,    0,  179,    2, 0x06,    3 /* Public */,
-       5,    1,  180,    2, 0x06,    4 /* Public */,
-       8,    1,  183,    2, 0x06,    6 /* Public */,
-      10,    1,  186,    2, 0x06,    8 /* Public */,
-      13,    1,  189,    2, 0x06,   10 /* Public */,
-      14,    1,  192,    2, 0x06,   12 /* Public */,
-      15,    0,  195,    2, 0x06,   14 /* Public */,
-      16,    0,  196,    2, 0x06,   15 /* Public */,
-      17,    0,  197,    2, 0x06,   16 /* Public */,
-      18,    0,  198,    2, 0x06,   17 /* Public */,
-      19,    0,  199,    2, 0x06,   18 /* Public */,
-      20,    0,  200,    2, 0x06,   19 /* Public */,
-      21,    1,  201,    2, 0x06,   20 /* Public */,
-      22,    1,  204,    2, 0x06,   22 /* Public */,
-      24,    1,  207,    2, 0x06,   24 /* Public */,
-      25,    1,  210,    2, 0x06,   26 /* Public */,
-      26,    1,  213,    2, 0x06,   28 /* Public */,
+       1,    1,  188,    2, 0x06,    1 /* Public */,
+       4,    0,  191,    2, 0x06,    3 /* Public */,
+       5,    1,  192,    2, 0x06,    4 /* Public */,
+       8,    1,  195,    2, 0x06,    6 /* Public */,
+      10,    1,  198,    2, 0x06,    8 /* Public */,
+      13,    1,  201,    2, 0x06,   10 /* Public */,
+      14,    1,  204,    2, 0x06,   12 /* Public */,
+      15,    0,  207,    2, 0x06,   14 /* Public */,
+      16,    0,  208,    2, 0x06,   15 /* Public */,
+      17,    0,  209,    2, 0x06,   16 /* Public */,
+      18,    0,  210,    2, 0x06,   17 /* Public */,
+      19,    0,  211,    2, 0x06,   18 /* Public */,
+      20,    0,  212,    2, 0x06,   19 /* Public */,
+      21,    1,  213,    2, 0x06,   20 /* Public */,
+      22,    1,  216,    2, 0x06,   22 /* Public */,
+      24,    1,  219,    2, 0x06,   24 /* Public */,
+      25,    1,  222,    2, 0x06,   26 /* Public */,
+      26,    0,  225,    2, 0x06,   28 /* Public */,
+      27,    1,  226,    2, 0x06,   29 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      27,    1,  216,    2, 0x0a,   30 /* Public */,
-      30,    1,  219,    2, 0x0a,   32 /* Public */,
-      31,    0,  222,    2, 0x0a,   34 /* Public */,
-      32,    0,  223,    2, 0x0a,   35 /* Public */,
-      33,    0,  224,    2, 0x0a,   36 /* Public */,
-      34,    1,  225,    2, 0x0a,   37 /* Public */,
-      36,    0,  228,    2, 0x0a,   39 /* Public */,
-      37,    0,  229,    2, 0x08,   40 /* Private */,
-      38,    0,  230,    2, 0x08,   41 /* Private */,
+      28,    1,  229,    2, 0x0a,   31 /* Public */,
+      31,    1,  232,    2, 0x0a,   33 /* Public */,
+      32,    0,  235,    2, 0x0a,   35 /* Public */,
+      33,    0,  236,    2, 0x0a,   36 /* Public */,
+      34,    0,  237,    2, 0x0a,   37 /* Public */,
+      35,    1,  238,    2, 0x0a,   38 /* Public */,
+      37,    1,  241,    2, 0x0a,   40 /* Public */,
+      39,    0,  244,    2, 0x0a,   42 /* Public */,
+      40,    0,  245,    2, 0x08,   43 /* Private */,
+      41,    0,  246,    2, 0x08,   44 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -150,15 +156,17 @@ static const uint qt_meta_data_ViewSimulation[] = {
     QMetaType::Void, QMetaType::QString,   23,
     QMetaType::Void, QMetaType::QString,   23,
     QMetaType::Void, QMetaType::QString,   23,
+    QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   23,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 28,   29,
+    QMetaType::Void, 0x80000000 | 29,   30,
     QMetaType::Void, QMetaType::Bool,    9,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Float,   35,
+    QMetaType::Void, QMetaType::Float,   36,
+    QMetaType::Void, QMetaType::Bool,   38,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -189,16 +197,18 @@ void ViewSimulation::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 14: _t->loopInit((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 15: _t->loopDuration((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 16: _t->intervalDuration((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 17: _t->timeNowChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 18: _t->updateSceneObjects((*reinterpret_cast< QList<Actor*>*(*)>(_a[1]))); break;
-        case 19: _t->moveToggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 20: _t->setItemSelected(); break;
-        case 21: _t->deleteObject(); break;
-        case 22: _t->setSelectedActorSlots(); break;
-        case 23: _t->setTimeNow((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 24: _t->reset(); break;
-        case 25: _t->showMenuSettings(); break;
-        case 26: _t->showMenuCreateObject(); break;
+        case 17: _t->showSettings(); break;
+        case 18: _t->timeNowChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 19: _t->updateSceneObjects((*reinterpret_cast< QList<Actor*>*(*)>(_a[1]))); break;
+        case 20: _t->moveToggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 21: _t->setItemSelected(); break;
+        case 22: _t->deleteObject(); break;
+        case 23: _t->setSelectedActorSlots(); break;
+        case 24: _t->setTimeNow((*reinterpret_cast< float(*)>(_a[1]))); break;
+        case 25: _t->setAntialiasing((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 26: _t->reset(); break;
+        case 27: _t->showMenuSettings(); break;
+        case 28: _t->showMenuCreateObject(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -348,9 +358,16 @@ void ViewSimulation::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
             }
         }
         {
+            using _t = void (ViewSimulation::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ViewSimulation::showSettings)) {
+                *result = 17;
+                return;
+            }
+        }
+        {
             using _t = void (ViewSimulation::*)(const QString & );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ViewSimulation::timeNowChanged)) {
-                *result = 17;
+                *result = 18;
                 return;
             }
         }
@@ -364,8 +381,8 @@ const QMetaObject ViewSimulation::staticMetaObject = { {
     qt_static_metacall,
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_ViewSimulation_t
-, QtPrivate::TypeAndForceComplete<ViewSimulation, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QAction *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QList<Actor*> *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<ViewSimulation, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QAction *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QList<Actor*> *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<float, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -392,13 +409,13 @@ int ViewSimulation::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 27)
+        if (_id < 29)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 27;
+        _id -= 29;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 27)
+        if (_id < 29)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 27;
+        _id -= 29;
     }
     return _id;
 }
@@ -516,10 +533,16 @@ void ViewSimulation::intervalDuration(const QString & _t1)
 }
 
 // SIGNAL 17
+void ViewSimulation::showSettings()
+{
+    QMetaObject::activate(this, &staticMetaObject, 17, nullptr);
+}
+
+// SIGNAL 18
 void ViewSimulation::timeNowChanged(const QString & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 17, _a);
+    QMetaObject::activate(this, &staticMetaObject, 18, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

@@ -46,6 +46,7 @@ void ActionsSystem::addNewAction(ActionItem* item)
 {
 
     listActions.append(item);
+    connect(item, &ActionItem::deleteActionSignal, this, &ActionsSystem::deleteAction);
 
 
 }
@@ -71,6 +72,7 @@ void ActionsSystem::addNewActionFromJson(const QJsonObject &json, Actor* actor)
 
         listActions.append(action);
         containerItems->insertWidget(0,action);
+        connect(action, &ActionItem::deleteActionSignal, this, &ActionsSystem::deleteAction);
     } else {
 
         ActionItem * action = new ActionItem(json["isDynAction"].toBool());
@@ -85,6 +87,7 @@ void ActionsSystem::addNewActionFromJson(const QJsonObject &json, Actor* actor)
 
         listActions.append(action);
         containerItems->insertWidget(0,action);
+        connect(action, &ActionItem::deleteActionSignal, this, &ActionsSystem::deleteAction);
     }
 }
 
@@ -187,6 +190,15 @@ void ActionsSystem::reset()
     }
     qDeleteAll(listActions);
     listActions.clear();
+
+
+}
+
+void ActionsSystem::deleteAction(ActionItem *act)
+{
+    containerItems->removeWidget(act);
+    listActions.removeOne(act);
+    delete act;
 
 
 }

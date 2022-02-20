@@ -4,7 +4,6 @@ void Actor::setValues()
 {
     setPos(positionX, positionY);
     update();
-    qDebug() << "Actor: values changes from properties";
 }
 
 void Actor::getValueFromID(int id)
@@ -14,17 +13,10 @@ void Actor::getValueFromID(int id)
 
 Actor::Actor(QGraphicsItem *parent) : QGraphicsObject(parent)
 {
-    /*positionYData = new QPainterPath(QPointF(0,0));
-    velocityData = new QPainterPath(QPointF(0,0));
-    velocityXData = new QPainterPath(QPointF(0,0));
-    velocityYData = new QPainterPath(QPointF(0,0));
-    acelerationData = new QPainterPath(QPointF(0,0));
-    acelerationXData = new QPainterPath(QPointF(0,0));
-    acelerationYData = new QPainterPath(QPointF(0,0));*/
-// valores por defecto
+    framerate = 0.012f;
     lastTime = 0;
     positionX = 0;
-    positionY = 0;
+    positionY = -200;
     velocity = 0;
     velocityX = 0;
     velocityY = 0;
@@ -49,6 +41,11 @@ Actor::Actor(QGraphicsItem *parent) : QGraphicsObject(parent)
 
 void Actor::startData(b2World *world)
 {
+    time = 0;
+    velocityX = 0;
+    velocityY = 0;
+    acelerationX = 0;
+    acelerationY = 0;
     init_positionX = positionX;
     init_positionY = positionY;
     init_velocityX = velocityX;
@@ -60,12 +57,12 @@ void Actor::startData(b2World *world)
 
 void Actor::updateData(float time)
 {
-    positionXData.append(positionX);
-    positionYData.append(positionY);
-    velocityXData.append(display_velocityX);
-    velocityYData.append(display_velocityY);
-    acelerationXData.append(display_acelerationX);
-    acelerationYData.append(display_acelerationY);
+    positionXData.append(positionX/SCALE_V);
+    positionYData.append(positionY/SCALE_V);
+    velocityXData.append(display_velocityX/SCALE_V);
+    velocityYData.append(display_velocityY/SCALE_V);
+    acelerationXData.append(display_acelerationX/SCALE_V);
+    acelerationYData.append(display_acelerationY/SCALE_V);
 
     last_positionX = positionX;
     last_positionY = positionY;
@@ -89,7 +86,7 @@ void Actor::updateData(float time)
     display_aceleration = sqrtf(display_acelerationX*display_acelerationX + display_acelerationY*display_acelerationY);
 
     update();
-    emit valuesChanged();
+    //emit valuesChanged();
 
     lastTime = time;
 
@@ -201,6 +198,31 @@ void Actor::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     update();
 }
 
+void Actor::advance(int phase)
+{
+    if(phase == 0){
+        time++;
+
+       updateData(time*framerate);
+    }
+}
+
+const QColor &Actor::getColorGraph() const
+{
+    return colorGraph;
+}
+
+void Actor::setColorGraph(const QColor &newColorGraph)
+{
+    colorGraph = newColorGraph;
+}
+
+void Actor::setFramerate(float newFramerate)
+{
+    qDebug() << "Actor::setFramerate" << newFramerate;
+    framerate = newFramerate;
+}
+
 const QColor &Actor::getColorPen() const
 {
     return colorPen;
@@ -256,27 +278,32 @@ void Actor::setTypeActor(TypeActor newTypeActor)
             shape << QPointF(20, 20) << QPointF(80, 20) << QPointF(80, 80) << QPointF(20, 80);
             colorBrush = QColor(155,255,222,255);
             colorPen = QColor(35,192,203,255);
+            colorGraph = QColor(35,192,203,90);
         break;
     case TypeActor::Triangulo:
             shape << QPointF(20, 75) << QPointF(80, 75) << QPointF(50, 20);
             colorBrush = QColor(204,255,155,255);
             colorPen = QColor(119,214,38,255);
+            colorGraph = QColor(119,214,38,90);
         break;
     case TypeActor::Hexagono:
             shape << QPointF(35, 30) << QPointF(65, 30) << QPointF(80, 50) << QPointF(65, 70) << QPointF(35, 70) << QPointF(20, 50);
             colorBrush = QColor(255,192,155,255);
             colorPen = QColor(239,107,30,255);
+            colorGraph = QColor(239,107,30,90);
         break;
     case TypeActor::CuboEstatico:
             shape << QPointF(15, 80) << QPointF(85, 80) << QPointF(85, 10) << QPointF(15, 10);
             colorBrush = QColor(114,162,231,255);
             colorPen = QColor(35,103,203,255);
+            colorGraph = QColor(35,103,203,90);
             isStatic = true;
         break;
     case TypeActor::TrianguloEstatico:
             shape << QPointF(5, 80) << QPointF(95, 80) << QPointF(50, 10);
             colorBrush = QColor(208,88,137,255);
             colorPen = QColor(134,25,70,255);
+            colorGraph = QColor(134,25,70,150);
             isStatic = true;
         break;
     default:

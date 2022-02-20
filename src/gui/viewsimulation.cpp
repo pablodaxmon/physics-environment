@@ -89,7 +89,13 @@ void ViewSimulation::setSelectedActorSlots()
 
 void ViewSimulation::setTimeNow(float time)
 {
-    timeNow->setText(QString::number(round(time)));
+    timeNow->setText(QString::number(time,'f',1));
+}
+
+void ViewSimulation::setAntialiasing(bool cheked)
+{
+    viewScene->setRenderHint(QPainter::Antialiasing, cheked);
+    viewScene->update();
 }
 
 void ViewSimulation::reset()
@@ -270,6 +276,7 @@ QWidget *ViewSimulation::timeControlToolBar()
     timeNow->setValidator(new QIntValidator);
     timeNow->setAlignment(Qt::AlignRight);
     timeNow->setFixedWidth(60);
+    timeNow->setText("0.0");
 
 
     QPushButton * loopToggle = new QPushButton;
@@ -311,7 +318,6 @@ QWidget *ViewSimulation::timeControlToolBar()
     mainContainer->addWidget(pauseButton);
     mainContainer->addWidget(playButton);
     mainContainer->addWidget(finalButton);
-    mainContainer->addWidget(stopButton);
     mainContainer->addStretch(1);
     mainContainer->addWidget(txt1);
     mainContainer->addWidget(clockToggle);
@@ -349,6 +355,11 @@ QWidget *ViewSimulation::timeControlToolBar()
 
 
     return res;
+}
+
+GraphicsScene *ViewSimulation::getScene() const
+{
+    return scene;
 }
 
 void ViewSimulation::setIsBoxType(bool newIsBoxType)
@@ -397,18 +408,8 @@ void ViewSimulation::showMenuCreateObject()
 
 void ViewSimulation::showMenuSettings()
 {
-    QMenu *menu = new QMenu( this );
 
-    QAction* car        = new QAction("Auto", this);
-    QAction* ball       = new QAction("Pelota", this);
-    QAction* terrain    = new QAction("Terreno (solo side view)", this);
-    QAction* staticCube = new QAction("cubo estatico", this);
-    menu->addAction(car);
-    menu->addAction(ball);
-    menu->addAction(terrain);
-    menu->addAction(staticCube);
-
-     menu->popup( this->mapToGlobal(QPoint(600,30)));
+    emit showSettings();
 
 }
 

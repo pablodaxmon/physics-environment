@@ -19,6 +19,7 @@ public:
 
     float getInit() const;
 
+
 signals:
     void signalUpdate();
     void signalStart();
@@ -32,8 +33,11 @@ private:
     float initTimeLoop;
     float durationLoop;
     float lastLapse;
+    bool stopActive;
+    int frameDuration;
 
 public slots:
+    void setFrameDuration(int newFrameDuration);
     void update();
 
     void setTimeNow(float time);

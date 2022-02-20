@@ -6,6 +6,8 @@
 #include <QFile>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QMessageBox>
+#include <QApplication>
 
 InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
 {
@@ -54,6 +56,8 @@ InitialDialog::InitialDialog(QWidget *parent) : QDialog(parent)
     connect(loadButton, &QPushButton::clicked, this, &InitialDialog::loadSesionSlot);
 
 }
+
+
 
 QWidget *InitialDialog::createListSessions()
 {
@@ -122,13 +126,10 @@ QGroupBox *InitialDialog::createTypeBox()
     option1 = new QRadioButton(tr("Basado en formula de aceleración"));
     option2 = new QRadioButton(tr("Basado en leyes de newton"));
     option1->setChecked(true);
-    isGravity = new QCheckBox(tr("Gravedad"));
-    isGravity->setChecked(false);
 
     QVBoxLayout *vbox = new QVBoxLayout;
     vbox->addWidget(option1);
     vbox->addWidget(option2);
-    vbox->addWidget(isGravity);
     vbox->addStretch(1);
     groupBox->setLayout(vbox);
 
@@ -164,7 +165,7 @@ QGroupBox *InitialDialog::createViewBox()
 void InitialDialog::createNewSesionSlot()
 {
 
-    emit createNewSesion(ViewSession::Up, nameEdit->text(), descriptionEdit->text(), option2->isChecked(), isGravity->isChecked());
+    emit createNewSesion(ViewSession::Up, nameEdit->text(), descriptionEdit->text(), option2->isChecked(), true);
 
     close();
 

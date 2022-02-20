@@ -1,5 +1,4 @@
 #include "actordinamic.h"
-#define SCALE_V 6.0f
 
 ActorDinamic::ActorDinamic(QGraphicsItem *parent) : Actor(parent)
 {
@@ -119,6 +118,7 @@ void ActorDinamic::updateData(float time)
     acelerationXData.append(display_acelerationX);
     acelerationYData.append(display_acelerationY);
 
+
     setRotation(body->GetAngle()*(180/M_PI));
     last_positionX = positionX;
     last_positionY = positionY;
@@ -141,15 +141,7 @@ void ActorDinamic::updateData(float time)
 
     update();
 
-    emit valuesChanged();
-    /*positionXData->lineTo(positionX,time*50);
-    positionYData->lineTo(positionY,time*50);
-    velocityData->lineTo(velocity,time*50);
-    velocityXData->lineTo(velocityX,time*50);
-    velocityYData->lineTo(velocityY,time*50);
-    acelerationData->lineTo(aceleration,time*5);
-    acelerationXData->lineTo(acelerationX,time*50);
-    acelerationYData->lineTo(acelerationY,time*50);*/
+    //emit valuesChanged();
 
     lastTime = time;
 }

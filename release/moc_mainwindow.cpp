@@ -23,8 +23,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    const uint offsetsAndSize[64];
-    char stringdata0[353];
+    const uint offsetsAndSize[70];
+    char stringdata0[387];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_MainWindow_t, stringdata0) + ofs), len 
@@ -61,7 +61,10 @@ QT_MOC_LITERAL(295, 13), // "newSimulation"
 QT_MOC_LITERAL(309, 20), // "connectSelectedActor"
 QT_MOC_LITERAL(330, 6), // "Actor*"
 QT_MOC_LITERAL(337, 5), // "actor"
-QT_MOC_LITERAL(343, 9) // "resetAlls"
+QT_MOC_LITERAL(343, 9), // "resetAlls"
+QT_MOC_LITERAL(353, 8), // "showInfo"
+QT_MOC_LITERAL(362, 15), // "showVersionInfo"
+QT_MOC_LITERAL(378, 8) // "showHelp"
 
     },
     "MainWindow\0setItemSelected\0\0QModelIndex\0"
@@ -73,7 +76,8 @@ QT_MOC_LITERAL(343, 9) // "resetAlls"
     "aboutProgrammers\0help\0versionInfo\0"
     "createLoadSimulation\0url\0newSimulation\0"
     "connectSelectedActor\0Actor*\0actor\0"
-    "resetAlls"
+    "resetAlls\0showInfo\0showVersionInfo\0"
+    "showHelp"
 };
 #undef QT_MOC_LITERAL
 
@@ -83,7 +87,7 @@ static const uint qt_meta_data_MainWindow[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-      25,   14, // methods
+      28,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -91,33 +95,36 @@ static const uint qt_meta_data_MainWindow[] = {
       21,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,  164,    2, 0x06,    1 /* Public */,
-       5,    0,  167,    2, 0x06,    3 /* Public */,
-       6,    0,  168,    2, 0x06,    4 /* Public */,
-       7,    0,  169,    2, 0x06,    5 /* Public */,
-       8,    0,  170,    2, 0x06,    6 /* Public */,
-       9,    0,  171,    2, 0x06,    7 /* Public */,
-      10,    0,  172,    2, 0x06,    8 /* Public */,
-      11,    0,  173,    2, 0x06,    9 /* Public */,
-      12,    0,  174,    2, 0x06,   10 /* Public */,
-      13,    0,  175,    2, 0x06,   11 /* Public */,
-      14,    0,  176,    2, 0x06,   12 /* Public */,
-      15,    0,  177,    2, 0x06,   13 /* Public */,
-      16,    0,  178,    2, 0x06,   14 /* Public */,
-      17,    0,  179,    2, 0x06,   15 /* Public */,
-      18,    0,  180,    2, 0x06,   16 /* Public */,
-      19,    0,  181,    2, 0x06,   17 /* Public */,
-      20,    0,  182,    2, 0x06,   18 /* Public */,
-      21,    0,  183,    2, 0x06,   19 /* Public */,
-      22,    0,  184,    2, 0x06,   20 /* Public */,
-      23,    0,  185,    2, 0x06,   21 /* Public */,
-      24,    0,  186,    2, 0x06,   22 /* Public */,
+       1,    1,  182,    2, 0x06,    1 /* Public */,
+       5,    0,  185,    2, 0x06,    3 /* Public */,
+       6,    0,  186,    2, 0x06,    4 /* Public */,
+       7,    0,  187,    2, 0x06,    5 /* Public */,
+       8,    0,  188,    2, 0x06,    6 /* Public */,
+       9,    0,  189,    2, 0x06,    7 /* Public */,
+      10,    0,  190,    2, 0x06,    8 /* Public */,
+      11,    0,  191,    2, 0x06,    9 /* Public */,
+      12,    0,  192,    2, 0x06,   10 /* Public */,
+      13,    0,  193,    2, 0x06,   11 /* Public */,
+      14,    0,  194,    2, 0x06,   12 /* Public */,
+      15,    0,  195,    2, 0x06,   13 /* Public */,
+      16,    0,  196,    2, 0x06,   14 /* Public */,
+      17,    0,  197,    2, 0x06,   15 /* Public */,
+      18,    0,  198,    2, 0x06,   16 /* Public */,
+      19,    0,  199,    2, 0x06,   17 /* Public */,
+      20,    0,  200,    2, 0x06,   18 /* Public */,
+      21,    0,  201,    2, 0x06,   19 /* Public */,
+      22,    0,  202,    2, 0x06,   20 /* Public */,
+      23,    0,  203,    2, 0x06,   21 /* Public */,
+      24,    0,  204,    2, 0x06,   22 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      25,    1,  187,    2, 0x0a,   23 /* Public */,
-      27,    0,  190,    2, 0x0a,   25 /* Public */,
-      28,    1,  191,    2, 0x0a,   26 /* Public */,
-      31,    0,  194,    2, 0x0a,   28 /* Public */,
+      25,    1,  205,    2, 0x0a,   23 /* Public */,
+      27,    0,  208,    2, 0x0a,   25 /* Public */,
+      28,    1,  209,    2, 0x0a,   26 /* Public */,
+      31,    0,  212,    2, 0x0a,   28 /* Public */,
+      32,    0,  213,    2, 0x0a,   29 /* Public */,
+      33,    0,  214,    2, 0x0a,   30 /* Public */,
+      34,    0,  215,    2, 0x0a,   31 /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -146,6 +153,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::QString,   26,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 29,   30,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -182,6 +192,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 22: _t->newSimulation(); break;
         case 23: _t->connectSelectedActor((*reinterpret_cast< Actor*(*)>(_a[1]))); break;
         case 24: _t->resetAlls(); break;
+        case 25: _t->showInfo(); break;
+        case 26: _t->showVersionInfo(); break;
+        case 27: _t->showHelp(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -355,7 +368,7 @@ const QMetaObject MainWindow::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_MainWindow_t
 , QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<Actor *, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -382,13 +395,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 25)
+        if (_id < 28)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 25;
+        _id -= 28;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 25)
+        if (_id < 28)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 25;
+        _id -= 28;
     }
     return _id;
 }

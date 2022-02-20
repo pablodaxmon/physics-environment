@@ -12,7 +12,6 @@ GraphicsView::GraphicsView(QGraphicsScene *scene, QWidget *parent) : QGraphicsVi
 
     centerOn(-600,-550);
 
-
 }
 
 void GraphicsView::zoomIn()

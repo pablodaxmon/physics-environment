@@ -55,9 +55,13 @@ public:
     bool getIsDinamic() const;
     void setIsDinamic(bool newIsDinamic);
 
+    void showInfo();
+
 signals:
+    void deleteActionSignal(ActionItem *actionSelft);
 
 private:
+    void deleteAction();
     Actor * actor;
     QLabel * title;
     Actor * actorChanged;
@@ -75,6 +79,7 @@ private:
 
     QComboBox * unitCondition;
     QLineEdit * valueCondition;
+
 
 
 

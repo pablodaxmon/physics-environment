@@ -7,6 +7,7 @@ TimerLoop::TimerLoop(ActorSystem& m_actorsystem, ActionsSystem& m_actions, QObje
 {
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     lastLapse = 0;
+    frameDuration = 12;
 }
 
 bool TimerLoop::getLoopEnable() const
@@ -29,6 +30,12 @@ float TimerLoop::getInit() const
     return initTimeLoop;
 }
 
+void TimerLoop::setFrameDuration(int newFrameDuration)
+{
+    frameDuration = 1000/newFrameDuration;
+    qDebug() << "TimerLoop::setFrameDuration" << frameDuration;
+}
+
 void TimerLoop::setInit(const QString &text)
 {
 
@@ -49,12 +56,16 @@ void TimerLoop::setLoopEnable(bool newLoopEnable)
 
 void TimerLoop::startLoop()
 {
+    if(frameDuration < 5){
+        frameDuration = 5;
+    }
 
-    timer->start(20);
+    timer->start(frameDuration);
 
     actorsistem.startActors();
     emit signalStart();
 
+    stopActive = true;
 
 }
 
@@ -62,10 +73,13 @@ void TimerLoop::stopLoop()
 {
     lastLapse = 0;
     timer->stop();
-    actorsistem.updateActors(0);
-    actorsistem.stopActors();
-    actionsSystem.executeActions(0);
-    emit timeChange(0);
+    if(stopActive){
+
+        actorsistem.updateActors(0);
+        actorsistem.stopActors();
+        actionsSystem.executeActions(0);
+    }
+    stopActive = false;
 }
 
 void TimerLoop::pauseLoop()
@@ -98,7 +112,6 @@ void TimerLoop::update()
 
     }
 
-    qDebug() << "timeloop: " << lastLapse;
     actorsistem.updateActors((lastLapse*30)/1000);
     actionsSystem.executeActions((lastLapse*30)/1000);
 

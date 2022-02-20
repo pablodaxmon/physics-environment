@@ -5,7 +5,7 @@
 
 GraphicsScene::GraphicsScene(QObject *parent) : QGraphicsScene(parent)
 {
-
+    clickItem = false;
 
 }
 
@@ -14,7 +14,6 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->buttons() && Qt::LeftButton && !clickItem && moveHand)
     {
-
         graphicsView->setTransformationAnchor(QGraphicsView::NoAnchor);
 
         QPointF translation = event->scenePos() - m_origin;

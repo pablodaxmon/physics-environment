@@ -31,6 +31,7 @@ SOURCES += \
     src/gui/itembartime.cpp \
     src/gui/listactionsmodel.cpp \
     src/gui/maintoolbar.cpp \
+    src/gui/settingsdialog.cpp \
     src/gui/splittermain.cpp \
     src/gui/mainwindow.cpp \
     src/gui/viewactions.cpp \
@@ -66,6 +67,7 @@ HEADERS += \
     src/gui/itembartime.h \
     src/gui/listactionsmodel.h \
     src/gui/maintoolbar.h \
+    src/gui/settingsdialog.h \
     src/gui/splittermain.h \
     src/gui/mainwindow.h \
     src/gui/viewactions.h \

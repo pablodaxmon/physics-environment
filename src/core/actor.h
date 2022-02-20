@@ -1,5 +1,6 @@
 #ifndef ACTOR_H
 #define ACTOR_H
+#define SCALE_V 6.0f
 
 #include <QPainter>
 #include <QObject>
@@ -102,6 +103,11 @@ public:
 
     const QColor &getColorPen() const;
 
+    void setFramerate(float newFramerate);
+
+    const QColor &getColorGraph() const;
+    void setColorGraph(const QColor &newColorGraph);
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -111,7 +117,7 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
-
+    void advance(int phase);
 
 
     QString name;
@@ -121,6 +127,7 @@ protected:
     GraphicsScene * graphicsScene;
     TypeActor typeActor;
 
+    float framerate;
     float positionX;
     float positionY;
     float velocity;
@@ -169,6 +176,8 @@ protected:
 
 
 
+    float time = 0;
+    QColor colorGraph;
     QColor colorPen;
     QColor colorBrush;
     QPolygonF shape;

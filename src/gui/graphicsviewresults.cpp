@@ -13,6 +13,12 @@ void GraphicsViewResults::setItemBar(itemBarTime *newItemBar)
     itemBar = newItemBar;
 }
 
+void GraphicsViewResults::resizeEvent(QResizeEvent *event)
+{
+    centerOn(0,0);
+    QGraphicsView::resizeEvent(event);
+}
+
 
 
 

@@ -20,6 +20,7 @@ release/initialdialog.o
 release/itembartime.o
 release/listactionsmodel.o
 release/maintoolbar.o
+release/settingsdialog.o
 release/splittermain.o
 release/mainwindow.o
 release/viewactions.o
@@ -48,6 +49,7 @@ release/moc_initialdialog.o
 release/moc_itembartime.o
 release/moc_listactionsmodel.o
 release/moc_maintoolbar.o
+release/moc_settingsdialog.o
 release/moc_splittermain.o
 release/moc_mainwindow.o
 release/moc_viewactions.o

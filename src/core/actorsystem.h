@@ -8,6 +8,7 @@
 #include <QList>
 #include <QDebug>
 #include "src/gui/viewsimulation.h"
+#include "src/gui/graphicsscene.h"
 #include "src/gui/viewobjectlist.h"
 #include "src/gui/viewproperties.h"
 #include <QModelIndex>
@@ -41,15 +42,26 @@ public:
 
     void configureWorldBox2d();
 
+    void setScene(GraphicsScene *newScene);
+
+    void setFrameRate(float newFrameRate);
+
+    void setGravityV(float newGravityV);
+
+
 private:
     QList<Actor*> listActors;
     Actor* selectedActor = NULL;
     EquationMaker* eqMaker = new EquationMaker();
     bool isBoxType;
-    b2World *world ;
+    b2World *world =nullptr;
     QStringListModel* model;
     bool isMovible;
     int count;
+    GraphicsScene* scene;
+    float frameRate;
+    float gravityV;
+    int stopEvery;
 
 signals:
     void addActorSignal(QList<Actor*> *actor);
@@ -65,6 +77,7 @@ public slots:
     void setSelectedActorFromView(const QModelIndex &index);
     void reset();
 
+    void setStopEvery(int newStopEvery);
 
 
 

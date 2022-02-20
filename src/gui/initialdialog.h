@@ -32,7 +32,6 @@ private:
 
     QRadioButton *option1;
     QRadioButton *option2;
-    QCheckBox *isGravity;
     QWidget *createListSessions();
     QWidget *itemListWidget(const QString &text, const QString &text2);
     QGroupBox *createTypeBox();

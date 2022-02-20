@@ -36,11 +36,13 @@ public slots:
     void setInitTime();
     void setTimeNow(float time);
     void setSelectedActor(Actor *newActorSelected);
+    void setFrameDuration(int value);
 protected:
 
     int wheelPos = 0;
     int cursorPos = 0;
     int counter = 0;
+    int frameDuration;
 
 
     QList<Actor*> *listActors;

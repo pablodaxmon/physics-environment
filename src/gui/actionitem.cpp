@@ -1,5 +1,6 @@
 #include "actionitem.h"
 #include <QAction>
+#include <QMessageBox>
 
 ActionItem::ActionItem(bool isDynamic, QWidget *parent) : isDinamic(isDynamic), QWidget(parent)
 {
@@ -26,6 +27,8 @@ ActionItem::ActionItem(bool isDynamic, QWidget *parent) : isDinamic(isDynamic), 
     QPushButton * deleteItem = new QPushButton;
     info->setIcon(QIcon(":/icons/resources/icons16/hoja.png"));
     deleteItem->setIcon(QIcon(":/icons/resources/icons16/exit.png"));
+    connect(info, &QPushButton::clicked, this, &ActionItem::showInfo);
+    connect(deleteItem, &QPushButton::clicked, this, &ActionItem::deleteAction);
 
 
     headL->addWidget(title);
@@ -227,6 +230,21 @@ bool ActionItem::getIsDinamic() const
 void ActionItem::setIsDinamic(bool newIsDinamic)
 {
     isDinamic = newIsDinamic;
+}
+
+void ActionItem::showInfo()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Acción");
+    msgBox.setText(" Envia un evento al actor asociado para que ejecute determinada accion. ");
+    msgBox.exec();
+}
+
+
+
+void ActionItem::deleteAction()
+{
+    emit deleteActionSignal(this);
 }
 
 

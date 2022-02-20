@@ -27,6 +27,8 @@ protected:
     void wheelEvent(QWheelEvent *) override;
 #endif
 
+    void resizeEvent(QResizeEvent* event);
+
 
     itemBarTime * itemBar;
 
